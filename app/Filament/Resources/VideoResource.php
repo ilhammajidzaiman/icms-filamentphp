@@ -16,8 +16,13 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class VideoResource extends Resource
 {
     protected static ?string $model = Video::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-video-camera';
+    protected static ?string $navigationGroup = 'Media';
+    protected static ?string $modelLabel = 'Video';
+    protected static ?string $navigationLabel = 'Video';
+    protected static ?string $slug = 'video';
+    protected static ?string $recordTitleAttribute = 'title';
+    protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
     {

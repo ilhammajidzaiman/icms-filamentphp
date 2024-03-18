@@ -16,8 +16,13 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class SlideshowResource extends Resource
 {
     protected static ?string $model = Slideshow::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-tv';
+    protected static ?string $navigationGroup = 'Media';
+    protected static ?string $modelLabel = 'Slideshow';
+    protected static ?string $navigationLabel = 'Slideshow';
+    protected static ?string $slug = 'slideshow';
+    protected static ?string $recordTitleAttribute = 'title';
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {

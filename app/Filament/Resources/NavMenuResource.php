@@ -16,8 +16,13 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class NavMenuResource extends Resource
 {
     protected static ?string $model = NavMenu::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-bars-3';
+    protected static ?string $navigationGroup = 'Blog';
+    protected static ?string $modelLabel = 'Nav Menu';
+    protected static ?string $navigationLabel = 'Nav Menu';
+    protected static ?string $slug = 'nav-menu';
+    protected static ?string $recordTitleAttribute = 'title';
+    protected static ?int $navigationSort = 6;
 
     public static function form(Form $form): Form
     {

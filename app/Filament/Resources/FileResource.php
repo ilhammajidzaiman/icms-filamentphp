@@ -16,8 +16,13 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class FileResource extends Resource
 {
     protected static ?string $model = File::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-archive-box';
+    protected static ?string $navigationGroup = 'Media';
+    protected static ?string $modelLabel = 'Dokumen';
+    protected static ?string $navigationLabel = 'Dokumen';
+    protected static ?string $slug = 'dokumen';
+    protected static ?string $recordTitleAttribute = 'title';
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {

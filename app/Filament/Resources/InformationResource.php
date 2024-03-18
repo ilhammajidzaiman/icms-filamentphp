@@ -16,8 +16,13 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class InformationResource extends Resource
 {
     protected static ?string $model = Information::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-exclamation-circle';
+    protected static ?string $navigationGroup = 'Media';
+    protected static ?string $modelLabel = 'Informasi';
+    protected static ?string $navigationLabel = 'Informasi';
+    protected static ?string $slug = 'informasi';
+    protected static ?string $recordTitleAttribute = 'title';
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
