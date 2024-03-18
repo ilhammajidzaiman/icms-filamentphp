@@ -2,16 +2,23 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\FileResource\Pages;
-use App\Filament\Resources\FileResource\RelationManagers;
-use App\Models\File;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\File;
 use Filament\Tables;
+use Filament\Forms\Set;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\FileResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\FileResource\RelationManagers;
 
 class FileResource extends Resource
 {
@@ -27,26 +34,66 @@ class FileResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+            ->columns(3)
             ->schema([
-                Forms\Components\TextInput::make('uuid')
-                    ->label('UUID')
+                Hidden::make('user_id')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required(),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('file')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('attachment')
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('is_show')
-                    ->required(),
+                    ->default(auth()->user()->id)
+                    ->disabled()
+                    ->dehydrated(),
+                Section::make()
+                    ->columnSpan(2)
+                    ->schema([
+                        TextInput::make('title')
+                            ->label('Judul')
+                            ->required()
+                            ->maxLength(255)
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set(
+                                'slug',
+                                Str::slug($state)
+                            )),
+                        TextInput::make('slug')
+                            ->label('Slug')
+                            ->required()
+                            ->maxLength(255)
+                            ->disabled()
+                            ->dehydrated()
+                            ->helperText('Slug akan otomatis dihasilkan dari judul.'),
+                        FileUpload::make('file')
+                            ->label('File')
+                            ->required()
+                            ->maxSize(5120)
+                            ->directory('file/' . date('Y/m'))
+                            // ->acceptedFileTypes(['application/pdf', 'document/docx'])
+                            ->helperText('Maksimal ukuran file 5120 kb atau 5 mb. Dengan ekstensi file pdf, doc, xls, ppt, jpg, png, svg, zip, rar.'),
+                    ]),
+                Section::make()
+                    ->columnSpan(1)
+                    ->schema([
+                        Toggle::make('is_show')
+                            ->label('Status')
+                            ->required()
+                            ->default(true),
+                        FileUpload::make('file')
+                            ->label('File Cover/Sampul')
+                            ->maxSize(1024)
+                            ->directory('cover/' . date('Y/m'))
+                            ->image()
+                            ->imageEditor()
+                            ->openable()
+                            ->downloadable()
+                            ->helperText('Maksimal ukuran file 1024 kb atau 1 mb.'),
+                        FileUpload::make('attachment')
+                            ->label('File Cover/Sampul')
+                            ->maxSize(1024)
+                            ->directory('cover/' . date('Y/m'))
+                            ->image()
+                            ->imageEditor()
+                            ->openable()
+                            ->downloadable()
+                            ->helperText('Maksimal ukuran file 1024 kb atau 1 mb.'),
+                    ]),
             ]);
     }
 
