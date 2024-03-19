@@ -2,16 +2,28 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class UserResource extends Resource
 {
@@ -27,75 +39,150 @@ class UserResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+            ->columns(3)
             ->schema([
-                Forms\Components\TextInput::make('uuid')
-                    ->label('UUID')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('username')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('password_string')
-                    ->password()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('file')
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('is_show')
-                    ->required(),
+                Grid::make()
+                    ->columnSpan(2)
+                    ->schema([
+                        Section::make('Isi')
+                            ->icon('heroicon-o-newspaper')
+                            ->columns('full')
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label('Nama')
+                                    ->required()
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(function (Set $set, ?string $state) {
+                                        $set('username', $state);
+                                        $set('email', Str::lower(Str::replace(' ', '', $state)) . '@gmail.com');
+                                    })
+                                    ->maxLength(255),
+                                TextInput::make('username')
+                                    ->label('Username')
+                                    ->required()
+                                    ->unique(ignoreRecord: true)
+                                    ->maxLength(255),
+                                TextInput::make('email')
+                                    ->label('Email')
+                                    ->email()
+                                    ->required()
+                                    ->unique(ignoreRecord: true)
+                                    ->maxLength(255),
+                                TextInput::make('password')
+                                    ->label('Password')
+                                    ->password()
+                                    ->revealable()
+                                    ->maxLength(255)
+                                    ->dehydrated(fn (?string $state): bool => filled($state))
+                                    ->required(fn (string $operation): bool => $operation === 'create')
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('password_string', $state)),
+                                TextInput::make('confirmation')
+                                    ->label('Konfirmasi Password')
+                                    ->same('password')
+                                    ->revealable()
+                                    ->password()
+                                    ->required(fn (string $operation): bool => $operation === 'create')
+                                    ->visible(fn (Get $get): bool => filled($get('password')))
+                                    ->maxLength(255),
+                                Hidden::make('password_string')
+                                    ->required(fn (string $operation): bool => $operation === 'create')
+                                    ->disabled()
+                                    ->dehydrated(fn (?string $state): bool => filled($state)),
+                            ]),
+                    ]),
+                Grid::make()
+                    ->columnSpan(1)
+                    ->schema([
+                        Section::make('Lampiran')
+                            ->icon('heroicon-o-paper-clip')
+                            ->columns('full')
+                            ->collapsible()
+                            ->schema([
+                                Toggle::make('is_show')
+                                    ->label('Status')
+                                    ->required()
+                                    ->default(true),
+                                Select::make('roles')
+                                    ->label('Level Akun')
+                                    ->native(false)
+                                    ->preload()
+                                    ->relationship(
+                                        name: 'roles',
+                                        titleAttribute: 'name',
+                                    ),
+                                FileUpload::make('file')
+                                    ->label('Profil')
+                                    ->maxSize(1024)
+                                    ->directory('user/' . date('Y/m'))
+                                    ->getUploadedFileNameForStorageUsing(
+                                        fn (TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())->prepend('user-' . date('YmdHis') . '-'),
+                                    )
+                                    ->image()
+                                    ->imageEditor()
+                                    ->openable()
+                                    ->downloadable()
+                                    ->helperText('Ukuran maksimal: 1 MB, Rasio: 1:1'),
+                            ])
+                    ]),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
-                Tables\Columns\TextColumn::make('uuid')
-                    ->label('UUID')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('username')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
+                TextColumn::make('index')
+                    ->label('No')
+                    ->rowIndex(isFromZero: false),
+                ImageColumn::make('file')
+                    ->label('File')
+                    ->defaultImageUrl(asset('/image/default-user.svg'))
+                    ->circular(),
+                TextColumn::make('name')
+                    ->label('Nama')
+                    ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('file')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('is_show')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('username')
+                    ->label('Username')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('email')
+                    ->label('Email')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('password_string')
+                    ->label('Password')
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('created_at')
+                    ->label('Dibuat')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
+                    ->label('Diperbarui')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('deleted_at')
+                TextColumn::make('deleted_at')
+                    ->label('Dihapus')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                ToggleColumn::make('is_show')
+                    ->label('Status')
+                    ->sortable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make()->color('secondary'),
+                    Tables\Actions\EditAction::make()->color('success'),
+                    Tables\Actions\DeleteAction::make()->color('danger'),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

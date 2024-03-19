@@ -9,7 +9,6 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -23,7 +22,7 @@ class Article extends Model
     protected $fillable =
     [
         'user_id',
-        'tag_id',
+        'category_id',
         'slug',
         'title',
         'content',

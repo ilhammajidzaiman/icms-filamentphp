@@ -2,16 +2,26 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\NavMenuResource\Pages;
-use App\Filament\Resources\NavMenuResource\RelationManagers;
-use App\Models\NavMenu;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\Link;
+use App\Models\Page;
 use Filament\Tables;
+use App\Models\Article;
+use App\Models\NavMenu;
+use Filament\Forms\Set;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Section;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\MorphToSelect;
+use App\Filament\Resources\NavMenuResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Columns\ToggleColumn;
 
 class NavMenuResource extends Resource
 {
@@ -27,85 +37,121 @@ class NavMenuResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+            ->columns(1)
             ->schema([
-                Forms\Components\TextInput::make('uuid')
-                    ->label('UUID')
+                Hidden::make('user_id')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required(),
-                Forms\Components\TextInput::make('parent_id')
+                    ->default(auth()->user()->id)
+                    ->disabled()
+                    ->dehydrated(),
+                Hidden::make('parent_id')
                     ->required()
-                    ->numeric()
-                    ->default(-1),
-                Forms\Components\TextInput::make('order')
+                    ->default(-1)
+                    ->disabled()
+                    ->dehydrated(),
+                Hidden::make('order')
                     ->required()
-                    ->numeric()
-                    ->default(0),
-                Forms\Components\TextInput::make('modelable_type')
+                    ->default(0)
+                    ->disabled()
+                    ->dehydrated(),
+                Section::make()
+                    ->schema([
+                        Toggle::make('is_show')
+                            ->label('Status')
+                            ->required()
+                            ->default(true),
+                        TextInput::make('title')
+                            ->label('Judul')
+                            ->required()
+                            ->maxLength(50)
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                            ->helperText('Jumlah maksimal judul 50 karakter.'),
+                        TextInput::make('slug')
+                            ->label('Slug')
+                            ->required()
+                            ->maxLength(255)
+                            ->disabled()
+                            ->dehydrated()
+                            ->helperText('Slug akan otomatis dihasilkan dari judul.'),
+                    ]),
+                MorphToSelect::make('modelable')
+                    ->label('Arahkan Ke')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('modelable_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('is_show')
-                    ->required(),
+                    ->searchable()
+                    ->preload()
+                    ->types([
+                        MorphToSelect\Type::make(Article::class)
+                            ->titleAttribute('title')
+                            ->label('Artikel'),
+                        MorphToSelect\Type::make(Page::class)
+                            ->titleAttribute('title')
+                            ->label('Halaman'),
+                        MorphToSelect\Type::make(Link::class)
+                            ->titleAttribute('title')
+                            ->label('Link'),
+                    ])
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
-                Tables\Columns\TextColumn::make('uuid')
-                    ->label('UUID')
+                TextColumn::make('index')
+                    ->label('No')
+                    ->rowIndex(isFromZero: false),
+                TextColumn::make('title')
+                    ->label('Judul')
+                    ->wrap()
+                    ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('user.name')
+                TextColumn::make('modelable_type')
+                    ->label('Model Type')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('modelable_id')
+                    ->label('Model Id')
                     ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('parent_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('order')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('modelable_type')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('modelable_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('is_show')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('created_at')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('user.name')
+                    ->label('Penulis')
+                    ->badge()
+                    ->color('info')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('created_at')
+                    ->label('Dibuat')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
+                    ->label('Diperbarui')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('deleted_at')
+                TextColumn::make('deleted_at')
+                    ->label('Dihapus')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                ToggleColumn::make('is_show')
+                    ->label('Status')
+                    ->sortable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make()->color('secondary'),
+                    Tables\Actions\EditAction::make()->color('success'),
+                    Tables\Actions\DeleteAction::make()->color('danger'),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
 use App\Models\File;
 use Filament\Tables;
 use Filament\Forms\Set;
@@ -10,15 +9,19 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\FileResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\FileResource\RelationManagers;
 
 class FileResource extends Resource
 {
@@ -41,58 +44,58 @@ class FileResource extends Resource
                     ->default(auth()->user()->id)
                     ->disabled()
                     ->dehydrated(),
-                Section::make()
+                Grid::make()
                     ->columnSpan(2)
                     ->schema([
-                        TextInput::make('title')
-                            ->label('Judul')
-                            ->required()
-                            ->maxLength(255)
-                            ->live(onBlur: true)
-                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set(
-                                'slug',
-                                Str::slug($state)
-                            )),
-                        TextInput::make('slug')
-                            ->label('Slug')
-                            ->required()
-                            ->maxLength(255)
-                            ->disabled()
-                            ->dehydrated()
-                            ->helperText('Slug akan otomatis dihasilkan dari judul.'),
-                        FileUpload::make('file')
-                            ->label('File')
-                            ->required()
-                            ->maxSize(5120)
-                            ->directory('file/' . date('Y/m'))
-                            // ->acceptedFileTypes(['application/pdf', 'document/docx'])
-                            ->helperText('Maksimal ukuran file 5120 kb atau 5 mb. Dengan ekstensi file pdf, doc, xls, ppt, jpg, png, svg, zip, rar.'),
+                        Section::make('Isi')
+                            ->icon('heroicon-o-newspaper')
+                            ->columns('full')
+                            ->schema([
+                                TextArea::make('title')
+                                    ->label('Judul')
+                                    ->autosize()
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                TextInput::make('slug')
+                                    ->label('Slug')
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->disabled()
+                                    ->dehydrated()
+                                    ->helperText('Slug akan otomatis dihasilkan dari judul.'),
+                                FileUpload::make('attachment')
+                                    ->label('Lampiran')
+                                    ->required()
+                                    ->maxSize(5120)
+                                    ->directory('attachment/' . date('Y/m'))
+                                    // ->acceptedFileTypes(['application/pdf', 'document/docx'])
+                                    ->helperText('Ukuran maksimal: 1 MB. Ekstensi: pdf, doc, xls, ppt, jpg, png, svg, zip, rar.'),
+                            ]),
                     ]),
-                Section::make()
+                Grid::make()
                     ->columnSpan(1)
                     ->schema([
-                        Toggle::make('is_show')
-                            ->label('Status')
-                            ->required()
-                            ->default(true),
-                        FileUpload::make('file')
-                            ->label('File Cover/Sampul')
-                            ->maxSize(1024)
-                            ->directory('cover/' . date('Y/m'))
-                            ->image()
-                            ->imageEditor()
-                            ->openable()
-                            ->downloadable()
-                            ->helperText('Maksimal ukuran file 1024 kb atau 1 mb.'),
-                        FileUpload::make('attachment')
-                            ->label('File Cover/Sampul')
-                            ->maxSize(1024)
-                            ->directory('cover/' . date('Y/m'))
-                            ->image()
-                            ->imageEditor()
-                            ->openable()
-                            ->downloadable()
-                            ->helperText('Maksimal ukuran file 1024 kb atau 1 mb.'),
+                        Section::make('Lampiran')
+                            ->icon('heroicon-o-paper-clip')
+                            ->columns('full')
+                            ->collapsible()
+                            ->schema([
+                                Toggle::make('is_show')
+                                    ->label('Status')
+                                    ->required()
+                                    ->default('1'),
+                                FileUpload::make('file')
+                                    ->label('File Cover/Sampul')
+                                    ->maxSize(1024)
+                                    ->directory('file/' . date('Y/m'))
+                                    ->image()
+                                    ->imageEditor()
+                                    ->openable()
+                                    ->downloadable()
+                                    ->helperText('Maksimal ukuran file 1024 kb atau 1 mb.'),
+                            ])
                     ]),
             ]);
     }
@@ -100,42 +103,55 @@ class FileResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
-                Tables\Columns\TextColumn::make('uuid')
-                    ->label('UUID')
+                TextColumn::make('index')
+                    ->label('No')
+                    ->rowIndex(isFromZero: false),
+                ImageColumn::make('file')
+                    ->label('Sampul')
+                    ->defaultImageUrl(asset('/image/default-img.svg'))
+                    ->circular()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('title')
+                    ->label('Judul')
+                    ->wrap()
+                    ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('user.name')
-                    ->numeric()
+                TextColumn::make('user.name')
+                    ->label('Penulis')
+                    ->badge()
+                    ->color('info')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('created_at')
+                    ->label('Dibuat')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('updated_at')
+                    ->label('Diperbarui')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('deleted_at')
+                    ->label('Dihapus')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                ToggleColumn::make('is_show')
+                    ->label('Status')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('file')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('attachment')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('is_show')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make()->color('secondary'),
+                    Tables\Actions\EditAction::make()->color('success'),
+                    Tables\Actions\DeleteAction::make()->color('danger'),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

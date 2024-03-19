@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Models\Tag;
-use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
@@ -19,7 +18,6 @@ use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\TagResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\TagResource\RelationManagers;
 
 class TagResource extends Resource
 {
@@ -69,9 +67,10 @@ class TagResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('index')
-                    ->label('#')
+                    ->label('No')
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('title')
                     ->label('Judul')

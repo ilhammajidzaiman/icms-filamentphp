@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
 use Filament\Tables;
 use App\Models\Article;
 use Filament\Forms\Set;
@@ -24,6 +23,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
@@ -32,9 +32,7 @@ use Filament\Infolists\Components\ImageEntry;
 use App\Filament\Resources\ArticleResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Infolists\Components\TextEntry\TextEntrySize;
-use App\Filament\Resources\ArticleResource\RelationManagers;
 use Filament\Infolists\Components\Section as InfolistsSection;
-use Filament\Tables\Columns\ToggleColumn;
 
 class ArticleResource extends Resource
 {
@@ -108,8 +106,18 @@ class ArticleResource extends Resource
                                 Select::make('category_id')
                                     ->label('Kategori')
                                     ->required()
-                                    ->options(Category::all()->pluck('title', 'id'))
-                                    ->relationship(name: 'category', titleAttribute: 'title')
+                                    ->forceSearchCaseInsensitive()
+                                    ->searchable()
+                                    ->preload()
+                                    // ->options(Category::all()->pluck('title', 'id'))
+                                    // ->relationship(name: 'category', titleAttribute: 'title')
+                                    ->relationship(
+                                        name: 'category',
+                                        titleAttribute: 'title',
+                                        modifyQueryUsing: fn (Builder $query) => $query
+                                            ->orderBy('title')
+                                            ->where('is_show', true)
+                                    )
                                     ->createOptionForm([
                                         Hidden::make('user_id')
                                             ->required()
@@ -136,12 +144,15 @@ class ArticleResource extends Resource
                                     ->label('Tanda/Topik')
                                     ->required()
                                     ->multiple()
+                                    ->forceSearchCaseInsensitive()
+                                    ->searchable()
+                                    ->preload()
                                     ->relationship(
                                         name: 'tags',
                                         titleAttribute: 'title',
                                         modifyQueryUsing: fn (Builder $query) => $query
                                             ->orderBy('title')
-                                            ->where('is_active', true),
+                                            ->where('is_show', true),
                                     )
                                     ->createOptionForm([
                                         Hidden::make('user_id')
@@ -201,10 +212,10 @@ class ArticleResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->defaultSort('published_at', 'desc')
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 TextColumn::make('index')
-                    ->label('#')
+                    ->label('No')
                     ->rowIndex(isFromZero: false),
                 ImageColumn::make('file')
                     ->label('File')

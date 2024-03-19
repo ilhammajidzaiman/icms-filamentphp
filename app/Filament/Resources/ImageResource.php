@@ -2,15 +2,25 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ImageResource\Pages;
-use App\Filament\Resources\ImageResource\RelationManagers;
-use App\Models\Image;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Image;
+use Filament\Forms\Set;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\ImageResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ImageResource extends Resource
@@ -26,75 +36,158 @@ class ImageResource extends Resource
     protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
+    // {
+    //     return $form
+    //         ->schema([
+    //             Forms\Components\TextInput::make('uuid')
+    //                 ->label('UUID')
+    //                 ->required()
+    //                 ->maxLength(255),
+    //             Forms\Components\Select::make('user_id')
+    //                 ->relationship('user', 'name')
+    //                 ->required(),
+    //             Forms\Components\TextInput::make('slug')
+    //                 ->required()
+    //                 ->maxLength(255),
+    //             Forms\Components\TextInput::make('title')
+    //                 ->required()
+    //                 ->maxLength(255),
+    //             Forms\Components\TextInput::make('description')
+    //                 ->maxLength(255),
+    //             Forms\Components\TextInput::make('file')
+    //                 ->required()
+    //                 ->maxLength(255),
+    //             Forms\Components\TextInput::make('attachment')
+    //                 ->maxLength(255),
+    //             Forms\Components\Toggle::make('is_show')
+    //                 ->required(),
+    //         ]);
+    // }
     {
         return $form
+            ->columns(3)
             ->schema([
-                Forms\Components\TextInput::make('uuid')
-                    ->label('UUID')
+                Hidden::make('user_id')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required(),
-                Forms\Components\TextInput::make('slug')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('description')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('file')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('attachment')
-                    ->maxLength(255),
-                Forms\Components\Toggle::make('is_show')
-                    ->required(),
+                    ->default(auth()->user()->id)
+                    ->disabled()
+                    ->dehydrated(),
+                Grid::make()
+                    ->columnSpan(2)
+                    ->schema([
+                        Section::make('Isi')
+                            ->icon('heroicon-o-newspaper')
+                            ->columns('full')
+                            ->schema([
+                                Textarea::make('title')
+                                    ->label('Judul')
+                                    ->autosize()
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                TextInput::make('slug')
+                                    ->label('Slug')
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->disabled()
+                                    ->dehydrated()
+                                    ->helperText('Slug akan otomatis dihasilkan dari judul.'),
+                                Textarea::make('description')
+                                    ->label('Deskripsi')
+                                    ->autosize()
+                                    ->maxLength(1024),
+                                FileUpload::make('galery')
+                                    ->label('File galery')
+                                    ->maxSize(1024)
+                                    ->directory('galery/' . date('Y/m'))
+                                    ->image()
+                                    ->imageEditor()
+                                    ->openable()
+                                    ->downloadable()
+                                    ->multiple()
+                                    ->maxFiles(5)
+                                    ->helperText('Ukuran maksimal: 1 MB. Maksimal: 5 File.'),
+                            ]),
+                    ]),
+                Grid::make()
+                    ->columnSpan(1)
+                    ->schema([
+                        Section::make('Lampiran')
+                            ->icon('heroicon-o-paper-clip')
+                            ->columns('full')
+                            ->collapsible()
+                            ->schema([
+                                Toggle::make('is_show')
+                                    ->label('Status')
+                                    ->required()
+                                    ->default(true),
+                                FileUpload::make('file')
+                                    ->label('File cover')
+                                    ->required()
+                                    ->maxSize(1024)
+                                    ->directory('image/' . date('Y/m'))
+                                    ->image()
+                                    ->imageEditor()
+                                    ->openable()
+                                    ->downloadable()
+                                    ->helperText('Ukuran maksimal: 1 MB.'),
+                            ])
+                    ]),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
-                Tables\Columns\TextColumn::make('uuid')
-                    ->label('UUID')
+                TextColumn::make('index')
+                    ->label('No')
+                    ->rowIndex(isFromZero: false),
+                ImageColumn::make('file')
+                    ->label('File')
+                    ->defaultImageUrl(asset('/image/default-user.svg'))
+                    ->circular(),
+                TextColumn::make('title')
+                    ->label('Judul')
+                    ->wrap()
+                    ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('user.name')
-                    ->numeric()
+                TextColumn::make('user.name')
+                    ->label('Penulis')
+                    ->badge()
+                    ->color('info')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('created_at')
+                    ->label('Dibuat')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('updated_at')
+                    ->label('Diperbarui')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('deleted_at')
+                    ->label('Dihapus')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                ToggleColumn::make('is_show')
+                    ->label('Status')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('description')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('file')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('attachment')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('is_show')
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([
+                    Tables\Actions\ViewAction::make()->color('secondary'),
+                    Tables\Actions\EditAction::make()->color('success'),
+                    Tables\Actions\DeleteAction::make()->color('danger'),
+                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

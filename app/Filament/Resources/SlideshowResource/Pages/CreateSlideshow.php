@@ -9,4 +9,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateSlideshow extends CreateRecord
 {
     protected static string $resource = SlideshowResource::class;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }
