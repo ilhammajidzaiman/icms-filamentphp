@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\NavMenuResource\Pages;
 
-use App\Filament\Resources\NavMenuResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\NavMenuResource;
+use App\Filament\Resources\NavMenuResource\Widgets\NavMenuWidget;
 
 class ListNavMenus extends ListRecords
 {
@@ -14,6 +15,13 @@ class ListNavMenus extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            NavMenuWidget::class
         ];
     }
 }

@@ -13,8 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class NavMenu extends Model
 {
-    use HasFactory, SoftDeletes;
-    // ModelTree;
+    use HasFactory, SoftDeletes, ModelTree;
 
     protected $fillable = [
         'user_id',
@@ -41,6 +40,11 @@ class NavMenu extends Model
         static::creating(function ($model) {
             $model->uuid = Str::uuid();
         });
+    }
+
+    public function determineOrderColumnName(): string
+    {
+        return 'order';
     }
 
     public function user(): BelongsTo

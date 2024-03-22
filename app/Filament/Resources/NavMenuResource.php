@@ -176,6 +176,7 @@ class NavMenuResource extends Resource
             'create' => Pages\CreateNavMenu::route('/create'),
             'view' => Pages\ViewNavMenu::route('/{record}'),
             'edit' => Pages\EditNavMenu::route('/{record}/edit'),
+            'tree-list' => Pages\NavMenuTree::route('/tree-list'),
         ];
     }
 
