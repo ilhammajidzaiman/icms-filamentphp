@@ -7,9 +7,12 @@ use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Hasnayeen\Themes\ThemesPlugin;
 use Filament\Http\Middleware\Authenticate;
+use Hasnayeen\Themes\Http\Middleware\SetTheme;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
+use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -28,7 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Blue,
                 'secondary' => Color::Slate,
                 'success' => Color::Emerald,
                 'info' => Color::Blue,
@@ -55,13 +58,17 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                SetTheme::class,
             ])
             ->authMiddleware([
                 Authenticate::class,
             ])
             ->sidebarCollapsibleOnDesktop()
             ->maxContentWidth('full')
-            ->plugins([\BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()])
+            ->plugins([
+                FilamentShieldPlugin::make(),
+                ThemesPlugin::make()
+            ])
             // 
         ;
     }
