@@ -43,10 +43,10 @@ class TagResource extends Resource
                     ->dehydrated(),
                 Section::make()
                     ->schema([
-                        Toggle::make('is_active')
+                        Toggle::make('is_show')
                             ->label('Status')
                             ->required()
-                            ->default('1'),
+                            ->default(true),
                         TextInput::make('title')
                             ->label('Judul')
                             ->required()

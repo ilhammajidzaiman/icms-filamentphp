@@ -34,24 +34,6 @@ class LinkResource extends Resource
     {
         return $form
             ->schema([
-                // Forms\Components\TextInput::make('uuid')
-                //     ->label('UUID')
-                //     ->required()
-                //     ->maxLength(255),
-                // Forms\Components\Select::make('user_id')
-                //     ->relationship('user', 'name')
-                //     ->required(),
-                // Forms\Components\TextInput::make('slug')
-                //     ->required()
-                //     ->maxLength(255),
-                // Forms\Components\TextInput::make('title')
-                //     ->required()
-                //     ->maxLength(255),
-                // Forms\Components\TextInput::make('url')
-                //     ->required()
-                //     ->maxLength(255),
-                // Forms\Components\Toggle::make('is_show')
-                //     ->required(),
                 Hidden::make('user_id')
                     ->required()
                     ->default(auth()->user()->id)

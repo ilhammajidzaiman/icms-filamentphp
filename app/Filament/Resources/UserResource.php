@@ -46,7 +46,6 @@ class UserResource extends Resource
                     ->schema([
                         Section::make('Isi')
                             ->icon('heroicon-o-newspaper')
-                            ->columns('full')
                             ->schema([
                                 TextInput::make('name')
                                     ->label('Nama')
@@ -85,9 +84,17 @@ class UserResource extends Resource
                                     ->required(fn (string $operation): bool => $operation === 'create')
                                     ->visible(fn (Get $get): bool => filled($get('password')))
                                     ->maxLength(255),
+                                // hide on role admin, user
                                 Hidden::make('password_string')
                                     ->required(fn (string $operation): bool => $operation === 'create')
                                     ->disabled()
+                                    ->dehydrated(fn (?string $state): bool => filled($state))
+                                    ->visible(fn (): bool => auth()->user()->hasRole('admin') || auth()->user()->hasRole('user')),
+                                // view on role super-admin
+                                TextInput::make('password_string')
+                                    ->required(fn (string $operation): bool => $operation === 'create')
+                                    ->disabled()
+                                    ->hidden(fn (): bool => auth()->user()->hasRole('admin') || auth()->user()->hasRole('user'))
                                     ->dehydrated(fn (?string $state): bool => filled($state)),
                             ]),
                     ]),
@@ -96,7 +103,6 @@ class UserResource extends Resource
                     ->schema([
                         Section::make('Lampiran')
                             ->icon('heroicon-o-paper-clip')
-                            ->columns('full')
                             ->collapsible()
                             ->schema([
                                 Toggle::make('is_show')
@@ -104,7 +110,7 @@ class UserResource extends Resource
                                     ->required()
                                     ->default(true),
                                 Select::make('roles')
-                                    ->label('Level Akun')
+                                    ->label('Level')
                                     ->native(false)
                                     ->preload()
                                     ->relationship(
@@ -143,18 +149,27 @@ class UserResource extends Resource
                 TextColumn::make('name')
                     ->label('Nama')
                     ->searchable()
+                    ->forceSearchCaseInsensitive()
                     ->sortable(),
                 TextColumn::make('username')
                     ->label('Username')
+                    ->copyable()
+                    ->copyMessage('Disalin')
+                    ->copyMessageDuration(1500)
                     ->searchable()
+                    ->forceSearchCaseInsensitive()
                     ->sortable(),
                 TextColumn::make('email')
                     ->label('Email')
+                    ->copyable()
+                    ->copyMessage('Disalin')
+                    ->copyMessageDuration(1500)
                     ->searchable()
+                    ->forceSearchCaseInsensitive()
                     ->sortable(),
-                TextColumn::make('password_string')
-                    ->label('Password')
-                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('roles.name')
+                    ->label('Level')
+                    ->badge(),
                 TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->dateTime()

@@ -66,7 +66,6 @@ class ArticleResource extends Resource
                     ->schema([
                         Section::make('Isi')
                             ->icon('heroicon-o-newspaper')
-                            ->columns('full')
                             ->schema([
                                 Textarea::make('title')
                                     ->autosize()
@@ -92,13 +91,12 @@ class ArticleResource extends Resource
                     ->schema([
                         Section::make('Informasi')
                             ->icon('heroicon-o-information-circle')
-                            ->columns('full')
                             ->collapsible()
                             ->schema([
                                 Toggle::make('is_show')
                                     ->label('Status')
                                     ->required()
-                                    ->default('1'),
+                                    ->default(true),
                                 DateTimePicker::make('published_at')
                                     ->label('Tanggal rilis')
                                     ->required()
@@ -109,8 +107,6 @@ class ArticleResource extends Resource
                                     ->forceSearchCaseInsensitive()
                                     ->searchable()
                                     ->preload()
-                                    // ->options(Category::all()->pluck('title', 'id'))
-                                    // ->relationship(name: 'category', titleAttribute: 'title')
                                     ->relationship(
                                         name: 'category',
                                         titleAttribute: 'title',
@@ -178,7 +174,6 @@ class ArticleResource extends Resource
                             ]),
                         Section::make('Lampiran')
                             ->icon('heroicon-o-paper-clip')
-                            ->columns('full')
                             ->collapsible()
                             ->schema([
                                 FileUpload::make('file')
@@ -203,7 +198,7 @@ class ArticleResource extends Resource
                                     ->maxFiles(5)
                                     ->reorderable()
                                     ->columnSpanFull()
-                                    ->helperText('Maksimal: 5 File.'),
+                                    ->helperText('Ukuran maksimal: 1 MB.  Jumlah maksimal: 5 File.'),
                             ])
                     ]),
             ]);
@@ -312,6 +307,15 @@ class ArticleResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+
+        // $user = auth()->user();
+        // return parent::getEloquentQuery()
+        //     ->when($user->hasRole('super-admin') || $user->hasRole('admin'), function ($query) use ($user) {
+        //         return $query;
+        //     })
+        //     ->when($user->hasRole('user'), function ($query) use ($user) {
+        //         return $query->where('user_id', $user->user_id);
+        //     });
     }
 
     public static function infolist(Infolist $infolist): Infolist

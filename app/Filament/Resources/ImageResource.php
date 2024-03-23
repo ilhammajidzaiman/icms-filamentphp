@@ -26,7 +26,6 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class ImageResource extends Resource
 {
     protected static ?string $model = Image::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-photo';
     protected static ?string $navigationGroup = 'Media';
     protected static ?string $modelLabel = 'Galeri';
@@ -36,33 +35,6 @@ class ImageResource extends Resource
     protected static ?int $navigationSort = 4;
 
     public static function form(Form $form): Form
-    // {
-    //     return $form
-    //         ->schema([
-    //             Forms\Components\TextInput::make('uuid')
-    //                 ->label('UUID')
-    //                 ->required()
-    //                 ->maxLength(255),
-    //             Forms\Components\Select::make('user_id')
-    //                 ->relationship('user', 'name')
-    //                 ->required(),
-    //             Forms\Components\TextInput::make('slug')
-    //                 ->required()
-    //                 ->maxLength(255),
-    //             Forms\Components\TextInput::make('title')
-    //                 ->required()
-    //                 ->maxLength(255),
-    //             Forms\Components\TextInput::make('description')
-    //                 ->maxLength(255),
-    //             Forms\Components\TextInput::make('file')
-    //                 ->required()
-    //                 ->maxLength(255),
-    //             Forms\Components\TextInput::make('attachment')
-    //                 ->maxLength(255),
-    //             Forms\Components\Toggle::make('is_show')
-    //                 ->required(),
-    //         ]);
-    // }
     {
         return $form
             ->columns(3)
@@ -77,7 +49,6 @@ class ImageResource extends Resource
                     ->schema([
                         Section::make('Isi')
                             ->icon('heroicon-o-newspaper')
-                            ->columns('full')
                             ->schema([
                                 Textarea::make('title')
                                     ->label('Judul')
@@ -97,17 +68,6 @@ class ImageResource extends Resource
                                     ->label('Deskripsi')
                                     ->autosize()
                                     ->maxLength(1024),
-                                FileUpload::make('galery')
-                                    ->label('File galery')
-                                    ->maxSize(1024)
-                                    ->directory('galery/' . date('Y/m'))
-                                    ->image()
-                                    ->imageEditor()
-                                    ->openable()
-                                    ->downloadable()
-                                    ->multiple()
-                                    ->maxFiles(5)
-                                    ->helperText('Ukuran maksimal: 1 MB. Maksimal: 5 File.'),
                             ]),
                     ]),
                 Grid::make()
@@ -115,7 +75,6 @@ class ImageResource extends Resource
                     ->schema([
                         Section::make('Lampiran')
                             ->icon('heroicon-o-paper-clip')
-                            ->columns('full')
                             ->collapsible()
                             ->schema([
                                 Toggle::make('is_show')
@@ -123,7 +82,7 @@ class ImageResource extends Resource
                                     ->required()
                                     ->default(true),
                                 FileUpload::make('file')
-                                    ->label('File cover')
+                                    ->label('File Cover/Sampul')
                                     ->required()
                                     ->maxSize(1024)
                                     ->directory('image/' . date('Y/m'))
@@ -132,6 +91,17 @@ class ImageResource extends Resource
                                     ->openable()
                                     ->downloadable()
                                     ->helperText('Ukuran maksimal: 1 MB.'),
+                                FileUpload::make('galery')
+                                    ->label('File Galery')
+                                    ->maxSize(1024)
+                                    ->directory('galery/' . date('Y/m'))
+                                    ->image()
+                                    ->imageEditor()
+                                    ->openable()
+                                    ->downloadable()
+                                    ->multiple()
+                                    ->maxFiles(5)
+                                    ->helperText('Ukuran maksimal: 1 MB.  Jumlah maksimal: 5 File.'),
                             ])
                     ]),
             ]);

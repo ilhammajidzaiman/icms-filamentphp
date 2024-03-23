@@ -64,13 +64,13 @@ class VideoResource extends Resource
                             ->label('Url/Link Video Youtube')
                             ->required()
                             ->autosize()
-                            ->maxLength(255),
+                            ->maxLength(1024),
                         Textarea::make('embed')
                             ->label('Embed Video Youtube')
                             ->required()
                             ->autosize()
                             ->maxLength(1024),
-                    ])
+                    ]),
             ]);
     }
 

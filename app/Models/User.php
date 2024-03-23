@@ -31,7 +31,6 @@ class User extends Authenticatable
         'uuid',
         'password',
         'remember_token',
-        'password_string',
     ];
 
     protected $casts = [

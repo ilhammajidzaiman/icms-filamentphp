@@ -66,7 +66,7 @@ class NavMenuResource extends Resource
                             ->maxLength(50)
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                            ->helperText('Jumlah maksimal judul 50 karakter.'),
+                            ->helperText('Jumlah karakter maksimal: 50.'),
                         TextInput::make('slug')
                             ->label('Slug')
                             ->required()

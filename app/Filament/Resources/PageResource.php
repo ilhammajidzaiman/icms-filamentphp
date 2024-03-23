@@ -57,7 +57,6 @@ class PageResource extends Resource
                     ->schema([
                         Section::make('Isi')
                             ->icon('heroicon-o-newspaper')
-                            ->columns('full')
                             ->schema([
                                 Textarea::make('title')
                                     ->autosize()
@@ -83,13 +82,12 @@ class PageResource extends Resource
                     ->schema([
                         Section::make('Lampiran')
                             ->icon('heroicon-o-paper-clip')
-                            ->columns('full')
                             ->collapsible()
                             ->schema([
                                 Toggle::make('is_show')
                                     ->label('Status')
                                     ->required()
-                                    ->default('1'),
+                                    ->default(true),
                                 FileUpload::make('file')
                                     ->label('File')
                                     ->maxSize(1024)

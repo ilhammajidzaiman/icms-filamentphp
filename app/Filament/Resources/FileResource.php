@@ -49,7 +49,6 @@ class FileResource extends Resource
                     ->schema([
                         Section::make('Isi')
                             ->icon('heroicon-o-newspaper')
-                            ->columns('full')
                             ->schema([
                                 TextArea::make('title')
                                     ->label('Judul')
@@ -79,22 +78,21 @@ class FileResource extends Resource
                     ->schema([
                         Section::make('Lampiran')
                             ->icon('heroicon-o-paper-clip')
-                            ->columns('full')
                             ->collapsible()
                             ->schema([
                                 Toggle::make('is_show')
                                     ->label('Status')
                                     ->required()
-                                    ->default('1'),
+                                    ->default(true),
                                 FileUpload::make('file')
-                                    ->label('File Cover/Sampul')
+                                    ->label('File Cover/Sampul/Sampul')
                                     ->maxSize(1024)
                                     ->directory('file/' . date('Y/m'))
                                     ->image()
                                     ->imageEditor()
                                     ->openable()
                                     ->downloadable()
-                                    ->helperText('Maksimal ukuran file 1024 kb atau 1 mb.'),
+                                    ->helperText('Ukuran maksimal: 1 MB.'),
                             ])
                     ]),
             ]);

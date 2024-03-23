@@ -9,6 +9,7 @@ use App\Models\Slideshow;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
@@ -36,43 +37,57 @@ class SlideshowResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+            ->columns(3)
             ->schema([
                 Hidden::make('user_id')
                     ->required()
                     ->default(auth()->user()->id)
                     ->disabled()
                     ->dehydrated(),
-                Section::make()
+                Grid::make()
+                    ->columnSpan(2)
                     ->schema([
-                        Toggle::make('is_show')
-                            ->label('Status')
-                            ->required()
-                            ->default(true),
-                        TextInput::make('title')
-                            ->label('Judul')
-                            ->maxLength(255)
-                            ->live(onBlur: true)
-                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
-                        TextInput::make('slug')
-                            ->label('Slug')
-                            ->maxLength(255)
-                            ->disabled()
-                            ->dehydrated()
-                            ->helperText('Slug akan otomatis dihasilkan dari judul.'),
-                        Textarea::make('subtitle')
-                            ->label('Subtitle')
-                            ->maxLength(255)
-                            ->rows(3),
-                        FileUpload::make('file')
-                            ->label('File')
-                            ->required()
-                            ->maxSize(1024)
-                            ->directory('slideshow/' . date('Y/m'))
-                            ->image()
-                            ->imageEditor()
-                            ->openable()
-                            ->downloadable()
-                            ->helperText('Ukuran maksimal: 1 MB.'),
+                        Section::make('Isi')
+                            ->icon('heroicon-o-newspaper')
+                            ->schema([
+                                Textarea::make('title')
+                                    ->label('Judul')
+                                    ->maxLength(255)
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                TextInput::make('slug')
+                                    ->label('Slug')
+                                    ->maxLength(255)
+                                    ->disabled()
+                                    ->dehydrated()
+                                    ->helperText('Slug akan otomatis dihasilkan dari judul.'),
+                                Textarea::make('subtitle')
+                                    ->label('Subtitle')
+                                    ->autosize(),
+                            ]),
+                    ]),
+                Grid::make()
+                    ->columnSpan(1)
+                    ->schema([
+                        Section::make('Lampiran')
+                            ->icon('heroicon-o-paper-clip')
+                            ->collapsible()
+                            ->schema([
+                                Toggle::make('is_show')
+                                    ->label('Status')
+                                    ->required()
+                                    ->default(true),
+                                FileUpload::make('file')
+                                    ->label('File')
+                                    ->required()
+                                    ->maxSize(1024)
+                                    ->directory('slideshow/' . date('Y/m'))
+                                    ->image()
+                                    ->imageEditor()
+                                    ->openable()
+                                    ->downloadable()
+                                    ->helperText('Ukuran maksimal: 1 MB.'),
+                            ]),
                     ]),
             ]);
     }
