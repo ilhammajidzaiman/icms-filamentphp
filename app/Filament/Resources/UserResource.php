@@ -84,17 +84,9 @@ class UserResource extends Resource
                                     ->required(fn (string $operation): bool => $operation === 'create')
                                     ->visible(fn (Get $get): bool => filled($get('password')))
                                     ->maxLength(255),
-                                // hide on role admin, user
                                 Hidden::make('password_string')
                                     ->required(fn (string $operation): bool => $operation === 'create')
                                     ->disabled()
-                                    ->dehydrated(fn (?string $state): bool => filled($state))
-                                    ->visible(fn (): bool => auth()->user()->hasRole('admin') || auth()->user()->hasRole('user')),
-                                // view on role super-admin
-                                TextInput::make('password_string')
-                                    ->required(fn (string $operation): bool => $operation === 'create')
-                                    ->disabled()
-                                    ->hidden(fn (): bool => auth()->user()->hasRole('admin') || auth()->user()->hasRole('user'))
                                     ->dehydrated(fn (?string $state): bool => filled($state)),
                             ]),
                     ]),
@@ -111,11 +103,33 @@ class UserResource extends Resource
                                     ->default(true),
                                 Select::make('roles')
                                     ->label('Level')
+                                    ->required()
                                     ->native(false)
                                     ->preload()
                                     ->relationship(
                                         name: 'roles',
                                         titleAttribute: 'name',
+                                        modifyQueryUsing: static function (Builder $query) {
+                                            return $query
+                                                ->when(
+                                                    auth()->user()->hasRole('super-admin'),
+                                                    function ($query) {
+                                                        return $query;
+                                                    }
+                                                )
+                                                ->when(
+                                                    auth()->user()->hasRole('admin'),
+                                                    function ($query) {
+                                                        return $query->where('name', 'user');
+                                                    }
+                                                )
+                                                ->when(
+                                                    auth()->user()->hasRole('user'),
+                                                    function ($query) {
+                                                        return $query->where('name', 'user');
+                                                    }
+                                                );
+                                        },
                                     ),
                                 FileUpload::make('file')
                                     ->label('Profil')
@@ -167,8 +181,16 @@ class UserResource extends Resource
                     ->searchable()
                     ->forceSearchCaseInsensitive()
                     ->sortable(),
+                TextColumn::make('password_string')
+                    ->label('Password')
+                    ->copyable()
+                    ->copyMessage('Disalin')
+                    ->copyMessageDuration(1500)
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('roles.name')
                     ->label('Level')
+                    ->default('-')
                     ->badge(),
                 TextColumn::make('created_at')
                     ->label('Dibuat')
