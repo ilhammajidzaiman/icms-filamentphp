@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\CategoryResource\Pages;
 
-use App\Filament\Resources\CategoryResource;
 use Filament\Actions;
+use App\Models\Category;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\CategoryResource;
+use App\Filament\Resources\CategoryResource\Widgets\CategoryOverview;
 
 class ListCategories extends ListRecords
 {
@@ -14,6 +16,13 @@ class ListCategories extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            CategoryOverview::class,
         ];
     }
 }

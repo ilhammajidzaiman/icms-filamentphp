@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\TagResource\Pages;
 
-use App\Filament\Resources\TagResource;
 use Filament\Actions;
+use App\Filament\Resources\TagResource;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\TagResource\Widgets\TagOverview;
 
 class ListTags extends ListRecords
 {
@@ -14,6 +15,13 @@ class ListTags extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            TagOverview::class,
         ];
     }
 }

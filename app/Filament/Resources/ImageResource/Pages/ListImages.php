@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\ImageResource\Pages;
 
-use App\Filament\Resources\ImageResource;
 use Filament\Actions;
+use App\Filament\Resources\ImageResource;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\ImageResource\Widgets\ImageOverview;
 
 class ListImages extends ListRecords
 {
@@ -14,6 +15,13 @@ class ListImages extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ImageOverview::class,
         ];
     }
 }

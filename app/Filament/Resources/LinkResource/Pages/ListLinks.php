@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\LinkResource\Pages;
 
-use App\Filament\Resources\LinkResource;
 use Filament\Actions;
+use App\Filament\Resources\LinkResource;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\LinkResource\Widgets\LinkOverview;
 
 class ListLinks extends ListRecords
 {
@@ -14,6 +15,13 @@ class ListLinks extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            LinkOverview::class,
         ];
     }
 }
