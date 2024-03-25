@@ -73,6 +73,9 @@ class AdminPanelProvider extends PanelProvider
                 FilamentShieldPlugin::make(),
                 ThemesPlugin::make()
             ])
+            ->resources([
+                config('filament-logger.activity_resource')
+            ]);
             // 
         ;
     }
