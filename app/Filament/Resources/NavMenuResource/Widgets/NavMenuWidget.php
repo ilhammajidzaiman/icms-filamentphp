@@ -4,7 +4,7 @@ namespace App\Filament\Resources\NavMenuResource\Widgets;
 
 use App\Models\Link;
 use App\Models\Page;
-use App\Models\Article;
+use App\Models\BlogArticle;
 use App\Models\NavMenu;
 use Filament\Forms\Set;
 use Illuminate\Support\Str;
@@ -67,7 +67,7 @@ class NavMenuWidget extends BaseWidget
                 ->searchable()
                 ->preload()
                 ->types([
-                    MorphToSelect\Type::make(Article::class)
+                    MorphToSelect\Type::make(BlogArticle::class)
                         ->titleAttribute('title')
                         ->label('Artikel'),
                     MorphToSelect\Type::make(Page::class)

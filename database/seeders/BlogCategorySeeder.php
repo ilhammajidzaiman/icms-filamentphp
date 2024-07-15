@@ -2,12 +2,13 @@
 
 namespace Database\Seeders;
 
-use App\Models\Page;
 use Illuminate\Support\Str;
+use App\Models\BlogCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class PageSeeder extends Seeder
+class BlogCategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,18 +16,18 @@ class PageSeeder extends Seeder
     public function run(): void
     {
         $datas = [
-            [
-                'title'     => 'Selamat datang',
-                'content'   => 'Hello world. Selamat datang, Ini adalah halaman pertama anda. Silahkan edit atau hapus halaman ini.',
-            ]
+            ['title' => 'Tutorial',],
+            ['title' => 'Programming',],
+            ['title' => 'Backend',],
+            ['title' => 'Frontend',],
+            ['title' => 'Filament',],
         ];
         foreach ($datas as $data) :
-            Page::create(
+            BlogCategory::create(
                 [
                     'user_id' => 1,
                     'slug' => Str::slug($data['title']),
                     'title' => Str::headline(Str::lower($data['title'])),
-                    'content' => $data['content'],
                 ],
             );
         endforeach;

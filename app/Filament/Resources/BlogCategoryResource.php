@@ -2,15 +2,12 @@
 
 namespace App\Filament\Resources;
 
-use App\Models\Link;
-use App\Models\Page;
 use Filament\Tables;
-use App\Models\NavMenu;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
-use App\Models\BlogArticle;
 use Illuminate\Support\Str;
+use App\Models\BlogCategory;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
@@ -19,39 +16,28 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\MorphToSelect;
-use App\Filament\Resources\NavMenuResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\BlogCategoryResource\Pages;
 
-class NavMenuResource extends Resource
+class BlogCategoryResource extends Resource
 {
-    protected static ?string $model = NavMenu::class;
-    protected static ?string $navigationIcon = 'heroicon-o-bars-3';
+    protected static ?string $model = BlogCategory::class;
+    protected static ?string $navigationIcon = 'heroicon-o-bookmark';
     protected static ?string $navigationGroup = 'Blog';
-    protected static ?string $modelLabel = 'Nav Menu';
-    protected static ?string $navigationLabel = 'Nav Menu';
-    protected static ?string $slug = 'nav-menu';
+    protected static ?string $navigationParentItem = 'Artikel';
+    protected static ?string $modelLabel = 'Kategori';
+    protected static ?string $navigationLabel = 'Kategori';
+    protected static ?string $slug = 'kategori';
     protected static ?string $recordTitleAttribute = 'title';
-    protected static ?int $navigationSort = 6;
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
         return $form
-            ->columns(1)
             ->schema([
                 Hidden::make('user_id')
                     ->required()
                     ->default(auth()->user()->id)
-                    ->disabled()
-                    ->dehydrated(),
-                Hidden::make('parent_id')
-                    ->required()
-                    ->default(-1)
-                    ->disabled()
-                    ->dehydrated(),
-                Hidden::make('order')
-                    ->required()
-                    ->default(0)
                     ->disabled()
                     ->dehydrated(),
                 Section::make()
@@ -63,10 +49,9 @@ class NavMenuResource extends Resource
                         TextInput::make('title')
                             ->label('Judul')
                             ->required()
-                            ->maxLength(50)
+                            ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                            ->helperText('Jumlah karakter maksimal: 50.'),
+                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
                         TextInput::make('slug')
                             ->label('Slug')
                             ->required()
@@ -75,22 +60,6 @@ class NavMenuResource extends Resource
                             ->dehydrated()
                             ->helperText('Slug akan otomatis dihasilkan dari judul.'),
                     ]),
-                MorphToSelect::make('modelable')
-                    ->label('Arahkan Ke')
-                    ->required()
-                    ->searchable()
-                    ->preload()
-                    ->types([
-                        MorphToSelect\Type::make(BlogArticle::class)
-                            ->titleAttribute('title')
-                            ->label('Artikel'),
-                        MorphToSelect\Type::make(Page::class)
-                            ->titleAttribute('title')
-                            ->label('Halaman'),
-                        MorphToSelect\Type::make(Link::class)
-                            ->titleAttribute('title')
-                            ->label('Link'),
-                    ])
             ]);
     }
 
@@ -104,20 +73,8 @@ class NavMenuResource extends Resource
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('title')
                     ->label('Judul')
-                    ->wrap()
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('modelable_type')
-                    ->label('Model Type')
-                    ->sortable()
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('modelable_id')
-                    ->label('Model Id')
-                    ->numeric()
-                    ->sortable()
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('user.name')
                     ->label('Penulis')
                     ->badge()
@@ -172,11 +129,10 @@ class NavMenuResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListNavMenus::route('/'),
-            'create' => Pages\CreateNavMenu::route('/create'),
-            'view' => Pages\ViewNavMenu::route('/{record}'),
-            'edit' => Pages\EditNavMenu::route('/{record}/edit'),
-            'tree-list' => Pages\NavMenuTree::route('/tree-list'),
+            'index' => Pages\ListCategories::route('/'),
+            'create' => Pages\CreateBlogCategory::route('/create'),
+            'view' => Pages\ViewBlogCategory::route('/{record}'),
+            'edit' => Pages\EditBlogCategory::route('/{record}/edit'),
         ];
     }
 

@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Page;
+use App\Models\BlogTag;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class PageSeeder extends Seeder
+class BlogTagSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,18 +15,22 @@ class PageSeeder extends Seeder
     public function run(): void
     {
         $datas = [
-            [
-                'title'     => 'Selamat datang',
-                'content'   => 'Hello world. Selamat datang, Ini adalah halaman pertama anda. Silahkan edit atau hapus halaman ini.',
-            ]
+            ['title' => 'Html',],
+            ['title' => 'Css',],
+            ['title' => 'Bootstrap',],
+            ['title' => 'Tailwind',],
+            ['title' => 'Php',],
+            ['title' => 'Javascript',],
+            ['title' => 'Laravel',],
+            ['title' => 'Livewire',],
+            ['title' => 'Filament',],
         ];
         foreach ($datas as $data) :
-            Page::create(
+            BlogTag::create(
                 [
                     'user_id' => 1,
                     'slug' => Str::slug($data['title']),
                     'title' => Str::headline(Str::lower($data['title'])),
-                    'content' => $data['content'],
                 ],
             );
         endforeach;

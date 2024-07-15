@@ -5,12 +5,12 @@ namespace App\Providers;
 use App\Models\File;
 use App\Models\Site;
 use App\Models\User;
-use App\Models\Article;
+use App\Models\BlogArticle;
 use App\Models\Carousel;
 use App\Observers\FileObserver;
 use App\Observers\SiteObserver;
 use App\Observers\UserObserver;
-use App\Observers\ArticleObserver;
+use App\Observers\BlogArticleObserver;
 use App\Observers\CarouselObserver;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
@@ -36,7 +36,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot(): void
     {
         User::observe(UserObserver::class);
-        Article::observe(ArticleObserver::class);
+        BlogArticle::observe(BlogArticleObserver::class);
         Carousel::observe(CarouselObserver::class);
         File::observe(FileObserver::class);
         Site::observe(SiteObserver::class);
