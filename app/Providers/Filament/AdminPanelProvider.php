@@ -4,11 +4,14 @@ namespace App\Providers\Filament;
 
 use Filament\Pages;
 use Filament\Panel;
+use App\Models\Site;
 use Filament\Widgets;
 use Filament\PanelProvider;
 use App\Filament\Pages\Auth\Login;
 use Filament\Support\Colors\Color;
 use Hasnayeen\Themes\ThemesPlugin;
+use App\Filament\Widgets\AccountWidget;
+use Illuminate\Support\Facades\Storage;
 use App\Filament\Pages\Auth\EditProfile;
 use Filament\Http\Middleware\Authenticate;
 use Hasnayeen\Themes\Http\Middleware\SetTheme;
@@ -48,8 +51,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                // Widgets\FilamentInfoWidget::class,
+                AccountWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -66,16 +68,46 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->favicon(asset('image/laravel.svg'))
-            ->sidebarCollapsibleOnDesktop()
-            ->maxContentWidth('full')
             ->plugins([
                 FilamentShieldPlugin::make(),
                 ThemesPlugin::make()
             ])
             ->resources([
                 config('filament-logger.activity_resource')
-            ]);
+            ])
+            ->maxContentWidth('full')
+            ->sidebarCollapsibleOnDesktop()
+            ->favicon(
+                function () {
+                    $data = Site::first();
+                    $default = asset('image/laravel.svg');
+                    if ($data->favicon) :
+                        if (Storage::disk('public')->exists($data->favicon)) :
+                            return Storage::disk('public')->url($data->favicon);
+                        else :
+                            return $default;
+                        endif;
+                    else :
+                        return $default;
+                    endif;
+                }
+            )
+            ->brandLogo(
+                function () {
+                    $data = Site::first();
+                    $default = asset('image/laravel.svg');
+                    if ($data->logo) :
+                        if (Storage::disk('public')->exists($data->logo)) :
+                            return Storage::disk('public')->url($data->logo);
+                        else :
+                            return $default;
+                        endif;
+                    else :
+                        return $default;
+                    endif;
+                }
+            )
+            ->brandLogoHeight(fn (): string => auth()->user() ? '3rem' : '5rem')
             // 
         ;
     }

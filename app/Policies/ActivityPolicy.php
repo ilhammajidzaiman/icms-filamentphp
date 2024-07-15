@@ -147,4 +147,5 @@ class ActivityPolicy
     {
         return $user->can('reorder_activity');
     }
+
 }
