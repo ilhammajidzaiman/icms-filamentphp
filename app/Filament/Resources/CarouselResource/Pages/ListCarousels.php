@@ -7,7 +7,7 @@ use Filament\Resources\Pages\ListRecords;
 use App\Filament\Resources\CarouselResource;
 use App\Filament\Resources\CarouselResource\Widgets\CarouselOverview;
 
-class Listcarousels extends ListRecords
+class ListCarousels extends ListRecords
 {
     protected static string $resource = CarouselResource::class;
 

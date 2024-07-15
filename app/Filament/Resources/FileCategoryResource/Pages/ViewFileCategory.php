@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\FileBlogCategoryResource\Pages;
+namespace App\Filament\Resources\FileCategoryResource\Pages;
 
-use App\Filament\Resources\FileBlogCategoryResource;
+use App\Filament\Resources\FileCategoryResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 
-class ViewFileBlogCategory extends ViewRecord
+class ViewFileCategory extends ViewRecord
 {
-    protected static string $resource = FileBlogCategoryResource::class;
+    protected static string $resource = FileCategoryResource::class;
 
     protected function getHeaderActions(): array
     {

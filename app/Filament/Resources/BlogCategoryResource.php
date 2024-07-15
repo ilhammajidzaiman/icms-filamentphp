@@ -129,7 +129,7 @@ class BlogCategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCategories::route('/'),
+            'index' => Pages\ListBlogCategories::route('/'),
             'create' => Pages\CreateBlogCategory::route('/create'),
             'view' => Pages\ViewBlogCategory::route('/{record}'),
             'edit' => Pages\EditBlogCategory::route('/{record}/edit'),

@@ -9,7 +9,7 @@ use Filament\Resources\Components\Tab;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\BlogArticleResource\Widgets\BlogArticleOverview;
 
-class Listblog_BlogArticles extends ListRecords
+class ListBlogArticles extends ListRecords
 {
     protected static string $resource = BlogArticleResource::class;
 

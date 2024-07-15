@@ -51,16 +51,6 @@ class BlogArticleResource extends Resource
         return $form
             ->columns(3)
             ->schema([
-                Hidden::make('user_id')
-                    ->required()
-                    ->default(auth()->user()->id)
-                    ->disabled()
-                    ->dehydrated(),
-                Hidden::make('visitor')
-                    ->required()
-                    ->default(0)
-                    ->disabled()
-                    ->dehydrated(),
                 Grid::make()
                     ->columnSpan(2)
                     ->schema([
@@ -113,29 +103,7 @@ class BlogArticleResource extends Resource
                                         modifyQueryUsing: fn (Builder $query) => $query
                                             ->orderBy('title')
                                             ->where('is_show', true)
-                                    )
-                                    ->createOptionForm([
-                                        Hidden::make('user_id')
-                                            ->required()
-                                            ->default(auth()->user()->id)
-                                            ->disabled()
-                                            ->dehydrated(),
-                                        TextInput::make('title')
-                                            ->label('Judul')
-                                            ->required()
-                                            ->maxLength(255)
-                                            ->live(onBlur: true)
-                                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                                            ->unique(table: BlogCategory::class),
-                                        TextInput::make('slug')
-                                            ->label('Slug')
-                                            ->required()
-                                            ->maxLength(255)
-                                            ->disabled()
-                                            ->dehydrated()
-                                            ->helperText('Slug akan otomatis dihasilkan dari judul.'),
-                                    ])
-                                    ->helperText('Anda dapat membuat Kategori baru jika tidak tersedia.'),
+                                    ),
                                 Select::make('blogTags')
                                     ->label('Tanda/Topik')
                                     ->required()
@@ -149,28 +117,7 @@ class BlogArticleResource extends Resource
                                         modifyQueryUsing: fn (Builder $query) => $query
                                             ->orderBy('title')
                                             ->where('is_show', true),
-                                    )
-                                    ->createOptionForm([
-                                        Hidden::make('user_id')
-                                            ->required()
-                                            ->default(auth()->user()->id)
-                                            ->disabled()
-                                            ->dehydrated(),
-                                        TextInput::make('title')
-                                            ->label('Judul')
-                                            ->required()
-                                            ->maxLength(255)
-                                            ->live(onBlur: true)
-                                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
-                                        TextInput::make('slug')
-                                            ->label('Slug')
-                                            ->required()
-                                            ->maxLength(255)
-                                            ->disabled()
-                                            ->dehydrated()
-                                            ->helperText('Slug akan otomatis dihasilkan dari judul.'),
-                                    ])
-                                    ->helperText('Anda dapat membuat Tanda/Topik baru jika tidak tersedia.'),
+                                    ),
                             ]),
                         Section::make('Lampiran')
                             ->icon('heroicon-o-paper-clip')
@@ -180,7 +127,7 @@ class BlogArticleResource extends Resource
                                     ->label('File')
                                     ->required()
                                     ->maxSize(1024)
-                                    ->directory('BlogArticle/' . date('Y/m'))
+                                    ->directory('blog-article/' . date('Y/m'))
                                     ->image()
                                     ->imageEditor()
                                     ->openable()
@@ -192,7 +139,7 @@ class BlogArticleResource extends Resource
                                     ->maxLength(255),
                                 FileUpload::make('attachment')
                                     ->label('Galeri')
-                                    ->directory('BlogArticle-attachment/' . date('Y/m'))
+                                    ->directory('blog-article-attachment/' . date('Y/m'))
                                     ->image()
                                     ->multiple()
                                     ->maxFiles(5)
@@ -294,7 +241,7 @@ class BlogArticleResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\Listblog_BlogArticles::route('/'),
+            'index' => Pages\ListBlogArticles::route('/'),
             'create' => Pages\CreateBlogArticle::route('/create'),
             'view' => Pages\ViewBlogArticle::route('/{record}'),
             'edit' => Pages\EditBlogArticle::route('/{record}/edit'),

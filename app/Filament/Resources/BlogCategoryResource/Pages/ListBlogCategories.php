@@ -8,7 +8,7 @@ use Filament\Resources\Pages\ListRecords;
 use App\Filament\Resources\BlogCategoryResource;
 use App\Filament\Resources\BlogCategoryResource\Widgets\BlogCategoryOverview;
 
-class ListCategories extends ListRecords
+class ListBlogCategories extends ListRecords
 {
     protected static string $resource = BlogCategoryResource::class;
 

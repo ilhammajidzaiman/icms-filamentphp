@@ -8,7 +8,7 @@ use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
-use App\Models\FileBlogCategory;
+use App\Models\FileCategory;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
@@ -18,12 +18,12 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\FileBlogCategoryResource\Pages;
-use App\Filament\Resources\FileBlogCategoryResource\RelationManagers;
+use App\Filament\Resources\FileCategoryResource\Pages;
+use App\Filament\Resources\FileCategoryResource\RelationManagers;
 
-class FileBlogCategoryResource extends Resource
+class FileCategoryResource extends Resource
 {
-    protected static ?string $model = FileBlogCategory::class;
+    protected static ?string $model = FileCategory::class;
     protected static ?string $navigationIcon = 'heroicon-o-bookmark';
     protected static ?string $navigationGroup = 'Media';
     protected static ?string $navigationParentItem = 'Dokumen';
@@ -127,9 +127,9 @@ class FileBlogCategoryResource extends Resource
     {
         return [
             'index' => Pages\ListFileCategories::route('/'),
-            'create' => Pages\CreateFileBlogCategory::route('/create'),
-            'view' => Pages\ViewFileBlogCategory::route('/{record}'),
-            'edit' => Pages\EditFileBlogCategory::route('/{record}/edit'),
+            'create' => Pages\CreateFileCategory::route('/create'),
+            'view' => Pages\ViewFileCategory::route('/{record}'),
+            'edit' => Pages\EditFileCategory::route('/{record}/edit'),
         ];
     }
 
