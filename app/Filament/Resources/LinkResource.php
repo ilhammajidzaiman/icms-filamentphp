@@ -24,9 +24,9 @@ class LinkResource extends Resource
     protected static ?string $model = Link::class;
     protected static ?string $navigationIcon = 'heroicon-o-link';
     protected static ?string $navigationGroup = 'Blog';
-    protected static ?string $modelLabel = 'Link';
-    protected static ?string $navigationLabel = 'Link';
-    protected static ?string $slug = 'link';
+    protected static ?string $modelLabel = 'Tautan';
+    protected static ?string $navigationLabel = 'Tautan';
+    protected static ?string $slug = 'tautan';
     protected static ?string $recordTitleAttribute = 'title';
     protected static ?int $navigationSort = 5;
 

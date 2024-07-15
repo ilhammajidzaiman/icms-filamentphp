@@ -11,6 +11,8 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\BlogArticle;
 use Illuminate\Support\Str;
+use App\Models\BlogCategory;
+use App\Models\FileCategory;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
@@ -39,19 +41,9 @@ class NavMenuResource extends Resource
         return $form
             ->columns(1)
             ->schema([
-                Hidden::make('user_id')
-                    ->required()
-                    ->default(auth()->user()->id)
-                    ->disabled()
-                    ->dehydrated(),
                 Hidden::make('parent_id')
                     ->required()
                     ->default(-1)
-                    ->disabled()
-                    ->dehydrated(),
-                Hidden::make('order')
-                    ->required()
-                    ->default(0)
                     ->disabled()
                     ->dehydrated(),
                 Section::make()
@@ -60,6 +52,10 @@ class NavMenuResource extends Resource
                             ->label('Status')
                             ->required()
                             ->default(true),
+                        TextInput::make('order')
+                            ->required()
+                            ->numeric()
+                            ->default(0),
                         TextInput::make('title')
                             ->label('Judul')
                             ->required()
@@ -84,12 +80,18 @@ class NavMenuResource extends Resource
                         MorphToSelect\Type::make(BlogArticle::class)
                             ->titleAttribute('title')
                             ->label('Artikel'),
+                        MorphToSelect\Type::make(BlogCategory::class)
+                            ->titleAttribute('title')
+                            ->label('Kategori Artikel'),
                         MorphToSelect\Type::make(Page::class)
                             ->titleAttribute('title')
                             ->label('Halaman'),
                         MorphToSelect\Type::make(Link::class)
                             ->titleAttribute('title')
-                            ->label('Link'),
+                            ->label('Tautan'),
+                        MorphToSelect\Type::make(FileCategory::class)
+                            ->titleAttribute('title')
+                            ->label('Kategori Dokumen'),
                     ])
             ]);
     }
