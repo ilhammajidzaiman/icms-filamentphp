@@ -10,7 +10,6 @@ use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
@@ -39,11 +38,6 @@ class FileResource extends Resource
         return $form
             ->columns(3)
             ->schema([
-                Hidden::make('user_id')
-                    ->required()
-                    ->default(auth()->user()->id)
-                    ->disabled()
-                    ->dehydrated(),
                 Grid::make()
                     ->columnSpan(2)
                     ->schema([
@@ -85,7 +79,7 @@ class FileResource extends Resource
                                     ->required()
                                     ->default(true),
                                 FileUpload::make('file')
-                                    ->label('File Cover/Sampul/Sampul')
+                                    ->label('File Cover/Sampul')
                                     ->maxSize(1024)
                                     ->directory('file/' . date('Y/m'))
                                     ->image()

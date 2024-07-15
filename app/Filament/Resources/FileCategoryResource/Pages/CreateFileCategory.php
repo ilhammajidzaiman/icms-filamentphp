@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\FileResource\Pages;
+namespace App\Filament\Resources\FileCategoryResource\Pages;
 
-use App\Filament\Resources\FileResource;
+use App\Filament\Resources\FileCategoryResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreateFile extends CreateRecord
+class CreateFileCategory extends CreateRecord
 {
-    protected static string $resource = FileResource::class;
+    protected static string $resource = FileCategoryResource::class;
 
     protected function getRedirectUrl(): string
     {

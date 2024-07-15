@@ -14,8 +14,7 @@ return new class extends Migration
     {
         Schema::create('nav_menus', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid')
-                ->comment('unique id');
+            $table->string('uuid');
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete()
