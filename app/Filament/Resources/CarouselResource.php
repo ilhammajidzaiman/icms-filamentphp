@@ -4,8 +4,8 @@ namespace App\Filament\Resources;
 
 use Filament\Tables;
 use Filament\Forms\Set;
+use App\Models\Carousel;
 use Filament\Forms\Form;
-use App\Models\Slideshow;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
@@ -20,17 +20,17 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\SlideshowResource\Pages;
+use App\Filament\Resources\CarouselResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SlideshowResource extends Resource
+class CarouselResource extends Resource
 {
-    protected static ?string $model = Slideshow::class;
+    protected static ?string $model = Carousel::class;
     protected static ?string $navigationIcon = 'heroicon-o-tv';
     protected static ?string $navigationGroup = 'Media';
-    protected static ?string $modelLabel = 'Slideshow';
-    protected static ?string $navigationLabel = 'Slideshow';
-    protected static ?string $slug = 'slideshow';
+    protected static ?string $modelLabel = 'Carousel';
+    protected static ?string $navigationLabel = 'Carousel';
+    protected static ?string $slug = 'Carousel';
     protected static ?string $recordTitleAttribute = 'title';
     protected static ?int $navigationSort = 1;
 
@@ -81,7 +81,7 @@ class SlideshowResource extends Resource
                                     ->label('File')
                                     ->required()
                                     ->maxSize(1024)
-                                    ->directory('slideshow/' . date('Y/m'))
+                                    ->directory('Carousel/' . date('Y/m'))
                                     ->image()
                                     ->imageEditor()
                                     ->openable()
@@ -102,7 +102,7 @@ class SlideshowResource extends Resource
                     ->rowIndex(isFromZero: false),
                 ImageColumn::make('file')
                     ->label('File')
-                    ->defaultImageUrl(asset('/image/default-slideshow.svg'))
+                    ->defaultImageUrl(asset('/image/default-Carousel.svg'))
                     ->circular(),
                 TextColumn::make('title')
                     ->label('Judul')
@@ -163,10 +163,10 @@ class SlideshowResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSlideshows::route('/'),
-            'create' => Pages\CreateSlideshow::route('/create'),
-            'view' => Pages\ViewSlideshow::route('/{record}'),
-            'edit' => Pages\EditSlideshow::route('/{record}/edit'),
+            'index' => Pages\Listcarousels::route('/'),
+            'create' => Pages\CreateCarousel::route('/create'),
+            'view' => Pages\ViewCarousel::route('/{record}'),
+            'edit' => Pages\EditCarousel::route('/{record}/edit'),
         ];
     }
 

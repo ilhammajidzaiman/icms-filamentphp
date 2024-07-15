@@ -3,10 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
-use App\Models\Slideshow;
+use App\Models\Carousel;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class SlideshowPolicy
+class CarouselPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class SlideshowPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('view_any_slideshow');
+        return $user->can('view_any_carousel');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Slideshow  $slideshow
+     * @param  \App\Models\Carousel  $carousel
      * @return bool
      */
-    public function view(User $user, Slideshow $slideshow): bool
+    public function view(User $user, Carousel $carousel): bool
     {
-        return $user->can('view_slideshow');
+        return $user->can('view_carousel');
     }
 
     /**
@@ -41,31 +41,31 @@ class SlideshowPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create_slideshow');
+        return $user->can('create_carousel');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Slideshow  $slideshow
+     * @param  \App\Models\Carousel  $carousel
      * @return bool
      */
-    public function update(User $user, Slideshow $slideshow): bool
+    public function update(User $user, Carousel $carousel): bool
     {
-        return $user->can('update_slideshow');
+        return $user->can('update_carousel');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Slideshow  $slideshow
+     * @param  \App\Models\Carousel  $carousel
      * @return bool
      */
-    public function delete(User $user, Slideshow $slideshow): bool
+    public function delete(User $user, Carousel $carousel): bool
     {
-        return $user->can('delete_slideshow');
+        return $user->can('delete_carousel');
     }
 
     /**
@@ -76,19 +76,19 @@ class SlideshowPolicy
      */
     public function deleteAny(User $user): bool
     {
-        return $user->can('delete_any_slideshow');
+        return $user->can('delete_any_carousel');
     }
 
     /**
      * Determine whether the user can permanently delete.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Slideshow  $slideshow
+     * @param  \App\Models\Carousel  $carousel
      * @return bool
      */
-    public function forceDelete(User $user, Slideshow $slideshow): bool
+    public function forceDelete(User $user, Carousel $carousel): bool
     {
-        return $user->can('force_delete_slideshow');
+        return $user->can('force_delete_carousel');
     }
 
     /**
@@ -99,19 +99,19 @@ class SlideshowPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_slideshow');
+        return $user->can('force_delete_any_carousel');
     }
 
     /**
      * Determine whether the user can restore.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Slideshow  $slideshow
+     * @param  \App\Models\Carousel  $carousel
      * @return bool
      */
-    public function restore(User $user, Slideshow $slideshow): bool
+    public function restore(User $user, Carousel $carousel): bool
     {
-        return $user->can('restore_slideshow');
+        return $user->can('restore_carousel');
     }
 
     /**
@@ -122,19 +122,19 @@ class SlideshowPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_slideshow');
+        return $user->can('restore_any_carousel');
     }
 
     /**
      * Determine whether the user can replicate.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Slideshow  $slideshow
+     * @param  \App\Models\Carousel  $carousel
      * @return bool
      */
-    public function replicate(User $user, Slideshow $slideshow): bool
+    public function replicate(User $user, Carousel $carousel): bool
     {
-        return $user->can('replicate_slideshow');
+        return $user->can('replicate_carousel');
     }
 
     /**
@@ -145,7 +145,7 @@ class SlideshowPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_slideshow');
+        return $user->can('reorder_carousel');
     }
 
 }

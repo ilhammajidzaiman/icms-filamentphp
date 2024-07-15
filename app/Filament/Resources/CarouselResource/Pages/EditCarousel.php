@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\SlideshowResource\Pages;
+namespace App\Filament\Resources\CarouselResource\Pages;
 
-use App\Filament\Resources\SlideshowResource;
+use App\Filament\Resources\CarouselResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditSlideshow extends EditRecord
+class EditCarousel extends EditRecord
 {
-    protected static string $resource = SlideshowResource::class;
+    protected static string $resource = CarouselResource::class;
 
     protected function getHeaderActions(): array
     {
