@@ -47,6 +47,11 @@ class NavMenu extends Model
         return 'order';
     }
 
+    public function scopeShow($query)
+    {
+        return $query->where('is_show', true);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
@@ -55,5 +60,40 @@ class NavMenu extends Model
     public function modelable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(NavMenu::class, 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany(NavMenu::class, 'parent_id');
+    }
+
+    public function link(): BelongsTo
+    {
+        return $this->belongsTo(Link::class, 'modelable_id', 'id');
+    }
+
+    public function page(): BelongsTo
+    {
+        return $this->belongsTo(Page::class, 'modelable_id', 'id');
+    }
+
+    public function blogArticle(): BelongsTo
+    {
+        return $this->belongsTo(BlogArticle::class, 'modelable_id', 'id');
+    }
+
+    public function blogCategory(): BelongsTo
+    {
+        return $this->belongsTo(BlogCategory::class, 'modelable_id', 'id');
+    }
+
+    public function fileCategory(): BelongsTo
+    {
+        return $this->belongsTo(FileCategory::class, 'modelable_id', 'id');
     }
 }

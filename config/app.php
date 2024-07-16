@@ -169,6 +169,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\Filament\AdminPanelProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+         * Public Service Providers...
+         */
+        App\Providers\SiteServiceProvider::class,
     ])->toArray(),
 
     /*

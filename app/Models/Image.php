@@ -41,9 +41,9 @@ class Image extends Model
         });
     }
 
-    public function scopeActive($query)
+    public function scopeShow($query)
     {
-        return $query->where('is_active', true);
+        return $query->where('is_show', true);
     }
 
     public function user(): BelongsTo

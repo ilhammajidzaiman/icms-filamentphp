@@ -38,6 +38,11 @@ class BlogTag extends Model
         });
     }
 
+    public function scopeShow($query)
+    {
+        return $query->where('is_show', true);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
