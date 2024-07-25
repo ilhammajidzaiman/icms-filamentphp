@@ -8,11 +8,9 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use App\Models\BlogArticle;
 use Illuminate\Support\Str;
-use App\Models\BlogCategory;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
@@ -133,7 +131,7 @@ class BlogArticleResource extends Resource
                                     ->openable()
                                     ->downloadable()
                                     ->helperText('Ukuran maksimal: 1 MB.'),
-                                Textarea::make('file_description')
+                                Textarea::make('description')
                                     ->label('Keterangan Gambar')
                                     ->autosize()
                                     ->maxLength(255),

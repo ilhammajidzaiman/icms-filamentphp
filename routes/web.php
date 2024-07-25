@@ -20,6 +20,7 @@ Route::get('/', function () {
 
 Route::prefix('/')->controller(Public\HomeController::class)->group(function () {
     Route::get('', 'index')->name('index');
+    Route::get('/{id}', 'show')->name('show');
 });
 
 Route::prefix('/file')->controller(Public\FileController::class)->group(function () {

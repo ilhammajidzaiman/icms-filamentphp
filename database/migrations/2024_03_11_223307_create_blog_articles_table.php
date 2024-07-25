@@ -36,6 +36,9 @@ return new class extends Migration
             $table->string('file')
                 ->nullable()
                 ->comment('gambar cover');
+            $table->string('description')
+                ->nullable()
+                ->comment('deskripsi gambar');
             $table->string('attachment')
                 ->nullable()
                 ->comment('gambar galeri foto');

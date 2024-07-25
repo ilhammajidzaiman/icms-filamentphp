@@ -23,6 +23,7 @@ class BlogArticle extends Model
         'title',
         'content',
         'file',
+        'description',
         'attachment',
         'visitor',
         'is_show',
