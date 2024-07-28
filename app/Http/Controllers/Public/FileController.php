@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Public;
 
+use App\Models\File;
 use App\Models\BlogArticle;
+use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AnourValar\EloquentSerialize\Service;
 
 class FileController extends Controller
 {
@@ -14,55 +15,24 @@ class FileController extends Controller
      */
     public function index()
     {
-        $data['blogArticles'] = BlogArticle::show()->limit(9)->orderByDesc('published_at')->get();
+        $data['file'] = File::show()->orderByDesc('created_at')->paginate(15);
+        $data['articleRandom'] = BlogArticle::limit(18)->inRandomOrder()->get();
+        $data['category'] = BlogCategory::show()->limit(10)->inRandomOrder()->get();
+        $data['popular'] = BlogArticle::show()->limit(5)->orderByDesc('visitor')->get();
+        $data['latest'] = BlogArticle::show()->limit(5)->orderByDesc('published_at')->get();
         return view('public.file.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $data['item'] = File::show()->where('slug', $id)->first();
+        $data['articleRandom'] = BlogArticle::limit(18)->inRandomOrder()->get();
+        // $this->update($data['item']);
+        return view('public.file.show', $data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $id->increment('visitor');
     }
 }

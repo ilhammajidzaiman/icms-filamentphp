@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('public.layouts.app')
 @section('container')
 
     <section class="container pt-2">
@@ -7,8 +7,14 @@
                 <div class="mb-5 px-55">
                     @if (!$item)
                         <ul class="breadcrumb mb-5">
-                            <li class="breadcrumb-item"><a wire:navigate.hover href="/">Beranda</a></li>
-                            <li class="breadcrumb-item">Baca</li>
+                            <li class="breadcrumb-item">
+                                <a wire:navigate.hover href="/{{ route('index') }}">
+                                    Beranda
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                Baca
+                            </li>
                         </ul>
                         <h1 class="mb-5">
                             Baca
@@ -20,20 +26,26 @@
                         </div>
                     @else
                         <ul class="breadcrumb mb-3">
-                            <li class="breadcrumb-item"><a wire:navigate.hover href="/">Beranda</a></li>
-                            <li class="breadcrumb-item">Baca</li>
+                            <li class="breadcrumb-item">
+                                <a wire:navigate.hover href="{{ route('index') }}">
+                                    Beranda
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                Baca
+                            </li>
                             <li class="breadcrumb-item d-inline-block text-truncate">
                                 {{ Str::limit(strip_tags($item->title), 50, '...') }}
                             </li>
                         </ul>
                         <h4>
-                            <a href="/kategori/{{ $item->blogCategory->slug }}"
-                                class="badge bg-success-subtle link-success rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
+                            <a href="{{ route('category.index', $item->blogCategory->slug) }}"
+                                class="badge bg-primary-subtle link-primary rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                 {{ $item->blogCategory->title }}
                             </a>
                         </h4>
                         <h1>
-                            <a wire:navigate.hover href="/{{ $item->slug }}"
+                            <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}"
                                 class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                 {{ $item->title }}
                             </a>
@@ -145,111 +157,7 @@
             </div>
 
             <div class="col-12 col-sm-12 col-md-12 col-lg-3">
-                <div class="card bg-transparent border-2">
-                    <div class="card-body">
-                        <div>
-                            <h4 class="fw-semibold border-start border-5 border-secondary-subtle mb-4 ps-2">
-                                Tetap Terhubung
-                            </h4>
-                            <div class="d-grid gap-2">
-                                <a href="https://facebook.com/kejatiriau/" target="_blank"
-                                    class="btn btn-primary text-start rounded-pill px-3 py-2">
-                                    <i class="bi-facebook me-2"></i>
-                                    Facebook
-                                </a>
-                                <a href="https://www.instagram.com/kejatiriau/" target="_blank"
-                                    class="btn btn-secondary text-start rounded-pill px-3 py-2">
-                                    <i class="bi-instagram me-2"></i>
-                                    Instagram
-                                </a>
-                                <a href="https://www.youtube.com/@kejatiriau" target="_blank"
-                                    class="btn btn-danger text-start rounded-pill px-3 py-2">
-                                    <i class="bi-youtube me-2"></i>
-                                    Youtube
-                                </a>
-                                <a href="https://twitter.com/kejatiriau_" target="_blank"
-                                    class="btn btn-dark text-start rounded-pill px-3 py-2">
-                                    <i class="bi-twitter-x me-2"></i>
-                                    X
-                                </a>
-                            </div>
-                        </div>
-                        <div class="mt-5">
-                            <h4 class="fw-semibold border-start border-5 border-secondary-subtle mb-4 ps-2">
-                                Berita Populer
-                            </h4>
-                            <ul class="list-group list-group-flush">
-                                @if ($popular->isEmpty())
-                                    <li class="list-group-item px-0">
-                                        <div class="fw-medium">
-                                            Not found!
-                                        </div>
-                                    </li>
-                                @else
-                                    @foreach ($popular as $item)
-                                        <li class="list-group-item px-0">
-                                            <small class="text-secondary">
-                                                {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
-                                            </small>
-                                            <a wire:navigate.hover href="/{{ $item->slug }}"
-                                                class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                                                <div class="fw-medium">
-                                                    {{ $item->title }}
-                                                </div>
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                @endif
-                            </ul>
-                        </div>
-                        <div class="mt-5">
-                            <h4 class="fw-semibold border-start border-5 border-secondary-subtle mb-4 ps-2">
-                                Berita Terbaru
-                            </h4>
-                            <ul class="list-group list-group-flush">
-                                @if ($latest->isEmpty())
-                                    <li class="list-group-item px-0">
-                                        <div class="fw-medium">
-                                            Not found!
-                                        </div>
-                                    </li>
-                                @else
-                                    @foreach ($latest as $item)
-                                        <li class="list-group-item px-0">
-                                            <small class="text-secondary">
-                                                {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
-                                            </small>
-                                            <a wire:navigate.hover href="/{{ $item->slug }}"
-                                                class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                                                <div class="fw-medium">
-                                                    {{ $item->title }}
-                                                </div>
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                @endif
-                            </ul>
-                        </div>
-
-                        <div class="mt-5">
-                            <h4 class="fw-semibold border-start border-5 border-secondary-subtle mb-4 ps-2">
-                                Kategori
-                            </h4>
-                            @if ($category->isEmpty())
-                                <a href="/" class="btn btn-secondary rounded-pill">
-                                    Not found!
-                                </a>
-                            @else
-                                @foreach ($category as $item)
-                                    <a wire:navigate.hover href="/kategori/{{ $item->slug }}"
-                                        class="btn btn-secondary rounded-pill mb-2">
-                                        {{ $item->title }}
-                                    </a>
-                                @endforeach
-                            @endif
-                        </div>
-                    </div>
-                </div>
+                @include('public.layouts.side')
             </div>
         </div>
     </section>
@@ -282,8 +190,7 @@
                             <div class="card bg-transparent border-0 mb-4">
                                 <a wire:navigate.hover href="/{{ $item->slug }}">
                                     <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
-                                        alt="image {{ $item->title }}"
-                                        class="w-100 rounded-2 vh-20 bg-secondary-subtle">
+                                        alt="image {{ $item->title }}" class="w-100 rounded-2 vh-20 bg-secondary-subtle">
                                 </a>
                                 <div class="card-body px-0 py-2">
                                     <a href="/kategori/{{ $item->blogCategory->slug }}"

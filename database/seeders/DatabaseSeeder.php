@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
             BlogArticleSeeder::class,
             NavMenuSeeder::class,
             PageSeeder::class,
+            FileCategorySeeder::class,
+            FileSeeder::class,
         ]);
     }
 }

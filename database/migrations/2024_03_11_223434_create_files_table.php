@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\FileCategory;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -18,7 +19,11 @@ return new class extends Migration
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete()
-                ->comment('id table users');
+                ->comment('id table User');
+            $table->foreignIdFor(FileCategory::class)
+                ->constrained()
+                ->cascadeOnDelete()
+                ->comment('id table FileCategory');
             $table->string('slug')
                 ->unique()
                 ->comment('slug');

@@ -123,10 +123,10 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm bg-white text-dark bg-opacity-75 fw-medium"
         aria-label="Offcanvas navbar large">
         <div class="container py-2">
-            <a class="navbar-brand fw-bold fs-3 text-success-emphasis" href="/">
+            <a href="{{ route('index') }}" class="navbar-brand fw-bold fs-3 text-success-emphasis">
                 <img src="{{ $logo }}" alt="Logo" height="35"
                     class="d-inline-block align-text-center me-2">
-                {{-- {{ $site->name ? $site->name : env('APP_NAME') }} --}}
+                {{ $site->name ? $site->name : env('APP_NAME') }}
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2"
                 aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
@@ -226,7 +226,8 @@
         <div class="container pt-5">
             <div class="row justify-content-between">
                 <div class="col-12 col-md-3 mb-3">
-                    <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+                    <a href="{{ route('index') }}"
+                        class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
                         <img src="{{ $logo }}" alt="Logo" height="50">
                     </a>
                     <h4 class="fw-semibold">
@@ -270,7 +271,8 @@
         <div class="container pt-5">
             <div class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 border-top">
                 <div class="col-md-4 d-flex align-items-center">
-                    <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                    <a href="{{ route('index') }}"
+                        class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
                         <img src="{{ $logo }}" alt="Logo" height="35">
                     </a>
                     <span class="mb-3 mb-md-0 text-body-secondary">

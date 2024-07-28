@@ -16,6 +16,7 @@ class File extends Model
     protected $fillable =
     [
         'user_id',
+        'file_category_id',
         'slug',
         'title',
         'file',
@@ -39,8 +40,18 @@ class File extends Model
         });
     }
 
+    public function scopeShow($query)
+    {
+        return $query->where('is_show', true);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function fileCategory(): BelongsTo
+    {
+        return $this->belongsTo(FileCategory::class, 'file_category_id', 'id');
     }
 }
