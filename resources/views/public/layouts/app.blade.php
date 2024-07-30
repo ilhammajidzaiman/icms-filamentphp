@@ -260,7 +260,7 @@
                     </h4>
                     @php
                         $defaultMap =
-                            'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16328182.633267699!2d107.22171031843773!3d-2.3813608494441247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c4c07d7496404b7%3A0xe37b4de71badf485!2sIndonesia!5e0!3m2!1sid!2sid!4v1720711411923!5m2!1sid!2sid';
+                            'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16328182.633267699!2d107.22171031843773!3d-2.3813608494441247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c4c07d7496404b7%3A0xe37b4de71badf485!2sIndonesia!5e0!3m2!1sid!2sid!4v1722322760161!5m2!1sid!2sid';
                     @endphp
                     <iframe src="{{ $site->map ? $site->map : $defaultMap }}" allowfullscreen="" loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade" class="rounded-4 shadow-sm w-100 vh-50">

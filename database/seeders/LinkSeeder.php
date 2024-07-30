@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\Link;
 use Illuminate\Support\Str;
-use App\Models\FileCategory;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class FileCategorySeeder extends Seeder
+class LinkSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,16 +15,17 @@ class FileCategorySeeder extends Seeder
     public function run(): void
     {
         $data = [
-            ['title' => 'Lainnya',],
-            ['title' => 'Dokumentasi',],
-            ['title' => 'Produk',],
+            ["title" => "Dokumen", "url" => "/dokumen",],
+            ["title" => "Galeri", "url" => "/galeri",],
+            ["title" => "Video", "url" => "/video",],
         ];
         foreach ($data as $item) :
-            FileCategory::create(
+            Link::create(
                 [
                     'user_id' => 1,
                     'slug' => Str::slug($item['title']),
                     'title' => Str::headline(Str::lower($item['title'])),
+                    'url' => $item['url'],
                 ],
             );
         endforeach;

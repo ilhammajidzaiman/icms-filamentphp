@@ -5,31 +5,41 @@
                 Tetap Terhubung
             </h4>
             <div class="d-grid gap-2">
-                <a href="https://facebook.com/kejatiriau/" target="_blank"
-                    class="btn btn-primary text-start rounded-pill px-3 py-2">
-                    <i class="bi-facebook me-2"></i>
-                    Facebook
-                </a>
-                <a href="https://www.instagram.com/kejatiriau/" target="_blank"
-                    class="btn btn-secondary text-start rounded-pill px-3 py-2">
-                    <i class="bi-instagram me-2"></i>
-                    Instagram
-                </a>
-                <a href="https://www.youtube.com/@kejatiriau" target="_blank"
-                    class="btn btn-danger text-start rounded-pill px-3 py-2">
-                    <i class="bi-youtube me-2"></i>
-                    Youtube
-                </a>
-                <a href="https://twitter.com/kejatiriau_" target="_blank"
-                    class="btn btn-dark text-start rounded-pill px-3 py-2">
-                    <i class="bi-twitter-x me-2"></i>
-                    X
-                </a>
+                @if ($site->social_media)
+                    @foreach ($site->social_media as $item)
+                        <a href="{{ $item['sosmed_url'] }}" target="_blank"
+                            class="btn btn-primary text-start rounded-pill px-3 py-2">
+                            <i class="{{ $item['sosmed_icon'] }} me-2"></i>
+                            {{ $item['sosmed_name'] }}
+                        </a>
+                    @endforeach
+                @else
+                    <a href="https://facebook.com" target="_blank"
+                        class="btn btn-primary text-start rounded-pill px-3 py-2">
+                        <i class="bi-facebook me-2"></i>
+                        Facebook
+                    </a>
+                    <a href="https://www.instagram.com" target="_blank"
+                        class="btn btn-secondary text-start rounded-pill px-3 py-2">
+                        <i class="bi-instagram me-2"></i>
+                        Instagram
+                    </a>
+                    <a href="https://www.youtube.com" target="_blank"
+                        class="btn btn-danger text-start rounded-pill px-3 py-2">
+                        <i class="bi-youtube me-2"></i>
+                        Youtube
+                    </a>
+                    <a href="https://twitter.com" target="_blank"
+                        class="btn btn-dark text-start rounded-pill px-3 py-2">
+                        <i class="bi-twitter-x me-2"></i>
+                        X
+                    </a>
+                @endif
             </div>
         </div>
         <div class="mt-5">
             <h4 class="fw-semibold border-start border-5 border-secondary-subtle mb-4 ps-2">
-                Berita Populer
+                Artikel Populer
             </h4>
             <ul class="list-group list-group-flush">
                 @if ($popular->isEmpty())
@@ -57,7 +67,7 @@
         </div>
         <div class="mt-5">
             <h4 class="fw-semibold border-start border-5 border-secondary-subtle mb-4 ps-2">
-                Berita Terbaru
+                Artikel Terbaru
             </h4>
             <ul class="list-group list-group-flush">
                 @if ($latest->isEmpty())
@@ -83,7 +93,6 @@
                 @endif
             </ul>
         </div>
-
         <div class="mt-5">
             <h4 class="fw-semibold border-start border-5 border-secondary-subtle mb-4 ps-2">
                 Kategori
@@ -94,7 +103,7 @@
                 </a>
             @else
                 @foreach ($category as $item)
-                    <a wire:navigate.hover href="{{ route('category.index', $item->slug) }}"
+                    <a wire:navigate.hover href="{{ route('category.show', $item->slug) }}"
                         class="btn btn-secondary rounded-pill mb-2">
                         {{ $item->title }}
                     </a>

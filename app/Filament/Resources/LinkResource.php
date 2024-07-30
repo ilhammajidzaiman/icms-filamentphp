@@ -17,6 +17,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\LinkResource\Pages;
+use Filament\Forms\Components\Textarea;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class LinkResource extends Resource
@@ -34,11 +35,6 @@ class LinkResource extends Resource
     {
         return $form
             ->schema([
-                Hidden::make('user_id')
-                    ->required()
-                    ->default(auth()->user()->id)
-                    ->disabled()
-                    ->dehydrated(),
                 Section::make()
                     ->schema([
                         Toggle::make('is_show')
@@ -48,23 +44,20 @@ class LinkResource extends Resource
                         TextInput::make('title')
                             ->label('Judul')
                             ->required()
-                            ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                            ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                            ->maxLength(255),
                         TextInput::make('slug')
                             ->label('Slug')
-                            ->required()
-                            ->maxLength(255)
+                            ->helperText('Slug akan otomatis dihasilkan dari judul.')
                             ->disabled()
                             ->dehydrated()
-                            ->helperText('Slug akan otomatis dihasilkan dari judul.'),
-                        TextInput::make('url')
-                            ->label('Url')
-                            ->maxLength(255)
-                            ->url()
                             ->required()
-                            ->suffixIcon('heroicon-o-link')
-                            ->dehydrated(),
+                            ->maxLength(255),
+                        Textarea::make('url')
+                            ->label('Url')
+                            ->required()
+                            ->autosize(),
                     ])
             ]);
     }

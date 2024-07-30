@@ -13,7 +13,7 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item">
-                                Baca
+                                Halaman
                             </li>
                         </ul>
                         <h1 class="mb-5">
@@ -32,20 +32,15 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item">
-                                Baca
+                                Halaman
                             </li>
                             <li class="breadcrumb-item d-inline-block text-truncate">
                                 {{ Str::limit(strip_tags($item->title), 50, '...') }}
                             </li>
                         </ul>
-                        <h4>
-                            <a href="{{ route('category.show', $item->blogCategory->slug) }}"
-                                class="badge bg-primary-subtle link-primary rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                                {{ $item->blogCategory->title }}
-                            </a>
-                        </h4>
+
                         <h1>
-                            <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}"
+                            <a wire:navigate.hover href="{{ route('page.show', $item->slug) }}"
                                 class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                 {{ $item->title }}
                             </a>

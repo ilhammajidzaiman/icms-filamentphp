@@ -29,6 +29,7 @@ return new class extends Migration
                 ->nullable()
                 ->comment('deskripsi');
             $table->string('file')
+                ->nullable()
                 ->comment('gambar');
             $table->boolean('is_show')
                 ->default(true)

@@ -16,11 +16,11 @@ class FileSeeder extends Seeder
     {
         $data = [
             [
-                'file_category_id' => '1',
+                'file_category_id' => '2',
                 'title' => 'petunjuk penggunaan aplikasi iCMS',
             ],
             [
-                'file_category_id' => '2',
+                'file_category_id' => '3',
                 'title' => 'produk  aplikasi iCMS',
             ],
         ];

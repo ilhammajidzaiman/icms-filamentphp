@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers\Public;
 
+use App\Models\Page;
 use App\Models\BlogArticle;
 use App\Models\BlogCategory;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ArticleController extends Controller
+class PageController extends Controller
 {
-    public function index()
-    {
-        $data['articleRandom'] = BlogArticle::limit(18)->inRandomOrder()->get();
-        return view('public.article.index', $data);
-    }
-
     public function show(string $id)
     {
-        $data['item'] = BlogArticle::where('slug', $id)->with('blogTags')->first();
+        //   use Carbon\Carbon;
+        // $data = App\Models\Page::where('slug', $slug)->first();
+        // if (!$data):
+        //     abort(404);
+        // endif;
+        // $page = env('APP_URL') . '/' . $data->slug;
+
+
+        $data['item'] = Page::show()->where('slug', $id)->first();
         $data['articleRandom'] = BlogArticle::limit(18)->inRandomOrder()->get();
         $data['category'] = BlogCategory::show()->limit(10)->inRandomOrder()->get();
         $data['popular'] = BlogArticle::show()->limit(5)->orderByDesc('visitor')->get();
@@ -25,15 +27,8 @@ class ArticleController extends Controller
         if (!$data['item']) :
             $data['page'] = env('APP_URL') . '/';
         else :
-            // $data['item']->increment('visitor');
-            $this->update($data['item']);
             $data['page'] = env('APP_URL') . '/' . $data['item']->slug;
         endif;
-        return view('public.article.show', $data);
-    }
-
-    public function update($id)
-    {
-        $id->increment('visitor');
+        return view('public.page.show', $data);
     }
 }

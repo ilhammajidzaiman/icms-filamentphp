@@ -3,8 +3,9 @@
     <section class="container pt-1">
         @if ($carousel->isEmpty())
             <div class="row justify-content-center mt-5 pt-5">
-                <div class="col-6 col-sm-4 col-md-3 col-lg-3">
-                    <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
+                <div class="col-12">
+                    <img src="{{ asset('image/default-carousel.svg') }}" alt="image"
+                        class="d-block w-100 rounded-4 vh-65 bg-secondary-subtle">
                 </div>
             </div>
         @else
@@ -117,7 +118,7 @@
                     <div class="col-12">
                         <div class="d-flex justify-content-between align-items-end border-bottom mb-5">
                             <h1>
-                                Berita
+                                Artikel
                             </h1>
                             <h5>
                                 <a href="{{ route('article.index') }}" class="text-decoration-none link-secondary">
@@ -144,7 +145,7 @@
                                                 class="w-100 rounded-2 vh-20 bg-secondary-subtle">
                                         </a>
                                         <div class="card-body px-0 py-2">
-                                            <a href="{{ route('category.index', $item->blogCategory->slug) }}"
+                                            <a href="{{ route('category.show', $item->blogCategory->slug) }}"
                                                 class="badge bg-success-subtle link-success rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                                 {{ $item->blogCategory->title }}
                                             </a>

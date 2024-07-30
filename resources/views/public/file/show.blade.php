@@ -21,10 +21,14 @@
                     @else
                         <div class="col-12">
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a wire:navigate.hover href="/">Beranda</a></li>
+                                <li class="breadcrumb-item">
+                                    <a wire:navigate.hover href="{{ route('index') }}">
+                                        Beranda
+                                    </a>
+                                </li>
                                 <li class="breadcrumb-item">
                                     <a wire:navigate.hover href="{{ route('file.index') }}">
-                                        File
+                                        Dokumen
                                     </a>
                                 </li>
                                 <li class="breadcrumb-item d-inline-block text-truncate">
@@ -79,10 +83,10 @@
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-end border-bottom mb-5">
                     <h1>
-                        Berita Lainnya
+                        Artikel Lainnya
                     </h1>
                     <h5>
-                        <a href="/" class="text-decoration-none link-secondary">
+                        <a href="{{ route('article.index') }}" class="text-decoration-none link-secondary">
                             Selengkapnya
                             <i class="bi bi-box-arrow-up-right"></i>
                         </a>
@@ -100,12 +104,12 @@
                     @foreach ($articleRandom as $item)
                         <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="card bg-transparent border-0 mb-4">
-                                <a wire:navigate.hover href="/{{ $item->slug }}">
+                                <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}">
                                     <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
                                         alt="image {{ $item->title }}" class="w-100 rounded-2 vh-20 bg-secondary-subtle">
                                 </a>
                                 <div class="card-body px-0 py-2">
-                                    <a href="/kategori/{{ $item->blogCategory->slug }}"
+                                    <a href="{{ route('category.show', $item->blogCategory->slug) }}"
                                         class="badge bg-success-subtle link-success rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                         {{ $item->blogCategory->title }}
                                     </a>
@@ -114,7 +118,7 @@
                                             {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
                                         </small>
                                     </div>
-                                    <a wire:navigate.hover href="/{{ $item->slug }}"
+                                    <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}"
                                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                         {{ Str::limit(strip_tags($item->title), 100, '...') }}
                                     </a>

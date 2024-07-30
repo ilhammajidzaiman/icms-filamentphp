@@ -39,11 +39,6 @@ class CarouselResource extends Resource
         return $form
             ->columns(3)
             ->schema([
-                Hidden::make('user_id')
-                    ->required()
-                    ->default(auth()->user()->id)
-                    ->disabled()
-                    ->dehydrated(),
                 Grid::make()
                     ->columnSpan(2)
                     ->schema([
@@ -52,17 +47,17 @@ class CarouselResource extends Resource
                             ->schema([
                                 Textarea::make('title')
                                     ->label('Judul')
-                                    ->maxLength(255)
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                                    ->maxLength(255),
                                 TextInput::make('slug')
                                     ->label('Slug')
-                                    ->maxLength(255)
+                                    ->helperText('Slug akan otomatis dihasilkan dari judul.')
                                     ->disabled()
                                     ->dehydrated()
-                                    ->helperText('Slug akan otomatis dihasilkan dari judul.'),
-                                Textarea::make('subtitle')
-                                    ->label('Subtitle')
+                                    ->maxLength(255),
+                                Textarea::make('description')
+                                    ->label('Deskripsi')
                                     ->autosize(),
                             ]),
                     ]),

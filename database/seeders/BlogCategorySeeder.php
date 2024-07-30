@@ -16,11 +16,12 @@ class BlogCategorySeeder extends Seeder
     public function run(): void
     {
         $datas = [
+            ['title' => 'Lainnya',],
             ['title' => 'Tutorial',],
             ['title' => 'Programming',],
             ['title' => 'Backend',],
             ['title' => 'Frontend',],
-            ['title' => 'Filament',],
+            ['title' => 'Full Stack',],
         ];
         foreach ($datas as $data) :
             BlogCategory::create(
