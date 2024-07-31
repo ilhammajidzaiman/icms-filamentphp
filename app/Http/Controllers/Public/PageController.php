@@ -11,14 +11,6 @@ class PageController extends Controller
 {
     public function show(string $id)
     {
-        //   use Carbon\Carbon;
-        // $data = App\Models\Page::where('slug', $slug)->first();
-        // if (!$data):
-        //     abort(404);
-        // endif;
-        // $page = env('APP_URL') . '/' . $data->slug;
-
-
         $data['item'] = Page::show()->where('slug', $id)->first();
         $data['articleRandom'] = BlogArticle::limit(18)->inRandomOrder()->get();
         $data['category'] = BlogCategory::show()->limit(10)->inRandomOrder()->get();

@@ -123,7 +123,7 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm bg-white text-dark bg-opacity-75 fw-medium"
         aria-label="Offcanvas navbar large">
         <div class="container py-2">
-            <a href="{{ route('index') }}" class="navbar-brand fw-bold fs-3 text-success-emphasis">
+            <a href="{{ route('index') }}" class="navbar-brand fw-bold fs-3 text-primary-emphasis">
                 <img src="{{ $logo }}" alt="Logo" height="35"
                     class="d-inline-block align-text-center me-2">
                 {{ $site->name ? $site->name : env('APP_NAME') }}

@@ -10,16 +10,21 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        Artikel
+                        <a wire:navigate.hover href="{{ route('category.index') }}">
+                            Kategori
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        {{ Str::limit(strip_tags($item->title), 50, '...') }}
                     </li>
                 </ul>
                 <h1 class="mb-5">
-                    <a wire:navigate.hover href="{{ route('article.index') }}"
+                    <a wire:navigate.hover href="{{ route('category.index') }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                        Artikel
+                        Kategori
                     </a>
                 </h1>
-                @if ($articleRandom->isEmpty())
+                @if ($blogArticle->isEmpty())
                     <div class="row justify-content-center">
                         <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                             <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
@@ -27,7 +32,7 @@
                     </div>
                 @else
                     <div class="row">
-                        @foreach ($articleRandom as $item)
+                        @foreach ($blogArticle as $item)
                             <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                                 <div class="card bg-transparent border-0 mb-4">
                                     <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}">

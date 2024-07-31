@@ -10,9 +10,6 @@ use App\Http\Controllers\Controller;
 
 class FileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $data['file'] = File::show()->orderByDesc('created_at')->paginate(15);

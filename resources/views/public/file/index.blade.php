@@ -21,7 +21,7 @@
                         @foreach ($file as $item)
                             <li class="list-group-item">
                                 <a href="{{ route('file.show', $item->fileCategory->slug) }}"
-                                    class="badge bg-success-subtle link-success rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
+                                    class="badge bg-primary-subtle link-primary rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                     {{ $item->fileCategory->title }}
                                 </a>
                                 <h5>
@@ -182,7 +182,7 @@
                                 </a>
                                 <div class="card-body px-0 py-2">
                                     <a href="{{ route('category.show', $item->blogCategory->slug) }}"
-                                        class="badge bg-success-subtle link-success rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
+                                        class="badge bg-primary-subtle link-primary rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                         {{ $item->blogCategory->title }}
                                     </a>
                                     <div>

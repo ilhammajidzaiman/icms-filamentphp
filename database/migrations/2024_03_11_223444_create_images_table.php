@@ -30,7 +30,7 @@ return new class extends Migration
                 ->comment('deskripsi');
             $table->string('file')
                 ->comment('gambar');
-            $table->string('attachment')
+            $table->json('attachment')
                 ->nullable()
                 ->comment('gambar galeri');
             $table->boolean('is_show')

@@ -58,4 +58,9 @@ class BlogCategory extends Model
     {
         return $this->morphMany(NavMenu::class, 'modelable');
     }
+
+    public function blogArticles()
+    {
+        return $this->hasMany(BlogArticle::class);
+    }
 }

@@ -91,7 +91,7 @@ class ImageResource extends Resource
                                     ->openable()
                                     ->downloadable()
                                     ->helperText('Ukuran maksimal: 1 MB.'),
-                                FileUpload::make('galery')
+                                FileUpload::make('attachment')
                                     ->label('File Galery')
                                     ->maxSize(1024)
                                     ->directory('galery/' . date('Y/m'))
@@ -100,7 +100,7 @@ class ImageResource extends Resource
                                     ->openable()
                                     ->downloadable()
                                     ->multiple()
-                                    ->maxFiles(5)
+                                    ->maxFiles(20)
                                     ->helperText('Ukuran maksimal: 1 MB.  Jumlah maksimal: 5 File.'),
                             ])
                     ]),
