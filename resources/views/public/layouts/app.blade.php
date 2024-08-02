@@ -13,19 +13,35 @@
     <link rel="shortcut icon" href="{{ asset('image/kejati-logo.png') }}" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+    {{-- <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet"> --}}
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
+
+    {{-- <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+        rel="stylesheet"> --}}
+
 
     <link rel="stylesheet" href="{{ asset('/dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/dist/icons/font/bootstrap-icons.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('owlcarousel/dist/assets/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('owlcarousel/dist/assets/owl.theme.default.min.css') }}">
-    @livewireStyles
-
     <style>
         body {
-            font-family: 'Raleway', sans-serif;
+            /* font-family: 'Raleway', sans-serif; */
+            font-family: "Inter", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: <weight>;
+            font-style: normal;
+
+            /* font-family: "Nunito Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: <weight>;
+            font-style: normal;
+            font-variation-settings:
+                "wdth" 100,
+                "YTLC" 500; */
         }
 
         /* Large devices (desktops, 992px and up) */
@@ -117,6 +133,8 @@
             height: auto;
         }
     </style>
+    @stack('style')
+    @livewireStyles
 </head>
 
 <body>
@@ -316,8 +334,6 @@
     </footer>
 
     <script src="{{ asset('/dist/js/bootstrap.bundle.min.js') }}"></script>
-    {{-- <script src="{{ asset('/js/jquery-3.6.0.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('/owlcarousel/dist/owl.carousel.min.js') }}"></script> --}}
     @stack('script')
     @livewireScripts
 </body>

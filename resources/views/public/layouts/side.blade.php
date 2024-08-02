@@ -57,7 +57,7 @@
                             <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}"
                                 class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                 <div class="fw-medium">
-                                    {{ $item->title }}
+                                    {{ Str::limit(strip_tags($item->title), 50, '...') }}
                                 </div>
                             </a>
                         </li>
@@ -85,7 +85,7 @@
                             <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}"
                                 class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                 <div class="fw-medium">
-                                    {{ $item->title }}
+                                    {{ Str::limit(strip_tags($item->title), 50, '...') }}
                                 </div>
                             </a>
                         </li>

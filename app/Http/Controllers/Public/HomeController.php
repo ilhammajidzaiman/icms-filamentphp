@@ -7,6 +7,7 @@ use App\Models\Carousel;
 use App\Models\BlogArticle;
 use App\Models\BlogCategory;
 use App\Http\Controllers\Controller;
+use App\Models\People;
 
 class HomeController extends Controller
 {
@@ -20,6 +21,7 @@ class HomeController extends Controller
         $data['popular'] = BlogArticle::show()->limit(5)->orderByDesc('visitor')->get();
         $data['latest'] = BlogArticle::show()->limit(5)->orderByDesc('published_at')->get();
         $data['image'] = Image::show()->limit(8)->orderByDesc('created_at')->get();
+        $data['people'] = People::show()->orderBy('order')->get();
         return view('public.home.index', $data);
     }
 }

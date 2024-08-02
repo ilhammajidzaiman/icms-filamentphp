@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -31,6 +32,8 @@ class DatabaseSeeder extends Seeder
             LinkSeeder::class,
             CarouselSeeder::class,
             NavMenuSeeder::class,
+            PeoplePositionSeeder::class,
+            PeopleSeeder::class,
         ]);
     }
 }

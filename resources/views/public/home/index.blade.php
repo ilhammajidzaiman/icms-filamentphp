@@ -57,10 +57,12 @@
                                         <div class="carousel-caption d-none d-md-block">
                                             <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}"
                                                 class="text-reset text-decoration-none">
-                                                <h5 class="text-shadow fs-3">{{ $item->title }}</h5>
+                                                <h5 class="text-shadow fs-3">
+                                                    {{ Str::limit(strip_tags($item->title), 128, '...') }}
+                                                </h5>
                                             </a>
                                             <p class="text-shadow fs-5">
-                                                {{ $item->title }}
+                                                {{ Str::limit(strip_tags($item->content), 164, '...') }}
                                             </p>
                                         </div>
                                     </div>
@@ -117,9 +119,9 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="d-flex justify-content-between align-items-end border-bottom mb-5">
-                            <h1>
+                            <h2>
                                 Artikel
-                            </h1>
+                            </h2>
                             <h5>
                                 <a href="{{ route('article.index') }}" class="text-decoration-none link-secondary">
                                     Selengkapnya
@@ -177,9 +179,9 @@
         <div class="row">
             <div class="col-12">
                 <div class="border-bottom mb-5 d-flex justify-content-between align-items-end">
-                    <h1>
+                    <h2>
                         Galeri
-                    </h1>
+                    </h2>
                     <h5>
                         <a href="{{ route('image.index') }}" class="text-decoration-none link-secondary">
                             Selengkapnya
@@ -200,11 +202,16 @@
                 @foreach ($image as $item)
                     <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                         <div class="card border-0 shadow-sm">
-                            <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
-                                class="card-img-top" alt="image {{ $item->title }}">
+                            <a href="{{ route('image.show', $item->slug) }}">
+                                <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
+                                    class="card-img-top" alt="image {{ $item->title }}">
+                            </a>
                             <div class="card-body">
                                 <p class="card-text">
-                                    {{ $item->title }}
+                                    <a wire:navigate.hover href="{{ route('image.show', $item->slug) }}"
+                                        class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
+                                        {{ Str::limit(strip_tags($item->title), 100, '...') }}
+                                    </a>
                                 </p>
                             </div>
                         </div>
@@ -213,9 +220,90 @@
             </div>
         @endif
     </section>
+
+    <section class="container py-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="border-bottom mb-5 d-flex justify-content-between align-items-end">
+                    <h2>
+                        Tim
+                    </h2>
+                    <h5>
+                        <a href="{{ route('image.index') }}" class="text-decoration-none link-secondary">
+                            Selengkapnya
+                            <i class="bi bi-box-arrow-up-right"></i>
+                        </a>
+                    </h5>
+                </div>
+            </div>
+        </div>
+        @if ($people->isEmpty())
+            <div class="row justify-content-center">
+                <div class="col-6 col-sm-4 col-md-3 col-lg-3">
+                    <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
+                </div>
+            </div>
+        @else
+            <div class="owl-carousel owl-theme owl-loaded">
+                @foreach ($people as $item)
+                    <div class="card border-0 rounded-4 m-2 p-3 pb-0">
+                        <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-user.svg') }}"
+                            alt="{{ $item->title }}" class="card-img-top w-100 bg-secondary-subtle rounded-3 shadow">
+                        <div class="card-body text-center">
+                            <h5 class="fs-5 fw-medium">
+                                {{ $item->name }},
+                            </h5>
+                            <small class="text-secondary">
+                                {{ $item->peoplePosition->title }}
+                            </small>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
+    </section>
 @endsection
+
+@push('style')
+    <link rel="stylesheet" href="{{ asset('owlcarousel/dist/assets/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('owlcarousel/dist/assets/owl.theme.default.min.css') }}">
+@endpush
 
 @push('script')
     <script src="{{ asset('/js/masonry.pkgd.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+    <script src="{{ asset('/js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset('/owlcarousel/dist/owl.carousel.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            var owl = $('.owl-carousel');
+            owl.owlCarousel({
+                loop: true,
+                margin: 10,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                autoplayHoverPause: true,
+                responsive: {
+                    0: {
+                        items: 2
+                    },
+                    768: {
+                        items: 2
+                    },
+                    992: {
+                        items: 3
+                    },
+                    1200: {
+                        items: 4
+                    },
+                }
+            });
+            $('.play').on('click', function() {
+                owl.trigger('play.owl.autoplay', [1000])
+            })
+            $('.stop').on('click', function() {
+                owl.trigger('stop.owl.autoplay')
+            })
+        });
+    </script>
 @endpush
