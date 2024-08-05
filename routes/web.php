@@ -47,3 +47,8 @@ Route::prefix('/dokumen')->controller(Public\FileController::class)->group(funct
     Route::get('/', 'index')->name('file.index');
     Route::get('/{id}', 'show')->name('file.show');
 });
+
+Route::prefix('/kritik-saran')->controller(Public\FeedbackController::class)->group(function () {
+    Route::get('/', 'index')->name('feedback.index');
+    Route::post('/store', 'store')->name('feedback.store');
+});

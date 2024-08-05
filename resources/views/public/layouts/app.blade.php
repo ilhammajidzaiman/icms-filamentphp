@@ -265,8 +265,9 @@
                     </h4>
                     <ul class="nav flex-column">
                         <li class="nav-item mb-2">
-                            <a href="https://www.google.com/" target="_blank" class="nav-link p-0 text-body-secondary">
-                                Google
+                            <a href="{{ route('feedback.index') }}" target=""
+                                class="nav-link p-0 text-body-secondary">
+                                Kritik Saran
                             </a>
                         </li>
                     </ul>

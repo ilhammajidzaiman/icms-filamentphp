@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             NavMenuSeeder::class,
             PeoplePositionSeeder::class,
             PeopleSeeder::class,
+            FeedbackCategorySeeder::class,
         ]);
     }
 }
