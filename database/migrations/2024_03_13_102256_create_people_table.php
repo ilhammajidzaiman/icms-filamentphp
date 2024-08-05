@@ -32,7 +32,7 @@ return new class extends Migration
                 ->comment('nama');
             $table->text('description')
                 ->nullable()
-                ->comment('gelar belakang');
+                ->comment('deskripsi');
             $table->string('file')
                 ->nullable()
                 ->comment('gambar staff');

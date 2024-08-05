@@ -38,6 +38,11 @@ Route::prefix('/galeri')->controller(Public\ImageController::class)->group(funct
     Route::get('/{id}', 'show')->name('image.show');
 });
 
+Route::prefix('/tim')->controller(Public\PeopleController::class)->group(function () {
+    Route::get('/', 'index')->name('people.index');
+    Route::get('/{id}', 'show')->name('people.show');
+});
+
 Route::prefix('/dokumen')->controller(Public\FileController::class)->group(function () {
     Route::get('/', 'index')->name('file.index');
     Route::get('/{id}', 'show')->name('file.show');

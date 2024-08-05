@@ -229,7 +229,7 @@
                         Tim
                     </h2>
                     <h5>
-                        <a href="{{ route('image.index') }}" class="text-decoration-none link-secondary">
+                        <a href="{{ route('people.index') }}" class="text-decoration-none link-secondary">
                             Selengkapnya
                             <i class="bi bi-box-arrow-up-right"></i>
                         </a>
@@ -251,7 +251,10 @@
                             alt="{{ $item->title }}" class="card-img-top w-100 bg-secondary-subtle rounded-3 shadow">
                         <div class="card-body text-center">
                             <h5 class="fs-5 fw-medium">
-                                {{ $item->name }},
+                                <a href="{{ route('people.show', $item->uuid) }}"
+                                    class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
+                                    {{ $item->name }}
+                                </a>
                             </h5>
                             <small class="text-secondary">
                                 {{ $item->peoplePosition->title }}
