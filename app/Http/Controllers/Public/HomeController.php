@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Public;
 
 use App\Models\Image;
+use App\Models\People;
 use App\Models\Carousel;
 use App\Models\BlogArticle;
 use App\Models\BlogCategory;
 use App\Http\Controllers\Controller;
-use App\Models\People;
 
 class HomeController extends Controller
 {

@@ -19,6 +19,7 @@ class File extends Model
         'file_category_id',
         'slug',
         'title',
+        'downloader',
         'file',
         'attachment',
         'is_show',

@@ -7,6 +7,7 @@ use App\Models\BlogArticle;
 use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
@@ -24,12 +25,23 @@ class FileController extends Controller
     {
         $data['item'] = File::show()->where('slug', $id)->first();
         $data['articleRandom'] = BlogArticle::limit(18)->inRandomOrder()->get();
-        // $this->update($data['item']);
+
         return view('public.file.show', $data);
     }
 
     public function update($id)
     {
-        $id->increment('visitor');
+        $id->increment('downloader');
+    }
+
+    public function download($id)
+    {
+        $item = File::show()->where('slug', $id)->first();
+        if ($item->file) :
+            if (Storage::disk('public')->exists($item->file)) :
+                $this->update($item);
+                return Storage::disk('public')->download($item->file);
+            endif;
+        endif;
     }
 }

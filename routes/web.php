@@ -46,6 +46,7 @@ Route::prefix('/tim')->controller(Public\PeopleController::class)->group(functio
 Route::prefix('/dokumen')->controller(Public\FileController::class)->group(function () {
     Route::get('/', 'index')->name('file.index');
     Route::get('/{id}', 'show')->name('file.show');
+    Route::get('/download/{id}', 'download')->name('file.download');
 });
 
 Route::prefix('/kritik-saran')->controller(Public\FeedbackController::class)->group(function () {

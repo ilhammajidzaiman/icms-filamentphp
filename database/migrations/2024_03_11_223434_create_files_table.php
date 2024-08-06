@@ -30,6 +30,9 @@ return new class extends Migration
             $table->string('title')
                 ->unique()
                 ->comment('judul');
+            $table->bigInteger('downloader')
+                ->default(0)
+                ->comment('jumlah pengunduh');
             $table->string('file')
                 ->nullable()
                 ->comment('gambar cover');

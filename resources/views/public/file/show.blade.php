@@ -56,15 +56,19 @@
                                 <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
                                     alt="image {{ $item->title }}" class="w-100 rounded-2 bg-secondary-subtle mb-3">
                                 <h6 class="text-secondary">Judul</h6>
-                                <h6> {{ $item->title }} </h6>
+                                <h6 class="mb-4">{{ $item->title }} </h6>
                                 <h6 class="text-secondary">Kategori</h6>
-                                <h6> {{ $item->fileCategory->title }}</h6>
+                                <h6 class="mb-4">{{ $item->fileCategory->title }}</h6>
+                                <h6 class="text-secondary">Jumlah pengunduh</h6>
+                                <h6 class="mb-4">{{ $item->downloader }}</h6>
                                 <h6 class="text-secondary">Dibuat Pada</h6>
-                                <h6>{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('l, j F Y') }}</h6>
+                                <h6 class="mb-4">
+                                    {{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('l, j F Y') }}</h6>
                                 <h6 class="text-secondary">Terakhir Diperbarui</h6>
-                                <h6>{{ \Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, j F Y') }}</h6>
+                                <h6 class="mb-4">
+                                    {{ \Carbon\Carbon::parse($item->updated_at)->translatedFormat('l, j F Y') }}</h6>
                                 <div class="d-grid gap-2 mt-4">
-                                    <a href="/dokumen/download/{{ $item->slug }}"
+                                    <a href="{{ route('file.download', $item->slug) }}"
                                         class="btn btn-primary rounded-pill px-3 py-2">
                                         <i class="bi-download me-2"></i>
                                         Unduh

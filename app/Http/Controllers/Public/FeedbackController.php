@@ -6,6 +6,7 @@ use App\Models\Feedback;
 use Illuminate\Http\Request;
 use App\Models\FeedbackCategory;
 use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class FeedbackController extends Controller
 {
@@ -32,12 +33,8 @@ class FeedbackController extends Controller
             'message' => $request->message,
         ]);
 
-        $flashData = [
-            'message'               => 'Berhasil dikirim',
-            'alert'                 => 'primary',
-            'icon'                  => 'bi bi-check2-square',
-        ];
+        alert()->success('Berhasil', 'Kritik dan saran berhasil dikirim.');
 
-        return redirect()->route('feedback.index')->with($flashData);
+        return redirect()->route('feedback.index');
     }
 }

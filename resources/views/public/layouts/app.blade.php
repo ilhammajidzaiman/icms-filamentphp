@@ -133,6 +133,7 @@
             height: auto;
         }
     </style>
+
     @stack('style')
     @livewireStyles
 </head>
@@ -265,6 +266,12 @@
                     </h4>
                     <ul class="nav flex-column">
                         <li class="nav-item mb-2">
+                            <a href="{{ route('file.index') }}" target=""
+                                class="nav-link p-0 text-body-secondary">
+                                Dokumen
+                            </a>
+                        </li>
+                        <li class="nav-item mb-2">
                             <a href="{{ route('feedback.index') }}" target=""
                                 class="nav-link p-0 text-body-secondary">
                                 Kritik Saran
@@ -334,6 +341,7 @@
         </div>
     </footer>
 
+    @include('sweetalert::alert')
     <script src="{{ asset('/dist/js/bootstrap.bundle.min.js') }}"></script>
     @stack('script')
     @livewireScripts

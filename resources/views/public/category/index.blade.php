@@ -30,7 +30,7 @@
                         @foreach ($category as $item)
                             <li class="list-group-item">
                                 <h5>
-                                    <a href="{{ route('file.show', $item->slug) }}"
+                                    <a href="{{ route('category.show', $item->slug) }}"
                                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                         {{ $item->title }}
                                     </a>
