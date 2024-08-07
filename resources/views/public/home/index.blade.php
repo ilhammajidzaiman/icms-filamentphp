@@ -119,15 +119,15 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="d-flex justify-content-between align-items-end border-bottom mb-5">
-                            <h2>
+                            <h3>
                                 Artikel
-                            </h2>
-                            <h5>
+                            </h3>
+                            <h6 class="fw-normal">
                                 <a href="{{ route('article.index') }}" class="text-decoration-none link-secondary">
                                     Selengkapnya
                                     <i class="bi bi-box-arrow-up-right"></i>
                                 </a>
-                            </h5>
+                            </h6>
                         </div>
                     </div>
                     @if ($blogArticle->isEmpty())
@@ -152,7 +152,7 @@
                                                 {{ $item->blogCategory->title }}
                                             </a>
                                             <div>
-                                                <small class="text-muted">
+                                                <small class="text-secondary">
                                                     {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
                                                 </small>
                                             </div>
@@ -179,15 +179,15 @@
         <div class="row">
             <div class="col-12">
                 <div class="border-bottom mb-5 d-flex justify-content-between align-items-end">
-                    <h2>
+                    <h3>
                         Galeri
-                    </h2>
-                    <h5>
+                    </h3>
+                    <h6 class="fw-normal">
                         <a href="{{ route('image.index') }}" class="text-decoration-none link-secondary">
                             Selengkapnya
                             <i class="bi bi-box-arrow-up-right"></i>
                         </a>
-                    </h5>
+                    </h6>
                 </div>
             </div>
         </div>
@@ -198,23 +198,13 @@
                 </div>
             </div>
         @else
-            <div class="row" data-masonry='{"percentPosition": true }'>
+            <div class="row g-3" data-masonry='{"percentPosition": true }'>
                 @foreach ($image as $item)
-                    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                        <div class="card border-0 shadow-sm">
-                            <a href="{{ route('image.show', $item->slug) }}">
-                                <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
-                                    class="card-img-top" alt="image {{ $item->title }}">
-                            </a>
-                            <div class="card-body">
-                                <p class="card-text">
-                                    <a wire:navigate.hover href="{{ route('image.show', $item->slug) }}"
-                                        class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                                        {{ Str::limit(strip_tags($item->title), 100, '...') }}
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <a href="{{ route('image.show', $item->slug) }}">
+                            <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
+                                alt="image {{ $item->file }}" class="w-100 rounded-2 bg-secondary-subtle">
+                        </a>
                     </div>
                 @endforeach
             </div>
@@ -225,15 +215,15 @@
         <div class="row">
             <div class="col-12">
                 <div class="border-bottom mb-5 d-flex justify-content-between align-items-end">
-                    <h2>
+                    <h3>
                         Tim
-                    </h2>
-                    <h5>
+                    </h3>
+                    <h6 class="fw-normal">
                         <a href="{{ route('people.index') }}" class="text-decoration-none link-secondary">
                             Selengkapnya
                             <i class="bi bi-box-arrow-up-right"></i>
                         </a>
-                    </h5>
+                    </h6>
                 </div>
             </div>
         </div>
@@ -247,8 +237,11 @@
             <div class="owl-carousel owl-theme owl-loaded">
                 @foreach ($people as $item)
                     <div class="card border-0 rounded-4 m-2 p-3 pb-0">
-                        <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-user.svg') }}"
-                            alt="{{ $item->title }}" class="card-img-top w-100 bg-secondary-subtle rounded-3 shadow">
+                        <a href="{{ route('people.show', $item->uuid) }}">
+                            <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-user.svg') }}"
+                                alt="{{ $item->title }}"
+                                class="card-img-top w-100 bg-secondary-subtle rounded-3 shadow">
+                        </a>
                         <div class="card-body text-center">
                             <h5 class="fs-5 fw-medium">
                                 <a href="{{ route('people.show', $item->uuid) }}"

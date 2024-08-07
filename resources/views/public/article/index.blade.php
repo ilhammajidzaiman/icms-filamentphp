@@ -13,12 +13,12 @@
                         Artikel
                     </li>
                 </ul>
-                <h1 class="mb-5">
+                <h3 class="fs-3 mb-5">
                     <a wire:navigate.hover href="{{ route('article.index') }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                         Artikel
                     </a>
-                </h1>
+                </h3>
                 @if ($articleRandom->isEmpty())
                     <div class="row justify-content-center">
                         <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
@@ -41,7 +41,7 @@
                                             {{ $item->blogCategory->title }}
                                         </a>
                                         <div>
-                                            <small class="text-muted">
+                                            <small class="text-secondary">
                                                 {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
                                             </small>
                                         </div>

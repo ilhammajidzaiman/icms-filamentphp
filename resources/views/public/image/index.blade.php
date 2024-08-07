@@ -13,12 +13,12 @@
                         Galeri
                     </li>
                 </ul>
-                <h1 class="mb-5">
+                <h3 class="fs-3 mb-5">
                     <a wire:navigate.hover href="{{ route('image.index') }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                         Galeri
                     </a>
-                </h1>
+                </h3>
                 @if ($image->isEmpty())
                     <div class="row justify-content-center">
                         <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
@@ -28,13 +28,18 @@
                 @else
                     <div class="row" data-masonry='{"percentPosition": true }'>
                         @foreach ($image as $item)
-                            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                                 <div class="card border-0 shadow-sm">
                                     <a href="{{ route('image.show', $item->slug) }}">
                                         <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
                                             class="card-img-top" alt="image {{ $item->title }}">
                                     </a>
                                     <div class="card-body">
+                                        <div>
+                                            <small class="text-secondary">
+                                                {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
+                                            </small>
+                                        </div>
                                         <p class="card-text">
                                             <a wire:navigate.hover href="{{ route('image.show', $item->slug) }}"
                                                 class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">

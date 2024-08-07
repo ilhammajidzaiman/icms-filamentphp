@@ -40,18 +40,18 @@
                                 {{ Str::limit(strip_tags($item->title), 50, '...') }}
                             </li>
                         </ul>
-                        <h4>
+                        <h5>
                             <a href="{{ route('category.show', $item->blogCategory->slug) }}"
                                 class="badge bg-primary-subtle link-primary rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                 {{ $item->blogCategory->title }}
                             </a>
-                        </h4>
-                        <h1>
+                        </h5>
+                        <h3 class="fs-3">
                             <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}"
                                 class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                 {{ $item->title }}
                             </a>
-                        </h1>
+                        </h3>
                         <h6 class="mb-55">
                             {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
                             -
@@ -94,7 +94,7 @@
                             {!! $item->content !!}
                         </div>
                         @if ($item->attachment)
-                            <p class="text-muted">
+                            <p class="text-secondary">
                                 Galeri:
                             </p>
                             <div class="row g-2 mb-5">
@@ -109,7 +109,7 @@
 
                         {{-- {{ $item->tags }} --}}
                         {{-- @if ($item->tags)
-                            <p class="text-muted">
+                            <p class="text-secondary">
                                 Topik:
                             </p>
                             <div class="mb-5">
@@ -124,7 +124,7 @@
                             </div>
                         @endif --}}
 
-                        <p class="text-muted">
+                        <p class="text-secondary">
                             Bagikan:
                         </p>
                         <nav class="nav my-3">
@@ -167,16 +167,16 @@
     <section class="container py-4">
         <div class="row">
             <div class="col-12">
-                <div class="d-flex justify-content-between align-items-end border-bottom mb-5">
-                    <h1>
+                <div class="border-bottom mb-5 d-flex justify-content-between align-items-end">
+                    <h3>
                         Artikel Lainnya
-                    </h1>
-                    <h5>
-                        <a href="{{ route('article.index') }}" class="text-decoration-none link-secondary">
+                    </h3>
+                    <h6 class="fw-normal">
+                        <a href="{{ route('image.index') }}" class="text-decoration-none link-secondary">
                             Selengkapnya
                             <i class="bi bi-box-arrow-up-right"></i>
                         </a>
-                    </h5>
+                    </h6>
                 </div>
             </div>
             @if ($articleRandom->isEmpty())
@@ -200,7 +200,7 @@
                                         {{ $item->blogCategory->title }}
                                     </a>
                                     <div>
-                                        <small class="text-muted">
+                                        <small class="text-secondary">
                                             {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
                                         </small>
                                     </div>

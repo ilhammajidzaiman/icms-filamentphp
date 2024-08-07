@@ -25,10 +25,11 @@ return new class extends Migration
             $table->string('title')
                 ->unique()
                 ->comment('judul');
-            $table->string('description')
+            $table->longText('description')
                 ->nullable()
                 ->comment('deskripsi');
             $table->string('file')
+                ->nullable()
                 ->comment('gambar');
             $table->json('attachment')
                 ->nullable()

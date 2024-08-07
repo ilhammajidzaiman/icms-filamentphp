@@ -13,17 +13,17 @@
                         Kritik Saran
                     </li>
                 </ul>
-                <h1>
+                <h3 class="fs-3">
                     <a wire:navigate.hover href="{{ route('feedback.index') }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                         Kritik Saran
                     </a>
-                </h1>
+                </h3>
             </div>
             <div class="row justify-content-center">
                 <div class="col-12 col-md-5">
                     <h3 class="fw-light lead text-secondary mb-5">
-                        Berikan keritik dan saran anda untuk kemajuan website ini kedepannya
+                        Berikan kritik dan saran anda untuk kemajuan website ini kedepannya
                     </h3>
                     @php
                         $message = session('message');
@@ -107,6 +107,7 @@
 @endsection
 
 @push('script')
+    @include('sweetalert::alert')
     <script>
         const submit = document.getElementById('submit');
         const icon = document.getElementById('icon');

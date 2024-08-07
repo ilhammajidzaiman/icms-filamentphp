@@ -277,6 +277,12 @@
                                 Kritik Saran
                             </a>
                         </li>
+                        <li class="nav-item mb-2">
+                            <a href="{{ route('feedback.index') }}" target=""
+                                class="nav-link p-0 text-body-secondary">
+                                Kontak Kami
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
@@ -341,7 +347,6 @@
         </div>
     </footer>
 
-    @include('sweetalert::alert')
     <script src="{{ asset('/dist/js/bootstrap.bundle.min.js') }}"></script>
     @stack('script')
     @livewireScripts

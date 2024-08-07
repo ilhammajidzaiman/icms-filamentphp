@@ -67,7 +67,7 @@ class ImageResource extends Resource
                                 Textarea::make('description')
                                     ->label('Deskripsi')
                                     ->autosize()
-                                    ->maxLength(1024),
+                                    ->maxLength(10240),
                             ]),
                     ]),
                 Grid::make()

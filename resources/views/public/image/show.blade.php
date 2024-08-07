@@ -18,12 +18,12 @@
                         Lihat
                     </li>
                 </ul>
-                <h1 class="mb-5">
+                <h3 class="fs-3 mb-5">
                     <a wire:navigate.hover href="{{ route('image.index') }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                         Galeri
                     </a>
-                </h1>
+                </h3>
                 @if (!$item)
                     <div class="row justify-content-center">
                         <div class="col-6 col-sm-4 col-md-3 col-lg-3">
@@ -31,27 +31,35 @@
                         </div>
                     </div>
                 @else
-                    <div class="row justify-content-center">
-                        <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
-                            <div class="card border-0 shadow-sm mb-4">
+                    <div class="row justify-content-center g-3">
+                        <div class="col-12 col-md-5 col-lg-5">
+                            <div class="card bg-transparent border-0">
                                 <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
-                                    class="card-img-top" alt="image {{ $item->title }}">
-                                @if ($item->description)
-                                    <div class="card-body">
-                                        <p class="card-text">
-                                            {{ $item->description }}
-                                        </p>
+                                    alt="image {{ $item->title }}" class="w-100 rounded-2 bg-secondary-subtle">
+                                <div class="card-body px-0 py-2">
+                                    <div>
+                                        <small class="text-secondary">
+                                            {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
+                                        </small>
                                     </div>
-                                @endif
+                                    <h5 class="text-dark">
+                                        {{ $item->title }}
+                                    </h5>
+                                    <p class="card-text text-dark-emphasis">
+                                        {{ $item->description }}
+                                    </p>
+                                </div>
                             </div>
-                            <div class="row justify-content-center" data-masonry='{"percentPosition": true }'>
+
+                        </div>
+                        <div class="col-12 col-md-7 col-lg-7">
+                            <div class="row justify-content-center g-3" data-masonry='{"percentPosition": true }'>
                                 @if ($item->attachment)
                                     @foreach ($item->attachment as $item)
-                                        <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
-                                            <div class="card border-0 shadow-sm">
-                                                <img src="{{ $item ? asset('storage/' . $item) : asset('image/default-img.svg') }}"
-                                                    class="card-img-top" alt="image {{ $item }}">
-                                            </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                            <img src="{{ $item ? asset('storage/' . $item) : asset('image/default-img.svg') }}"
+                                                alt="image {{ $item }}"
+                                                class="w-100 rounded-2 bg-secondary-subtle">
                                         </div>
                                     @endforeach
                                 @endif

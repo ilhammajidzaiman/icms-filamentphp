@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             LinkSeeder::class,
             CarouselSeeder::class,
             NavMenuSeeder::class,
+            ImageSeeder::class,
             PeoplePositionSeeder::class,
             PeopleSeeder::class,
             FeedbackCategorySeeder::class,

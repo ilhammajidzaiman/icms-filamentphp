@@ -14,7 +14,6 @@ class FileController extends Controller
     public function index()
     {
         $data['file'] = File::show()->orderByDesc('created_at')->paginate(15);
-        $data['articleRandom'] = BlogArticle::limit(18)->inRandomOrder()->get();
         $data['category'] = BlogCategory::show()->limit(10)->inRandomOrder()->get();
         $data['popular'] = BlogArticle::show()->limit(5)->orderByDesc('visitor')->get();
         $data['latest'] = BlogArticle::show()->limit(5)->orderByDesc('published_at')->get();
@@ -24,8 +23,6 @@ class FileController extends Controller
     public function show(string $id)
     {
         $data['item'] = File::show()->where('slug', $id)->first();
-        $data['articleRandom'] = BlogArticle::limit(18)->inRandomOrder()->get();
-
         return view('public.file.show', $data);
     }
 

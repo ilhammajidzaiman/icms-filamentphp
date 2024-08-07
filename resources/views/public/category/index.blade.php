@@ -13,12 +13,12 @@
                         Kategori
                     </li>
                 </ul>
-                <h1 class="mb-5">
+                <h3 class="fs-3 mb-5">
                     <a wire:navigate.hover href="{{ route('category.index') }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                         Kategori
                     </a>
-                </h1>
+                </h3>
                 <ul class="list-group list-group-flush">
                     @if ($category->isEmpty())
                         <li class="list-group-item">
@@ -38,7 +38,7 @@
                                         {{ $item->blogArticles->count() }}
                                     </span>
                                 </h5>
-                                <small class="text-muted">
+                                <small class="text-secondary">
                                     {{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('l, j F Y') }}
                                 </small>
                             </li>

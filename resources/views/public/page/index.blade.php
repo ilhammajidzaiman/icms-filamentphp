@@ -41,7 +41,7 @@
                                             {{ $item->blogCategory->title }}
                                         </a>
                                         <div>
-                                            <small class="text-muted">
+                                            <small class="text-secondary">
                                                 {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
                                             </small>
                                         </div>
