@@ -17,7 +17,7 @@ class LinkSeeder extends Seeder
         $data = [
             ["title" => "Dokumen", "url" => "/dokumen",],
             ["title" => "Galeri", "url" => "/galeri",],
-            ["title" => "Video", "url" => "/video",],
+            ["title" => "Video", "url" => "/vidio",],
         ];
         foreach ($data as $item) :
             Link::create(

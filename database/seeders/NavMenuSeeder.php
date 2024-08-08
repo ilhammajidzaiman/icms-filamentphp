@@ -41,7 +41,7 @@ class NavMenuSeeder extends Seeder
                 "order" => 3,
                 "modelable_type" => "App\\Models\\Page",
                 "modelable_id" => 1,
-                "title" => "Prodk",
+                "title" => "Produk",
             ],
             [
                 "parent_id" => -1,

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Public;
 
 use App\Models\Image;
+use App\Models\Video;
 use App\Models\People;
 use App\Models\Carousel;
 use App\Models\BlogArticle;
@@ -21,6 +22,7 @@ class HomeController extends Controller
         $data['popular'] = BlogArticle::show()->limit(5)->orderByDesc('visitor')->get();
         $data['latest'] = BlogArticle::show()->limit(5)->orderByDesc('published_at')->get();
         $data['image'] = Image::show()->limit(8)->orderByDesc('created_at')->get();
+        $data['video'] = Video::show()->limit(8)->orderByDesc('created_at')->get();
         $data['people'] = People::show()->orderBy('order')->get();
         return view('public.home.index', $data);
     }

@@ -216,6 +216,54 @@
             <div class="col-12">
                 <div class="border-bottom mb-5 d-flex justify-content-between align-items-end">
                     <h3>
+                        Video
+                    </h3>
+                    <h6 class="fw-normal">
+                        <a href="{{ route('video.index') }}" class="text-decoration-none link-secondary">
+                            Selengkapnya
+                            <i class="bi bi-box-arrow-up-right"></i>
+                        </a>
+                    </h6>
+                </div>
+            </div>
+        </div>
+        @if ($video->isEmpty())
+            <div class="row justify-content-center">
+                <div class="col-6 col-sm-4 col-md-3 col-lg-3">
+                    <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
+                </div>
+            </div>
+        @else
+            <div class="row g-3">
+                @foreach ($video as $item)
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="card bg-transparent border-0 mb-4">
+                            <div class="ratio ratio-4x3">
+                                <iframe src="{{ $item->embed ? $item->embed : asset('image/default-img.svg') }}"
+                                    title="YouTube video player" frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                                    class="card-img-top rounded-2 bg-secondary-subtle">
+                                </iframe>
+                            </div>
+                            <div class="card-body px-0 py-2">
+                                <a wire:navigate.hover href="{{ route('video.show', $item->slug) }}"
+                                    class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
+                                    {{ Str::limit(strip_tags($item->title), 100, '...') }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+    </section>
+
+    <section class="container py-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="border-bottom mb-5 d-flex justify-content-between align-items-end">
+                    <h3>
                         Tim
                     </h3>
                     <h6 class="fw-normal">
