@@ -17,6 +17,7 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "livewire/livewire": "^3.5",
         "realrashid/sweet-alert": "^7.2",
         "solution-forest/filament-tree": "^2.0",
         "z3d0x/filament-logger": "^0.7.0"
