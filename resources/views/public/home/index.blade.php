@@ -37,8 +37,8 @@
     </section>
 
     <section class="wrapper bg-body-secondary my-5">
-        <div class="container pt-5 pb-4">
-            <div class="row">
+        <div class="container py-5">
+            <div class="row g-3">
                 <div class="col-12 col-md-9">
                     @if ($articleSlide->isEmpty())
                         <div class="row justify-content-center">
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     @else
-                        <div id="carouselNews" class="carousel slide carousel-fade mb-3" data-bs-ride="carousel">
+                        <div id="carouselNews" class="carousel slide carousel-fade" data-bs-ride="carousel">
                             <div class="carousel-inner">
                                 @foreach ($articleSlide as $item)
                                     <div class="carousel-item {{ $loop->iteration == 1 ? 'active' : '' }}">

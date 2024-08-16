@@ -2,11 +2,11 @@
 @section('container')
 
     <section class="container pt-2">
-        <div class="row mt-5 pt-5">
+        <div class="row g-3 mt-5 pt-5">
             <div class="col-12 col-sm-12 col-md-12 col-lg-9">
-                <div class="mb-5 px-55">
+                <div class="mb-5">
                     @if (!$item)
-                        <ul class="breadcrumb mb-5">
+                        <ul class="breadcrumb">
                             <li class="breadcrumb-item">
                                 <a wire:navigate.hover href="/{{ route('index') }}">
                                     Beranda
@@ -25,7 +25,7 @@
                             </p>
                         </div>
                     @else
-                        <ul class="breadcrumb mb-3">
+                        <ul class="breadcrumb">
                             <li class="breadcrumb-item">
                                 <a wire:navigate.hover href="{{ route('index') }}">
                                     Beranda
@@ -97,7 +97,7 @@
                             <p class="text-secondary">
                                 Galeri:
                             </p>
-                            <div class="row g-2 mb-5">
+                            <div class="row g-3 g-3 mb-5">
                                 @foreach ($item->attachment as $item)
                                     <div class="col-6 col-sm-6 col-md-4 col-lg-4">
                                         <img src="{{ asset('storage/' . $item) }}" alt="image {{ $item }}"
@@ -165,7 +165,7 @@
     </section>
 
     <section class="container py-4">
-        <div class="row">
+        <div class="row g-3">
             <div class="col-12">
                 <div class="border-bottom mb-5 d-flex justify-content-between align-items-end">
                     <h3>
@@ -179,15 +179,15 @@
                     </h6>
                 </div>
             </div>
-            @if ($articleRandom->isEmpty())
-                <div class="row justify-content-center">
+            @if ($blogArticle->isEmpty())
+                <div class="row g-3 justify-content-center">
                     <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                         <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
                     </div>
                 </div>
             @else
-                <div class="row">
-                    @foreach ($articleRandom as $item)
+                <div class="row g-3">
+                    @foreach ($blogArticle as $item)
                         <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="card bg-transparent border-0 mb-4">
                                 <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}">

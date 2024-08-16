@@ -1,9 +1,9 @@
 @extends('public.layouts.app')
 @section('container')
     <section class="container pt-2">
-        <div class="row my-5 pt-5">
-            <div class="mb-5">
-                <ul class="breadcrumb mb-3">
+        <div class="row g-3 my-5 pt-5">
+            <div class="col-12">
+                <ul class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a wire:navigate.hover href="{{ route('index') }}">
                             Beranda
@@ -14,14 +14,14 @@
                     </li>
                 </ul>
                 @if ($people->isEmpty())
-                    <div class="row justify-content-center">
+                    <div class="row g-3 justify-content-center">
                         <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                             <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
                         </div>
                     </div>
                 @else
                     @foreach ($people as $item)
-                        <div class="row flex-lg-row-reverse justify-content-between align-items-center g-5 mb-5 pb-5">
+                        <div class="row g-3 flex-lg-row-reverse justify-content-between align-items-center g-5 mb-5 pb-5">
                             <div class="col-md-4">
                                 <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-user.svg') }}"
                                     class="d-block mx-auto img-fluid w-100 rounded-3" alt="image">
@@ -49,6 +49,16 @@
                         </div>
                     @endforeach
                 @endif
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <x-public.pagination>
+                    <x-public.pagination.current wire="wire:navigate.hover"
+                        href=" {{ $people->currentPage() }} / {{ $people->lastPage() }}" />
+                    <x-public.pagination.previous wire="wire:navigate.hover" href="{{ $people->previousPageUrl() }}" />
+                    <x-public.pagination.next wire="wire:navigate.hover" href="{{ $people->nextPageUrl() }}" />
+                </x-public.pagination>
             </div>
         </div>
     </section>

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Public;
+use App\Livewire;
+use App\Livewire\Searching;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,3 +60,9 @@ Route::prefix('/kritik-saran')->controller(Public\FeedbackController::class)->gr
     Route::get('/', 'index')->name('feedback.index');
     Route::post('/store', 'store')->name('feedback.store');
 });
+
+// Route::prefix('/kritik-saran')->controller(Public\FeedbackController::class)->group(function () {
+//     Route::get('/', 'index')->name('feedback.index');
+//     Route::post('/store', 'store')->name('feedback.store');
+// });
+Route::get('/cari/{id}', Livewire\Searching::class)->name('search.index');

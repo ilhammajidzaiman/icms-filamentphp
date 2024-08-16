@@ -1,9 +1,9 @@
 @extends('public.layouts.app')
 @section('container')
     <section class="container pt-2">
-        <div class="row my-5 pt-5">
-            <div class="mb-5">
-                <ul class="breadcrumb mb-3">
+        <div class="row g-3 my-5 pt-5">
+            <div class="col-12">
+                <ul class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a wire:navigate.hover href="{{ route('index') }}">
                             Beranda
@@ -19,13 +19,13 @@
                     </li>
                 </ul>
                 @if (!$item)
-                    <div class="row justify-content-center">
+                    <div class="row g-3 justify-content-center">
                         <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                             <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
                         </div>
                     </div>
                 @else
-                    <div class="row flex-lg-row-reverse justify-content-between g-5">
+                    <div class="row g-3 flex-lg-row-reverse justify-content-between">
                         <div class="col-md-4">
                             <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-user.svg') }}"
                                 class="d-block mx-auto img-fluid w-100 rounded-3" alt="image">

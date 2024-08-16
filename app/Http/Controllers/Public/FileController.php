@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Public;
 use App\Models\File;
 use App\Models\BlogArticle;
 use App\Models\BlogCategory;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Public;
 
 use App\Models\People;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class PeopleController extends Controller

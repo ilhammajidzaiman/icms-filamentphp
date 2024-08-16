@@ -12,7 +12,7 @@ class PageController extends Controller
     public function show(string $id)
     {
         $data['item'] = Page::show()->where('slug', $id)->first();
-        $data['articleRandom'] = BlogArticle::limit(18)->inRandomOrder()->get();
+        $data['articleRandom'] = BlogArticle::show()->limit(18)->inRandomOrder()->get();
         $data['category'] = BlogCategory::show()->limit(10)->inRandomOrder()->get();
         $data['popular'] = BlogArticle::show()->limit(5)->orderByDesc('visitor')->get();
         $data['latest'] = BlogArticle::show()->limit(5)->orderByDesc('published_at')->get();

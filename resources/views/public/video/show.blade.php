@@ -1,7 +1,7 @@
 @extends('public.layouts.app')
 @section('container')
     <section class="container pt-2">
-        <div class="row my-5 pt-5">
+        <div class="row g-3 my-5 pt-5">
             <div class="mb-5">
                 <ul class="breadcrumb mb-3">
                     <li class="breadcrumb-item">

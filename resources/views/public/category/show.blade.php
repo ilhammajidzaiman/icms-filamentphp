@@ -1,8 +1,8 @@
 @extends('public.layouts.app')
 @section('container')
     <section class="container pt-2">
-        <div class="row my-5 pt-5">
-            <div class="mb-5">
+        <div class="row g-3 mt-5 pt-5">
+            <div class="col-12">
                 <ul class="breadcrumb mb-3">
                     <li class="breadcrumb-item">
                         <a wire:navigate.hover href="{{ route('index') }}">
@@ -18,23 +18,23 @@
                         {{ Str::limit(strip_tags($item->title), 50, '...') }}
                     </li>
                 </ul>
-                <h3 class="fs-3 mb-5">
+                <h3 class="fs-3 mb-4">
                     <a wire:navigate.hover href="{{ route('category.index') }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                         Kategori
                     </a>
                 </h3>
                 @if ($blogArticle->isEmpty())
-                    <div class="row justify-content-center">
-                        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="row g-3 justify-content-center">
+                        <div class="col-sm-6 col-md-4 col-lg-3">
                             <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
                         </div>
                     </div>
                 @else
-                    <div class="row">
+                    <div class="row g-3">
                         @foreach ($blogArticle as $item)
-                            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                                <div class="card bg-transparent border-0 mb-4">
+                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                <div class="card bg-transparent border-0">
                                     <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}">
                                         <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
                                             alt="image {{ $item->title }}"
@@ -60,6 +60,17 @@
                         @endforeach
                     </div>
                 @endif
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <x-public.pagination>
+                    <x-public.pagination.current wire="wire:navigate.hover"
+                        href=" {{ $blogArticle->currentPage() }} / {{ $blogArticle->lastPage() }}" />
+                    <x-public.pagination.previous wire="wire:navigate.hover"
+                        href="{{ $blogArticle->previousPageUrl() }}" />
+                    <x-public.pagination.next wire="wire:navigate.hover" href="{{ $blogArticle->nextPageUrl() }}" />
+                </x-public.pagination>
             </div>
         </div>
     </section>

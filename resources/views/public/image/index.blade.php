@@ -1,9 +1,9 @@
 @extends('public.layouts.app')
 @section('container')
     <section class="container pt-2">
-        <div class="row my-5 pt-5">
-            <div class="mb-5">
-                <ul class="breadcrumb mb-3">
+        <div class="row g-3 mt-5 pt-5">
+            <div class="col-12">
+                <ul class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a wire:navigate.hover href="{{ route('index') }}">
                             Beranda
@@ -13,20 +13,20 @@
                         Galeri
                     </li>
                 </ul>
-                <h3 class="fs-3 mb-5">
+                <h3 class="fs-3 mb-4">
                     <a wire:navigate.hover href="{{ route('image.index') }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                         Galeri
                     </a>
                 </h3>
                 @if ($image->isEmpty())
-                    <div class="row justify-content-center">
+                    <div class="row g-3 justify-content-center">
                         <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                             <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
                         </div>
                     </div>
                 @else
-                    <div class="row" data-masonry='{"percentPosition": true }'>
+                    <div class="row g-3" data-masonry='{"percentPosition": true }'>
                         @foreach ($image as $item)
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
                                 <div class="card border-0 shadow-sm">
@@ -52,6 +52,16 @@
                         @endforeach
                     </div>
                 @endif
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <x-public.pagination>
+                    <x-public.pagination.current wire="wire:navigate.hover"
+                        href=" {{ $image->currentPage() }} / {{ $image->lastPage() }}" />
+                    <x-public.pagination.previous wire="wire:navigate.hover" href="{{ $image->previousPageUrl() }}" />
+                    <x-public.pagination.next wire="wire:navigate.hover" href="{{ $image->nextPageUrl() }}" />
+                </x-public.pagination>
             </div>
         </div>
     </section>
