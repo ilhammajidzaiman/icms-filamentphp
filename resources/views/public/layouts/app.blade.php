@@ -233,7 +233,7 @@
                             @endif
                         @endforeach
                     </ul>
-                    @livewire('searching')
+                    {{-- @livewire('searching') --}}
                 </div>
             </div>
         </div>

@@ -13,11 +13,12 @@ class Searching extends Component
     {
         $keyword = Str::slug($this->keyword);
         // return $this->redirect('/cari/' . $keyword, navigate: true);
-        return redirect()->route('search.index', $keyword);
+        return redirect()->route('article.search', $keyword);
     }
 
     public function render()
     {
-        return view('livewire.searching');
+        // return view('livewire.searching');
+        return view('public.article.search');
     }
 }

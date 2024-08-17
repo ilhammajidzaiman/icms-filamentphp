@@ -3,8 +3,10 @@
 namespace App\Filament\Resources\PageResource\Pages;
 
 use Filament\Actions;
+use Filament\Resources\Components\Tab;
 use App\Filament\Resources\PageResource;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\PageResource\Widgets\PageOverview;
 
 class ListPages extends ListRecords
@@ -22,6 +24,20 @@ class ListPages extends ListRecords
     {
         return [
             PageOverview::class,
+        ];
+    }
+
+    public function getTabs(): array
+    {
+        return [
+            'all' => Tab::make('Semua')
+                ->icon('heroicon-o-bars-3'),
+            'active' => Tab::make('Aktif')
+                ->icon('heroicon-o-check-circle')
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('is_show', true)),
+            'inactive' => Tab::make('Tidak Aktif')
+                ->icon('heroicon-o-x-circle')
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('is_show', false)),
         ];
     }
 }

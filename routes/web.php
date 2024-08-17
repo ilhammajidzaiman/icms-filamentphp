@@ -23,6 +23,7 @@ Route::prefix('/')->controller(Public\HomeController::class)->group(function () 
 Route::prefix('/artikel')->controller(Public\ArticleController::class)->group(function () {
     Route::get('/', 'index')->name('article.index');
     Route::get('/{id}', 'show')->name('article.show');
+    Route::get('/cari/{id}', Livewire\Searching::class)->name('article.search');
 });
 
 Route::prefix('/halaman')->controller(Public\PageController::class)->group(function () {
@@ -65,4 +66,3 @@ Route::prefix('/kritik-saran')->controller(Public\FeedbackController::class)->gr
 //     Route::get('/', 'index')->name('feedback.index');
 //     Route::post('/store', 'store')->name('feedback.store');
 // });
-Route::get('/cari/{id}', Livewire\Searching::class)->name('search.index');
