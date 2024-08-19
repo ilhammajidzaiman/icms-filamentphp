@@ -39,7 +39,7 @@ return new class extends Migration
             $table->string('description')
                 ->nullable()
                 ->comment('deskripsi gambar');
-            $table->string('attachment')
+            $table->json('attachment')
                 ->nullable()
                 ->comment('gambar galeri foto');
             $table->bigInteger('visitor')

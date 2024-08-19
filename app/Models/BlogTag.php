@@ -7,6 +7,7 @@ use App\Models\BlogArticle;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -51,5 +52,10 @@ class BlogTag extends Model
     public function blogArticles(): BelongsToMany
     {
         return $this->belongsToMany(BlogArticle::class, 'blog_posts', 'blog_article_id', 'blog_tag_id')->withTimestamps();
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(BlogPost::class, 'blog_tag_id', 'id');
     }
 }

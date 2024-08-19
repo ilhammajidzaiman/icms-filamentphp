@@ -1,7 +1,7 @@
 @extends('public.layouts.app')
 @section('container')
     <section class="container pt-2">
-        <div class="row g-3 mt-5 pt-5">
+        <div class="row g-3 justify-content-center mt-5 pt-5">
             <div class="col-12">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item">
@@ -28,7 +28,7 @@
                         </li>
                     @else
                         @foreach ($category as $item)
-                            <li class="list-group-item">
+                            <li class="list-group-item px-0">
                                 <h5>
                                     <a href="{{ route('category.show', $item->slug) }}"
                                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">

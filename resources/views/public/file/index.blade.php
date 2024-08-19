@@ -1,9 +1,8 @@
 @extends('public.layouts.app')
 @section('container')
     <section class="container pt-2">
-        <div class="row g-3 mt-5 pt-5">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-9">
-
+        <div class="row g-3 justify-content-between mt-5 pt-5">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-8">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a wire:navigate.hover href="{{ route('index') }}">
@@ -22,7 +21,7 @@
                 </h3>
                 <ul class="list-group list-group-flush">
                     @foreach ($file as $item)
-                        <li class="list-group-item">
+                        <li class="list-group-item px-0">
                             <a href="{{ route('file.show', $item->fileCategory->slug) }}"
                                 class="badge bg-primary-subtle link-primary rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                 {{ $item->fileCategory->title }}

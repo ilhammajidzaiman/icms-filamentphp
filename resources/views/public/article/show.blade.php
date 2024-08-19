@@ -2,9 +2,14 @@
 @section('container')
 
     <section class="container pt-2">
-        <div class="row g-3 mt-5 pt-5">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+        <div class="row g-3 justify-content-between mt-5 pt-5">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-8">
                 <div class="mb-5">
+
+
+
+
+
                     @if (!$item)
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item">
@@ -40,19 +45,19 @@
                                 {{ Str::limit(strip_tags($item->title), 50, '...') }}
                             </li>
                         </ul>
-                        <h5>
+                        {{-- <h5>
                             <a href="{{ route('category.show', $item->blogCategory->slug) }}"
                                 class="badge bg-primary-subtle link-primary rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                 {{ $item->blogCategory->title }}
                             </a>
-                        </h5>
-                        <h3 class="fs-3">
+                        </h5> --}}
+                        {{-- <h3 class="fs-3">
                             <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}"
                                 class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                 {{ $item->title }}
                             </a>
-                        </h3>
-                        <h6 class="mb-55">
+                        </h3> --}}
+                        <h6 class="test-secondary">
                             {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
                             -
                             {{ App\Helpers\EstimateReadingTime($item->content) }} Menit baca
@@ -106,23 +111,21 @@
                                 @endforeach
                             </div>
                         @endif
-
-                        {{-- {{ $item->tags }} --}}
-                        {{-- @if ($item->tags)
+                        @if ($tag->posts)
                             <p class="text-secondary">
                                 Topik:
                             </p>
                             <div class="mb-5">
-                                @foreach ($item->tags as $item)
+                                @foreach ($tag->posts as $item)
                                     <span class="fs-5">
                                         <div
                                             class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis fw-normal px-3 py-2">
-                                            {{ $item->title }}
+                                            {{ $item->tag->title }}
                                         </div>
                                     </span>
                                 @endforeach
                             </div>
-                        @endif --}}
+                        @endif
 
                         <p class="text-secondary">
                             Bagikan:

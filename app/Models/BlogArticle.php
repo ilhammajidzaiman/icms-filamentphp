@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -75,5 +76,10 @@ class BlogArticle extends Model
     public function modelables(): MorphMany
     {
         return $this->morphMany(NavMenu::class, 'modelable');
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(BlogPost::class, 'blog_article_id');
     }
 }

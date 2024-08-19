@@ -16,7 +16,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements FilamentUser
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles, HasPanelShield;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, HasRoles;
 
     public function canAccessPanel(Panel $panel): bool
     {

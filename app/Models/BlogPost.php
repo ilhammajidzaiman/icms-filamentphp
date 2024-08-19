@@ -27,4 +27,14 @@ class BlogPost extends Model
             $model->uuid = Str::uuid();
         });
     }
+
+    public function article()
+    {
+        return $this->belongsTo(BlogArticle::class, 'blog_article_id', 'id');
+    }
+
+    public function tag()
+    {
+        return $this->belongsTo(BlogTag::class, 'blog_tag_id', 'id');
+    }
 }

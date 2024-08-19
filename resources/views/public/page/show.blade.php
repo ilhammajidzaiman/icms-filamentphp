@@ -2,11 +2,11 @@
 @section('container')
 
     <section class="container pt-2">
-        <div class="row mt-5 pt-5">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-9">
-                <div class="mb-5 px-55">
+        <div class="row g-3 justify-content-between mt-5 pt-5">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+                <div class="mb-5">
                     @if (!$item)
-                        <ul class="breadcrumb mb-5">
+                        <ul class="breadcrumb">
                             <li class="breadcrumb-item">
                                 <a wire:navigate.hover href="/{{ route('index') }}">
                                     Beranda
@@ -25,7 +25,7 @@
                             </p>
                         </div>
                     @else
-                        <ul class="breadcrumb mb-3">
+                        <ul class="breadcrumb">
                             <li class="breadcrumb-item">
                                 <a wire:navigate.hover href="{{ route('index') }}">
                                     Beranda
@@ -45,7 +45,7 @@
                                 {{ $item->title }}
                             </a>
                         </h1>
-                        <h6 class="mb-55">
+                        <h6 class="text-secondary">
                             {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
                             -
                             {{ App\Helpers\EstimateReadingTime($item->content) }} Menit baca
