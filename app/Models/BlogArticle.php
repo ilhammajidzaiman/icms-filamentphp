@@ -78,8 +78,16 @@ class BlogArticle extends Model
         return $this->morphMany(NavMenu::class, 'modelable');
     }
 
-    public function posts(): HasMany
+
+    // Relasi ke tabel posts
+    public function posts()
     {
         return $this->hasMany(BlogPost::class, 'blog_article_id');
+    }
+
+    // Relasi many-to-many ke tabel tags melalui tabel posts
+    public function tags()
+    {
+        return $this->belongsToMany(BlogTag::class, 'blog_posts', 'blog_article_id', 'blog_tag_id');
     }
 }

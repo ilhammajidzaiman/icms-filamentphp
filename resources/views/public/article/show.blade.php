@@ -1,15 +1,9 @@
 @extends('public.layouts.app')
 @section('container')
-
     <section class="container pt-2">
         <div class="row g-3 justify-content-between mt-5 pt-5">
             <div class="col-12 col-sm-12 col-md-12 col-lg-8">
                 <div class="mb-5">
-
-
-
-
-
                     @if (!$item)
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item">
@@ -45,18 +39,18 @@
                                 {{ Str::limit(strip_tags($item->title), 50, '...') }}
                             </li>
                         </ul>
-                        {{-- <h5>
+                        <h5>
                             <a href="{{ route('category.show', $item->blogCategory->slug) }}"
                                 class="badge bg-primary-subtle link-primary rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                 {{ $item->blogCategory->title }}
                             </a>
-                        </h5> --}}
-                        {{-- <h3 class="fs-3">
+                        </h5>
+                        <h3 class="fs-3">
                             <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}"
                                 class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                 {{ $item->title }}
                             </a>
-                        </h3> --}}
+                        </h3>
                         <h6 class="test-secondary">
                             {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
                             -
@@ -95,7 +89,7 @@
                                 </small>
                             </div>
                         @endif
-                        <div class="fs-5 fw-light my-5">
+                        <div class="fs-5 fw-light my-4">
                             {!! $item->content !!}
                         </div>
                         @if ($item->attachment)
@@ -103,30 +97,29 @@
                                 Galeri:
                             </p>
                             <div class="row g-3 g-3 mb-5">
-                                @foreach ($item->attachment as $item)
+                                @foreach ($item->attachment as $file)
                                     <div class="col-6 col-sm-6 col-md-4 col-lg-4">
-                                        <img src="{{ asset('storage/' . $item) }}" alt="image {{ $item }}"
+                                        <img src="{{ asset('storage/' . $file) }}" alt="image {{ $file }}"
                                             class="w-100 rounded-2 vh-20 bg-secondary-subtle">
                                     </div>
                                 @endforeach
                             </div>
                         @endif
-                        @if ($tag->posts)
+                        @if ($item->tags)
                             <p class="text-secondary">
                                 Topik:
                             </p>
                             <div class="mb-5">
-                                @foreach ($tag->posts as $item)
+                                @foreach ($item->tags as $item)
                                     <span class="fs-5">
                                         <div
                                             class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis fw-normal px-3 py-2">
-                                            {{ $item->tag->title }}
+                                            {{ $item->title }}
                                         </div>
                                     </span>
                                 @endforeach
                             </div>
                         @endif
-
                         <p class="text-secondary">
                             Bagikan:
                         </p>
@@ -195,7 +188,8 @@
                             <div class="card bg-transparent border-0 mb-4">
                                 <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}">
                                     <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
-                                        alt="image {{ $item->title }}" class="w-100 rounded-2 vh-20 bg-secondary-subtle">
+                                        alt="image {{ $item->title }}"
+                                        class="w-100 rounded-2 vh-20 bg-secondary-subtle">
                                 </a>
                                 <div class="card-body px-0 py-2">
                                     <a href="{{ route('category.show', $item->blogCategory->slug) }}"

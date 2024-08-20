@@ -16,11 +16,7 @@ class ArticleController extends Controller
 
     public function show(string $id)
     {
-        $data['item'] = BlogArticle::with('blogTags')->show()->where('slug', $id)->first();
-
-
-        $data['tag'] = BlogArticle::with('posts.tag')->show()->where('slug', $id)->first();
-
+        $data['item'] = BlogArticle::with('tags')->where('slug', $id)->first();
         $data['blogArticle'] = BlogArticle::show()->limit(18)->inRandomOrder()->get();
         $data['category'] = BlogCategory::show()->limit(10)->inRandomOrder()->get();
         $data['popular'] = BlogArticle::show()->limit(5)->orderByDesc('visitor')->get();

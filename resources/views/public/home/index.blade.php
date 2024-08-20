@@ -38,8 +38,8 @@
 
     <section class="wrapper bg-body-secondary my-5">
         <div class="container py-5">
-            <div class="row g-3">
-                <div class="col-12 col-md-9">
+            <div class="row g-33">
+                <div class="col-12 col-md-9 p-0">
                     @if ($articleSlide->isEmpty())
                         <div class="row justify-content-center">
                             <div class="col-6 col-sm-6 col-md-4 col-lg-4">
@@ -52,7 +52,7 @@
                                 @foreach ($articleSlide as $item)
                                     <div class="carousel-item {{ $loop->iteration == 1 ? 'active' : '' }}">
                                         <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
-                                            class="d-block w-100 rounded-4 vh-75 bg-secondary-subtle"
+                                            class="d-block w-100 rounded-44 vh-75 bg-secondary-subtle"
                                             alt="image {{ $item->title }}">
                                         <div class="carousel-caption d-none d-md-block">
                                             <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}"
@@ -81,7 +81,7 @@
                         </div>
                     @endif
                 </div>
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-md-3 p-0">
                     @if ($articleTop->isEmpty())
                         <div class="row justify-content-center">
                             <div class="col-12">
