@@ -34,7 +34,8 @@ class Login extends BaseAuth
             ->label('Username/Email')
             ->required()
             ->autocomplete()
-            ->autofocus();
+            ->autofocus()
+            ->extraInputAttributes(['tabindex' => 1]);
     }
 
     protected function getCredentialsFromFormData(array $data): array
