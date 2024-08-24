@@ -164,7 +164,7 @@
                     </button>
                 </div>
                 <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 text-capitalize pe-3">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 text-capitalize">
                         @foreach ($navMenus as $parent)
                             @if (count($parent->children) > 0)
                                 <li class="nav-item dropdown">
@@ -233,7 +233,8 @@
                             @endif
                         @endforeach
                     </ul>
-                    {{-- @livewire('searching') --}}
+                    @livewire('public.search')
+                    {{-- @livewire('public.search-modal') --}}
                 </div>
             </div>
         </div>
@@ -347,6 +348,9 @@
         </div>
     </footer>
 
+
+
+    @stack('modal')
     <script src="{{ asset('/dist/js/bootstrap.bundle.min.js') }}"></script>
     @stack('script')
     @livewireScripts

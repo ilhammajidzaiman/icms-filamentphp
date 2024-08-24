@@ -13,7 +13,8 @@
                         Artikel
                     </li>
                 </ul>
-                <h3 class="fs-3 mb-4">
+                @livewire('public.search')
+                <h3 class="fs-3 my-4">
                     <a wire:navigate.hover href="{{ route('article.index') }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                         Artikel

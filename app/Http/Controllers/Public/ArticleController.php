@@ -35,4 +35,21 @@ class ArticleController extends Controller
     {
         $id->increment('visitor');
     }
+
+    public function search(string $id)
+    {
+        // $data['data'] = BlogArticle::with('tags')->where('slug', $id)->get();
+        $data['keyword'] = $id;
+        $data['data'] = BlogArticle::where('slug', 'like', '%' . $id . '%')->paginate(15);
+        // $data['blogArticle'] = BlogArticle::show()->limit(18)->inRandomOrder()->get();
+        // $data['category'] = BlogCategory::show()->limit(10)->inRandomOrder()->get();
+        // $data['popular'] = BlogArticle::show()->limit(5)->orderByDesc('visitor')->get();
+        // $data['latest'] = BlogArticle::show()->limit(5)->orderByDesc('published_at')->get();
+        // if (!$data['data']) :
+        //     $data['page'] = env('APP_URL') . '/';
+        // else :
+        //     $data['page'] = env('APP_URL') . '/' . $data['data']->slug;
+        // endif;
+        return view('public.article.search', $data);
+    }
 }

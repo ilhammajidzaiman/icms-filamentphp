@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Public;
 use App\Livewire;
-use App\Livewire\Searching;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +22,7 @@ Route::prefix('/')->controller(Public\HomeController::class)->group(function () 
 Route::prefix('/artikel')->controller(Public\ArticleController::class)->group(function () {
     Route::get('/', 'index')->name('article.index');
     Route::get('/{id}', 'show')->name('article.show');
-    Route::get('/cari/{id}', Livewire\Searching::class)->name('article.search');
+    Route::get('/cari/{id}', 'search')->name('article.search');
 });
 
 Route::prefix('/halaman')->controller(Public\PageController::class)->group(function () {
