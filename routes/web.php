@@ -54,6 +54,8 @@ Route::prefix('/dokumen')->controller(Public\FileController::class)->group(funct
     Route::get('/', 'index')->name('file.index');
     Route::get('/{id}', 'show')->name('file.show');
     Route::get('/download/{id}', 'download')->name('file.download');
+    Route::get('/kategori/{id}', 'category')->name('file.category');
+    Route::get('/cari/{id}', 'search')->name('file.search');
 });
 
 Route::prefix('/kritik-saran')->controller(Public\FeedbackController::class)->group(function () {

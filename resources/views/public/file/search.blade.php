@@ -10,17 +10,22 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        Dokumen
+                        <a wire:navigate.hover href="{{ route('file.index') }}">
+                            Dokumen
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        Cari
                     </li>
                 </ul>
                 @livewire('public.search-file')
                 <h3 class="fs-3 my-4">
-                    <a wire:navigate.hover href="{{ route('category.index') }}"
+                    <a wire:navigate.hover href="{{ route('article.search', $keyword) }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                        Dokumen
+                        Cari dokumen: {{ $keyword }}
                     </a>
                 </h3>
-                @if ($file->isEmpty())
+                @if ($data->isEmpty())
                     <div class="row g-3 justify-content-center">
                         <div class="col-sm-6 col-md-4 col-lg-3">
                             <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
@@ -28,7 +33,7 @@
                     </div>
                 @else
                     <ul class="list-group list-group-flush">
-                        @foreach ($file as $item)
+                        @foreach ($data as $item)
                             <li class="list-group-item px-0">
                                 <a href="{{ route('file.category', $item->fileCategory->slug) }}"
                                     class="badge bg-primary-subtle link-primary rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
@@ -50,10 +55,10 @@
                         <div class="col-12">
                             <x-public.pagination>
                                 <x-public.pagination.current wire="wire:navigate.hover"
-                                    href=" {{ $file->currentPage() }} / {{ $file->lastPage() }}" />
+                                    href=" {{ $data->currentPage() }} / {{ $data->lastPage() }}" />
                                 <x-public.pagination.previous wire="wire:navigate.hover"
-                                    href="{{ $file->previousPageUrl() }}" />
-                                <x-public.pagination.next wire="wire:navigate.hover" href="{{ $file->nextPageUrl() }}" />
+                                    href="{{ $data->previousPageUrl() }}" />
+                                <x-public.pagination.next wire="wire:navigate.hover" href="{{ $data->nextPageUrl() }}" />
                             </x-public.pagination>
                         </div>
                     </div>

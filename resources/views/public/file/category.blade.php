@@ -10,11 +10,15 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        Dokumen
+                        <a wire:navigate.hover href="{{ route('file.index') }}">
+                            Dokumen
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        {{ Str::limit(strip_tags($item->title), 50, '...') }}
                     </li>
                 </ul>
-                @livewire('public.search-file')
-                <h3 class="fs-3 my-4">
+                <h3 class="fs-3 mb-4">
                     <a wire:navigate.hover href="{{ route('category.index') }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                         Dokumen
@@ -30,7 +34,7 @@
                     <ul class="list-group list-group-flush">
                         @foreach ($file as $item)
                             <li class="list-group-item px-0">
-                                <a href="{{ route('file.category', $item->fileCategory->slug) }}"
+                                <a href="{{ route('file.show', $item->fileCategory->slug) }}"
                                     class="badge bg-primary-subtle link-primary rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                     {{ $item->fileCategory->title }}
                                 </a>

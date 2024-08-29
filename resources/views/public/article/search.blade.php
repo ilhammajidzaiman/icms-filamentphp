@@ -10,7 +10,7 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a wire:navigate.hover href="{{ route('article.search', $keyword) }}">
+                        <a wire:navigate.hover href="{{ route('article.index') }}">
                             Artikel
                         </a>
                     </li>
@@ -22,7 +22,7 @@
                 <h3 class="fs-3 my-4">
                     <a wire:navigate.hover href="{{ route('article.search', $keyword) }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                        Cari: {{ $keyword }}
+                        Cari artikel: {{ $keyword }}
                     </a>
                 </h3>
                 @if ($data->isEmpty())
@@ -60,17 +60,18 @@
                             </div>
                         @endforeach
                     </div>
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <x-public.pagination>
+                                <x-public.pagination.current wire="wire:navigate.hover"
+                                    href=" {{ $data->currentPage() }} / {{ $data->lastPage() }}" />
+                                <x-public.pagination.previous wire="wire:navigate.hover"
+                                    href="{{ $data->previousPageUrl() }}" />
+                                <x-public.pagination.next wire="wire:navigate.hover" href="{{ $data->nextPageUrl() }}" />
+                            </x-public.pagination>
+                        </div>
+                    </div>
                 @endif
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-12">
-                <x-public.pagination>
-                    <x-public.pagination.current wire="wire:navigate.hover"
-                        href=" {{ $data->currentPage() }} / {{ $data->lastPage() }}" />
-                    <x-public.pagination.previous wire="wire:navigate.hover" href="{{ $data->previousPageUrl() }}" />
-                    <x-public.pagination.next wire="wire:navigate.hover" href="{{ $data->nextPageUrl() }}" />
-                </x-public.pagination>
             </div>
         </div>
     </section>

@@ -37,8 +37,8 @@
     </section>
 
     <section class="wrapper bg-body-secondary my-5">
-        <div class="container py-5">
-            <div class="row g-33">
+        <div class="container py-5 px-4">
+            <div class="row">
                 <div class="col-12 col-md-9 p-0">
                     @if ($articleSlide->isEmpty())
                         <div class="row justify-content-center">

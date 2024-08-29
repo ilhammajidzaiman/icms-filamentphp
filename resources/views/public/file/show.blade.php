@@ -1,8 +1,8 @@
 @extends('public.layouts.app')
 @section('container')
     <section class="container pt-2">
-        <div class="row g-3 mt-5 pt-5">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+        <div class="row g-3 justify-content-between mt-5 pt-5">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-8">
                 @if (!$item)
                     <ul class="breadcrumb">
                         <li class="breadcrumb-item"><a wire:navigate.hover href="/">Beranda</a></li>

@@ -22,9 +22,10 @@ class BlogArticleLatest extends BaseWidget
     {
         return $table
             ->query(
-                BlogArticle::orderByDesc('published_at')
+                BlogArticle::orderByDesc('created_at')
                     ->limit(10)
             )
+            ->defaultSort('published_at', 'desc')
             ->columns([
                 TextColumn::make('index')
                     ->label('No')

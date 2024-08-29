@@ -48,17 +48,18 @@
                             </div>
                         </div>
                     @endforeach
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <x-public.pagination>
+                                <x-public.pagination.current wire="wire:navigate.hover"
+                                    href=" {{ $people->currentPage() }} / {{ $people->lastPage() }}" />
+                                <x-public.pagination.previous wire="wire:navigate.hover"
+                                    href="{{ $people->previousPageUrl() }}" />
+                                <x-public.pagination.next wire="wire:navigate.hover" href="{{ $people->nextPageUrl() }}" />
+                            </x-public.pagination>
+                        </div>
+                    </div>
                 @endif
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-12">
-                <x-public.pagination>
-                    <x-public.pagination.current wire="wire:navigate.hover"
-                        href=" {{ $people->currentPage() }} / {{ $people->lastPage() }}" />
-                    <x-public.pagination.previous wire="wire:navigate.hover" href="{{ $people->previousPageUrl() }}" />
-                    <x-public.pagination.next wire="wire:navigate.hover" href="{{ $people->nextPageUrl() }}" />
-                </x-public.pagination>
             </div>
         </div>
     </section>

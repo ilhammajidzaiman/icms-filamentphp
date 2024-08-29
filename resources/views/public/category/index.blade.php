@@ -43,18 +43,20 @@
                                 </small>
                             </li>
                         @endforeach
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <x-public.pagination>
+                                    <x-public.pagination.current wire="wire:navigate.hover"
+                                        href=" {{ $category->currentPage() }} / {{ $category->lastPage() }}" />
+                                    <x-public.pagination.previous wire="wire:navigate.hover"
+                                        href="{{ $category->previousPageUrl() }}" />
+                                    <x-public.pagination.next wire="wire:navigate.hover"
+                                        href="{{ $category->nextPageUrl() }}" />
+                                </x-public.pagination>
+                            </div>
+                        </div>
                     @endif
                 </ul>
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-12">
-                <x-public.pagination>
-                    <x-public.pagination.current wire="wire:navigate.hover"
-                        href=" {{ $category->currentPage() }} / {{ $category->lastPage() }}" />
-                    <x-public.pagination.previous wire="wire:navigate.hover" href="{{ $category->previousPageUrl() }}" />
-                    <x-public.pagination.next wire="wire:navigate.hover" href="{{ $category->nextPageUrl() }}" />
-                </x-public.pagination>
             </div>
         </div>
     </section>

@@ -6,6 +6,7 @@ use App\Models\File;
 use App\Models\BlogArticle;
 use App\Models\BlogCategory;
 use App\Http\Controllers\Controller;
+use App\Models\FileCategory;
 use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
@@ -39,5 +40,23 @@ class FileController extends Controller
                 return Storage::disk('public')->download($item->file);
             endif;
         endif;
+    }
+
+    public function category(string $id)
+    {
+        $data['item'] = FileCategory::show()->where('slug', $id)->first();
+        $data['file'] = File::show()
+            ->whereHas('fileCategory', function ($query) use ($id) {
+                $query->where('slug', $id);
+            })
+            ->paginate(18);
+        return view('public.file.category', $data);
+    }
+
+    public function search(string $id)
+    {
+        $data['keyword'] = $id;
+        $data['data'] = File::where('slug', 'like', '%' . $id . '%')->paginate(15);
+        return view('public.file.search', $data);
     }
 }
