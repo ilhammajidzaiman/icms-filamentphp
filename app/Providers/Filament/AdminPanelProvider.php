@@ -135,6 +135,7 @@ class AdminPanelProvider extends PanelProvider
             ->navigationGroups([
                 NavigationGroup::make()->label("Blog"),
                 NavigationGroup::make()->label("Media"),
+                NavigationGroup::make()->label("Fitur")->collapsible(),
                 NavigationGroup::make()->label("Pengaturan")->collapsible(),
             ])
             // 
