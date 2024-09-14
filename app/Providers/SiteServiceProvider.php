@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Site;
-use App\Models\NavMenu;
+use App\Models\Post\NavMenu;
+use App\Models\Setting\Site;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;

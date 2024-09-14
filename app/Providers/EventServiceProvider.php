@@ -2,17 +2,17 @@
 
 namespace App\Providers;
 
-use App\Models\File;
-use App\Models\Site;
 use App\Models\User;
-use App\Models\BlogArticle;
-use App\Models\Carousel;
+use App\Models\Media\File;
+use App\Models\Setting\Site;
+use App\Models\Media\Carousel;
 use App\Observers\FileObserver;
 use App\Observers\SiteObserver;
 use App\Observers\UserObserver;
-use App\Observers\BlogArticleObserver;
+use App\Models\Post\BlogArticle;
 use App\Observers\CarouselObserver;
 use Illuminate\Support\Facades\Event;
+use App\Observers\BlogArticleObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;

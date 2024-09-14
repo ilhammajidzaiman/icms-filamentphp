@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Public;
 
-use App\Models\Feedback;
 use Illuminate\Http\Request;
-use App\Models\FeedbackCategory;
+use App\Models\Feature\Feedback;
 use App\Http\Controllers\Controller;
+use App\Models\Feature\FeedbackCategory;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class FeedbackController extends Controller

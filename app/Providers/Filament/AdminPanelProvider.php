@@ -4,9 +4,9 @@ namespace App\Providers\Filament;
 
 use Filament\Pages;
 use Filament\Panel;
-use App\Models\Site;
 use Filament\Widgets;
 use Filament\PanelProvider;
+use App\Models\Setting\Site;
 use App\Filament\Pages\Auth\Login;
 use Filament\Support\Colors\Color;
 use Hasnayeen\Themes\ThemesPlugin;

@@ -164,6 +164,7 @@
                     </button>
                 </div>
                 <div class="offcanvas-body">
+                    {{-- @dd($navMenus) --}}
                     <ul class="navbar-nav justify-content-end flex-grow-1 text-capitalize">
                         @foreach ($navMenus as $parent)
                             @if (count($parent->children) > 0)
@@ -175,23 +176,23 @@
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         @foreach ($parent->children as $child)
                                             <li>
-                                                @if ($child->modelable_type == 'App\Models\Link')
+                                                @if ($child->modelable_type == 'App\Models\Post\Link')
                                                     @php
                                                         $url = $child->link->url;
                                                     @endphp
-                                                @elseif ($child->modelable_type == 'App\Models\BlogCategory')
+                                                @elseif ($child->modelable_type == 'App\Models\Post\BlogCategory')
                                                     @php
                                                         $url = url('kategori/' . $child->blogCategory->slug);
                                                     @endphp
-                                                @elseif ($child->modelable_type == 'App\Models\BlogArticle')
+                                                @elseif ($child->modelable_type == 'App\Models\Post\BlogArticle')
                                                     @php
                                                         $url = url('/' . $child->blogArticle->slug);
                                                     @endphp
-                                                @elseif ($child->modelable_type == 'App\Models\Page')
+                                                @elseif ($child->modelable_type == 'App\Models\Post\Page')
                                                     @php
                                                         $url = url('halaman/' . $child->page->slug);
                                                     @endphp
-                                                @elseif ($child->modelable_type == 'App\Models\FileCategory')
+                                                @elseif ($child->modelable_type == 'App\Models\Media\FileCategory')
                                                     @php
                                                         $url = url('dokumen/kategori/' . $child->fileCategory->slug);
                                                     @endphp
@@ -204,23 +205,23 @@
                                     </ul>
                                 </li>
                             @else
-                                @if ($parent->modelable_type == 'App\Models\Link')
+                                @if ($parent->modelable_type == 'App\Models\Post\Link')
                                     @php
                                         $url = $parent->link->url;
                                     @endphp
-                                @elseif ($parent->modelable_type == 'App\Models\Category')
+                                @elseif ($parent->modelable_type == 'App\Models\Post\BlogCategory')
                                     @php
                                         $url = url('kategori/' . $parent->category->slug);
                                     @endphp
-                                @elseif ($parent->modelable_type == 'App\Models\Article')
+                                @elseif ($parent->modelable_type == 'App\Models\Post\BlogArticle')
                                     @php
                                         $url = url('/' . $parent->article->slug);
                                     @endphp
-                                @elseif ($parent->modelable_type == 'App\Models\Page')
+                                @elseif ($parent->modelable_type == 'App\Models\Post\Page')
                                     @php
                                         $url = url('halaman/' . $parent->page->slug);
                                     @endphp
-                                @elseif ($parent->modelable_type == 'App\Models\FileCategory')
+                                @elseif ($parent->modelable_type == 'App\Models\Media\FileCategory')
                                     @php
                                         $url = url('dokumen/kategori/' . $parent->fileCategory->slug);
                                     @endphp

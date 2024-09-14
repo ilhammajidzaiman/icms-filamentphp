@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Public;
 
-use App\Models\BlogArticle;
-use App\Models\BlogCategory;
+use App\Models\Post\BlogArticle;
+use App\Models\Post\BlogCategory;
 use App\Http\Controllers\Controller;
 
 class ArticleController extends Controller

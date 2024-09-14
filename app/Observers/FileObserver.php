@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\File;
+use App\Models\Media\File;
 use Illuminate\Support\Facades\Storage;
 
 class FileObserver

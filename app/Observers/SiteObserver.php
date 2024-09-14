@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\Site;
+use App\Models\Setting\Site;
 use Illuminate\Support\Facades\Storage;
 
 class SiteObserver

@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\Carousel;
+use App\Models\Media\Carousel;
 use Illuminate\Support\Facades\Storage;
 
 class CarouselObserver

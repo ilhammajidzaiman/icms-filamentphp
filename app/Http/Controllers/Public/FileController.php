@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Public;
 
-use App\Models\File;
-use App\Models\BlogArticle;
-use App\Models\BlogCategory;
+use App\Models\Media\File;
+use App\Models\Post\BlogArticle;
+use App\Models\Post\BlogCategory;
+use App\Models\Media\FileCategory;
 use App\Http\Controllers\Controller;
-use App\Models\FileCategory;
 use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller

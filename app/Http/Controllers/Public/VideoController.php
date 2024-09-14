@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Public;
 
-use App\Models\Video;
+use App\Models\Media\Video;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 

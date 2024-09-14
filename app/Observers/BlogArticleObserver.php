@@ -2,7 +2,7 @@
 
 namespace App\Observers;
 
-use App\Models\BlogArticle;
+use App\Models\Post\BlogArticle;
 use Illuminate\Support\Facades\Storage;
 
 class BlogArticleObserver

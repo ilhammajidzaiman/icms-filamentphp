@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\BlogTag;
-use App\Models\BlogArticle;
+use App\Models\Post\BlogTag;
+use App\Models\Post\BlogArticle;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;

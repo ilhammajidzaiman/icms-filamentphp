@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Public;
 
-use App\Models\Image;
-use App\Models\Video;
-use App\Models\People;
-use App\Models\Carousel;
-use App\Models\BlogArticle;
-use App\Models\BlogCategory;
+use App\Models\Media\Image;
+use App\Models\Media\Video;
+use App\Models\Feature\People;
+use App\Models\Media\Carousel;
+use App\Models\Post\BlogArticle;
+use App\Models\Post\BlogCategory;
 use App\Http\Controllers\Controller;
 
 class HomeController extends Controller

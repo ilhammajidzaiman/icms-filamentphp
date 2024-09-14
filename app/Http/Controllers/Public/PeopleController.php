@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Public;
 
-use App\Models\People;
+use App\Models\Feature\People;
 use App\Http\Controllers\Controller;
 
 class PeopleController extends Controller

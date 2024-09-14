@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Public;
 
-use App\Models\Page;
-use App\Models\BlogArticle;
-use App\Models\BlogCategory;
+use App\Models\Post\Page;
+use App\Models\Post\BlogArticle;
+use App\Models\Post\BlogCategory;
 use App\Http\Controllers\Controller;
 
 class PageController extends Controller

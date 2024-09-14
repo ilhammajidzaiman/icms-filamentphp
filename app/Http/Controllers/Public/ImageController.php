@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Public;
 
-use App\Models\Image;
+use App\Models\Media\Image;
 use App\Http\Controllers\Controller;
 
 class ImageController extends Controller
