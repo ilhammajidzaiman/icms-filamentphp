@@ -35,11 +35,6 @@ class BlogCategoryResource extends Resource
     {
         return $form
             ->schema([
-                Hidden::make('user_id')
-                    ->required()
-                    ->default(auth()->user()->id)
-                    ->disabled()
-                    ->dehydrated(),
                 Section::make()
                     ->schema([
                         Toggle::make('is_show')
@@ -54,11 +49,11 @@ class BlogCategoryResource extends Resource
                             ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
                         TextInput::make('slug')
                             ->label('Slug')
+                            ->helperText('Slug akan otomatis dihasilkan dari judul.')
                             ->required()
-                            ->maxLength(255)
                             ->disabled()
                             ->dehydrated()
-                            ->helperText('Slug akan otomatis dihasilkan dari judul.'),
+                            ->maxLength(255),
                     ]),
             ]);
     }
