@@ -47,11 +47,6 @@ class PageResource extends Resource
         return $form
             ->columns(3)
             ->schema([
-                Hidden::make('user_id')
-                    ->required()
-                    ->default(auth()->user()->id)
-                    ->disabled()
-                    ->dehydrated(),
                 Grid::make()
                     ->columnSpan(2)
                     ->schema([
@@ -59,19 +54,19 @@ class PageResource extends Resource
                             ->icon('heroicon-o-newspaper')
                             ->schema([
                                 Textarea::make('title')
-                                    ->autosize()
                                     ->label('Judul')
+                                    ->autosize()
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
                                 TextInput::make('slug')
                                     ->label('Slug')
+                                    ->helperText('Slug akan otomatis dihasilkan dari judul.')
                                     ->required()
-                                    ->maxLength(255)
                                     ->disabled()
                                     ->dehydrated()
-                                    ->helperText('Slug akan otomatis dihasilkan dari judul.'),
+                                    ->maxLength(255),
                                 RichEditor::make('content')
                                     ->label('Isi')
                                     ->required(),
@@ -90,13 +85,14 @@ class PageResource extends Resource
                                     ->default(true),
                                 FileUpload::make('file')
                                     ->label('File')
-                                    ->maxSize(1024)
+                                    ->helperText('Ukuran maksimal: 1 MB.')
                                     ->directory('page/' . date('Y/m'))
+                                    ->optimize('webp')
                                     ->image()
                                     ->imageEditor()
                                     ->openable()
                                     ->downloadable()
-                                    ->helperText('Ukuran maksimal: 1 MB.'),
+                                    ->maxSize(1024),
                             ])
                     ]),
             ]);
