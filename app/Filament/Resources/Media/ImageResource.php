@@ -39,11 +39,6 @@ class ImageResource extends Resource
         return $form
             ->columns(3)
             ->schema([
-                Hidden::make('user_id')
-                    ->required()
-                    ->default(auth()->user()->id)
-                    ->disabled()
-                    ->dehydrated(),
                 Grid::make()
                     ->columnSpan(2)
                     ->schema([
