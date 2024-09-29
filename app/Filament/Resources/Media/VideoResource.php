@@ -35,11 +35,6 @@ class VideoResource extends Resource
     {
         return $form
             ->schema([
-                Hidden::make('user_id')
-                    ->required()
-                    ->default(auth()->user()->id)
-                    ->disabled()
-                    ->dehydrated(),
                 Section::make()
                     ->schema([
                         Toggle::make('is_show')
