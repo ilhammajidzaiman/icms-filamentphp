@@ -5,7 +5,7 @@ namespace App\Filament\Pages\Setting;
 use Filament\Forms\Form;
 use Filament\Pages\Page;
 use Filament\Actions\Action;
-use App\Models\Site as ModelsSite;
+use App\Models\Setting\Site as ModelsSite;
 use Filament\Forms\Components\Grid;
 use Filament\Support\Exceptions\Halt;
 use Filament\Forms\Components\Section;
@@ -85,7 +85,7 @@ class Site extends Page implements HasForms
                                 Repeater::make('social_media')
                                     ->label('Sosial Media')
                                     ->addActionLabel('Tambahkan Sosial Media')
-                                    ->itemLabel(fn (array $state): ?string => $state['sosmed_name'] ?? null)
+                                    ->itemLabel(fn(array $state): ?string => $state['sosmed_name'] ?? null)
                                     ->collapsed()
                                     ->schema([
                                         TextInput::make('sosmed_name')
