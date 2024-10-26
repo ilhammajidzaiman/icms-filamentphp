@@ -349,8 +349,6 @@
         </div>
     </footer>
 
-
-
     @stack('modal')
     <script src="{{ asset('/dist/js/bootstrap.bundle.min.js') }}"></script>
     @stack('script')
