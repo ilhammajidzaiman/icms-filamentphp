@@ -9,7 +9,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use BezhanSalleh\FilamentShield\Traits\HasPanelShield;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -29,9 +29,6 @@ class User extends Authenticatable implements FilamentUser
         'email',
         'email_verified_at',
         'password',
-        'password_string',
-        'file',
-        'is_show',
     ];
 
     protected $hidden = [
@@ -43,7 +40,6 @@ class User extends Authenticatable implements FilamentUser
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'is_show' => 'boolean',
     ];
 
     protected static function boot()
@@ -52,5 +48,10 @@ class User extends Authenticatable implements FilamentUser
         static::creating(function ($model) {
             $model->uuid = Str::uuid();
         });
+    }
+
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class, 'user_id', 'id');
     }
 }

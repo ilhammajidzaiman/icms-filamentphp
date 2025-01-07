@@ -1,7 +1,26 @@
 <?php
 
+use App\Enums\RoleEnum;
 use App\Http\Controllers\Public;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+
+
+Route::middleware('auth')->group(
+    function () {
+        Route::get("/make-role", function () {
+            try {
+                Role::firstOrCreate(['name' => RoleEnum::SuperAdmin]);
+                Role::firstOrCreate(['name' => RoleEnum::Admin]);
+                Role::firstOrCreate(['name' => RoleEnum::User]);
+            } catch (\Exception $e) {
+                Log::error('Error membuat role: ' . $e->getMessage());
+            }
+            return response()->json(['message' => 'Role berhasil buat!']);
+        });
+    }
+);
 
 Route::prefix('/')->controller(Public\HomeController::class)->group(function () {
     Route::get('/', 'index')->name('index');

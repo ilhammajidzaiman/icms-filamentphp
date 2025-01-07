@@ -14,29 +14,12 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
-            $table->string('name')
-                ->comment('nama');
-            $table->string('username')
-                ->unique()
-                ->comment('email aktif');
-            $table->string('email')
-                ->unique()
-                ->comment('email aktif');
-            $table->timestamp('email_verified_at')
-                ->nullable()
-                ->comment('email verifikasi');
-            $table->string('password')
-                ->comment('password hash');
-            $table->string('password_string')
-                ->nullable()
-                ->comment('password string');
-            $table->string('file')
-                ->nullable()
-                ->comment('gambar');
+            $table->string('name');
+            $table->string('username')->unique()->nullable();
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
             $table->rememberToken();
-            $table->boolean('is_show')
-                ->default(true)
-                ->comment('status tampilkan');
             $table->timestamps();
             $table->softDeletes();
         });

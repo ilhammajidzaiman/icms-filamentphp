@@ -4,13 +4,16 @@ namespace App\Filament\Resources;
 
 use App\Models\User;
 use Filament\Tables;
+use App\Enums\RoleEnum;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
+use App\Enums\GenderEnum;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
@@ -18,6 +21,7 @@ use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
@@ -39,13 +43,13 @@ class UserResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->columns(3)
+            ->columns(2)
             ->schema([
                 Grid::make()
-                    ->columnSpan(2)
+                    ->columnSpan(1)
                     ->schema([
-                        Section::make('Isi')
-                            ->icon('heroicon-o-newspaper')
+                        Section::make('Account')
+                            ->icon('heroicon-o-user')
                             ->schema([
                                 TextInput::make('name')
                                     ->label('Nama')
@@ -72,35 +76,17 @@ class UserResource extends Resource
                                     ->password()
                                     ->revealable()
                                     ->maxLength(255)
-                                    ->dehydrated(fn (?string $state): bool => filled($state))
-                                    ->required(fn (string $operation): bool => $operation === 'create')
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('password_string', $state)),
+                                    ->dehydrated(fn(?string $state): bool => filled($state))
+                                    ->required(fn(string $operation): bool => $operation === 'create')
+                                    ->live(onBlur: true),
                                 TextInput::make('confirmation')
                                     ->label('Konfirmasi Password')
                                     ->same('password')
                                     ->revealable()
                                     ->password()
-                                    ->required(fn (string $operation): bool => $operation === 'create')
-                                    ->visible(fn (Get $get): bool => filled($get('password')))
+                                    ->required(fn(string $operation): bool => $operation === 'create')
+                                    ->visible(fn(Get $get): bool => filled($get('password')))
                                     ->maxLength(255),
-                                Hidden::make('password_string')
-                                    ->required(fn (string $operation): bool => $operation === 'create')
-                                    ->disabled()
-                                    ->dehydrated(fn (?string $state): bool => filled($state)),
-                            ]),
-                    ]),
-                Grid::make()
-                    ->columnSpan(1)
-                    ->schema([
-                        Section::make('Lampiran')
-                            ->icon('heroicon-o-paper-clip')
-                            ->collapsible()
-                            ->schema([
-                                Toggle::make('is_show')
-                                    ->label('Status')
-                                    ->required()
-                                    ->default(true),
                                 Select::make('roles')
                                     ->label('Level')
                                     ->required()
@@ -112,32 +98,49 @@ class UserResource extends Resource
                                         modifyQueryUsing: static function (Builder $query) {
                                             return $query
                                                 ->when(
-                                                    auth()->user()->hasRole('super-admin'),
+                                                    auth()->user()->hasAnyRole(RoleEnum::SuperAdmin),
                                                     function ($query) {
                                                         return $query;
                                                     }
                                                 )
                                                 ->when(
-                                                    auth()->user()->hasRole('admin'),
+                                                    auth()->user()->hasAnyRole(RoleEnum::Admin),
                                                     function ($query) {
-                                                        return $query->where('name', 'user');
+                                                        return $query->where('name', RoleEnum::User);
                                                     }
                                                 )
                                                 ->when(
-                                                    auth()->user()->hasRole('user'),
+                                                    auth()->user()->hasAnyRole(RoleEnum::User),
                                                     function ($query) {
-                                                        return $query->where('name', 'user');
+                                                        return $query->where('name', RoleEnum::User);
                                                     }
                                                 );
                                         },
                                     ),
+                            ]),
+                    ]),
+                Grid::make()
+                    ->columnSpan(1)
+                    ->schema([
+                        Section::make('Profil')
+                            ->icon('heroicon-o-user-circle')
+                            ->relationship('profile')
+                            ->schema([
+                                Radio::make('gender')
+                                    ->label('Jenis Kelamin')
+                                    ->required()
+                                    ->inline()
+                                    ->inlineLabel(false)
+                                    ->default(GenderEnum::Male->value)
+                                    ->options(GenderEnum::class),
+                                DatePicker::make('birth_date')
+                                    ->label('Tanggal Lahir')
+                                    ->required()
+                                    ->default(now()),
                                 FileUpload::make('file')
                                     ->label('Profil')
                                     ->maxSize(1024)
                                     ->directory('user/' . date('Y/m'))
-                                    ->getUploadedFileNameForStorageUsing(
-                                        fn (TemporaryUploadedFile $file): string => (string) str($file->getClientOriginalName())->prepend('user-' . date('YmdHis') . '-'),
-                                    )
                                     ->image()
                                     ->imageEditor()
                                     ->openable()
@@ -156,60 +159,35 @@ class UserResource extends Resource
                 TextColumn::make('index')
                     ->label('No')
                     ->rowIndex(isFromZero: false),
-                ImageColumn::make('file')
+                ImageColumn::make('profile.file')
                     ->label('File')
                     ->defaultImageUrl(asset('/image/default-user.svg'))
-                    ->circular(),
+                    ->circular()
+                    ->toggleable(),
                 TextColumn::make('name')
                     ->label('Nama')
                     ->searchable()
-                    ->forceSearchCaseInsensitive()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('username')
                     ->label('Username')
                     ->copyable()
-                    ->copyMessage('Disalin')
-                    ->copyMessageDuration(1500)
                     ->searchable()
-                    ->forceSearchCaseInsensitive()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('email')
                     ->label('Email')
                     ->copyable()
-                    ->copyMessage('Disalin')
-                    ->copyMessageDuration(1500)
                     ->searchable()
-                    ->forceSearchCaseInsensitive()
-                    ->sortable(),
-                TextColumn::make('password_string')
-                    ->label('Password')
-                    ->copyable()
-                    ->copyMessage('Disalin')
-                    ->copyMessageDuration(1500)
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
                 TextColumn::make('roles.name')
-                    ->label('Level')
+                    ->label('Peran')
                     ->default('-')
-                    ->badge(),
-                TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime()
+                    ->badge()
+                    ->searchable()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->label('Diperbarui')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->label('Dihapus')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                ToggleColumn::make('is_show')
-                    ->label('Status')
-                    ->sortable(),
+                    ->toggleable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

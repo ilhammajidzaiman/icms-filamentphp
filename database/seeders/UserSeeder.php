@@ -31,7 +31,6 @@ class UserSeeder extends Seeder
                     'email'             => Str::lower(Str::replace(' ', '', $data['name'])) . '@gmail.com',
                     'email_verified_at' => now(),
                     'password'          => Hash::make('*#' . Str::lower(Str::replace(' ', '', $data['name']))),
-                    'password_string'   => '*#' . Str::lower(Str::replace(' ', '', $data['name'])),
                 ],
             );
         endforeach;
