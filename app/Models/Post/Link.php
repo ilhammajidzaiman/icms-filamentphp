@@ -49,12 +49,12 @@ class Link extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function modelable(): MorphOne
+    public function navMenu(): MorphOne
     {
         return $this->morphOne(NavMenu::class, 'modelable');
     }
 
-    public function modelables(): MorphMany
+    public function navMenus(): MorphMany
     {
         return $this->morphMany(NavMenu::class, 'modelable');
     }

@@ -68,16 +68,15 @@ class BlogArticle extends Model
         return $this->belongsToMany(BlogTag::class, 'blog_posts', 'blog_article_id', 'blog_tag_id')->withTimestamps();
     }
 
-    public function modelable(): MorphOne
+    public function navMenu(): MorphOne
     {
         return $this->morphOne(NavMenu::class, 'modelable');
     }
 
-    public function modelables(): MorphMany
+    public function navMenus(): MorphMany
     {
         return $this->morphMany(NavMenu::class, 'modelable');
     }
-
 
     // Relasi ke tabel posts
     public function posts()

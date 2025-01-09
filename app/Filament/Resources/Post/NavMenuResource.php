@@ -2,22 +2,28 @@
 
 namespace App\Filament\Resources\Post;
 
-use App\Models\Link;
-use App\Models\Page;
 use Filament\Tables;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
+use App\Models\Post\Link;
+use App\Models\Post\Page;
+use App\Models\Media\File;
 use Filament\Tables\Table;
-use App\Models\BlogArticle;
+use App\Models\Media\Image;
+use App\Models\Media\Video;
 use Illuminate\Support\Str;
-use App\Models\BlogCategory;
-use App\Models\FileCategory;
+use App\Models\Post\BlogTag;
 use App\Models\Post\NavMenu;
+use App\Models\Post\BlogArticle;
 use Filament\Resources\Resource;
+use App\Models\Media\Information;
+use App\Models\Post\BlogCategory;
+use App\Models\Media\FileCategory;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
@@ -70,80 +76,155 @@ class NavMenuResource extends Resource
                             ->disabled()
                             ->dehydrated()
                             ->helperText('Slug akan otomatis dihasilkan dari judul.'),
+                        MorphToSelect::make('modelable')
+                            ->label('Arahkan Ke')
+                            ->required()
+                            ->native(false)
+                            ->searchable()
+                            ->preload()
+                            ->types([
+                                MorphToSelect\Type::make(BlogArticle::class)
+                                    ->titleAttribute('title')
+                                    ->label('Artikel'),
+                                MorphToSelect\Type::make(BlogCategory::class)
+                                    ->titleAttribute('title')
+                                    ->label('Kategori Artikel'),
+                                MorphToSelect\Type::make(BlogTag::class)
+                                    ->titleAttribute('title')
+                                    ->label('Tag Artikel'),
+                                MorphToSelect\Type::make(Page::class)
+                                    ->titleAttribute('title')
+                                    ->label('Halaman'),
+                                MorphToSelect\Type::make(Link::class)
+                                    ->titleAttribute('title')
+                                    ->label('Tautan'),
+                                MorphToSelect\Type::make(File::class)
+                                    ->titleAttribute('title')
+                                    ->label('Dokumen'),
+                                MorphToSelect\Type::make(FileCategory::class)
+                                    ->titleAttribute('title')
+                                    ->label('Kategori Dokumen'),
+                                MorphToSelect\Type::make(Information::class)
+                                    ->titleAttribute('title')
+                                    ->label('Informasi'),
+                                MorphToSelect\Type::make(Image::class)
+                                    ->titleAttribute('title')
+                                    ->label('Image'),
+                                MorphToSelect\Type::make(Video::class)
+                                    ->titleAttribute('title')
+                                    ->label('Video'),
+                            ]),
                     ]),
-                MorphToSelect::make('modelable')
-                    ->label('Arahkan Ke')
-                    ->required()
-                    ->searchable()
-                    ->preload()
-                    ->types([
-                        MorphToSelect\Type::make(BlogArticle::class)
-                            ->titleAttribute('title')
-                            ->label('Artikel'),
-                        MorphToSelect\Type::make(BlogCategory::class)
-                            ->titleAttribute('title')
-                            ->label('Kategori Artikel'),
-                        MorphToSelect\Type::make(Page::class)
-                            ->titleAttribute('title')
-                            ->label('Halaman'),
-                        MorphToSelect\Type::make(Link::class)
-                            ->titleAttribute('title')
-                            ->label('Tautan'),
-                        MorphToSelect\Type::make(FileCategory::class)
-                            ->titleAttribute('title')
-                            ->label('Kategori Dokumen'),
-                    ])
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-            ->defaultSort('created_at', 'desc')
+            ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
                     ->label('No')
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label('Menu')
                     ->wrap()
                     ->sortable()
-                    ->searchable(),
-                TextColumn::make('modelable_type')
-                    ->label('Model Type')
+                    ->searchable()
+                    ->toggleable(),
+                TextColumn::make('type')
+                    ->label('Type')
+                    ->formatStateUsing(function (Model $record) {
+                        $modelType = $record->modelable_type;
+                        if ($modelType === BlogArticle::class):
+                            return __('Article') ?? null;
+                        elseif ($modelType === BlogCategory::class):
+                            return __('Kategori') ?? null;
+                        elseif ($modelType === BlogTag::class):
+                            return __('Tag') ?? null;
+                        elseif ($modelType === Page::class):
+                            return __('Page') ?? null;
+                        elseif ($modelType === Link::class):
+                            return __('Link') ?? null;
+                        elseif ($modelType === File::class):
+                            return __('File') ?? null;
+                        elseif ($modelType === FileCategory::class):
+                            return __('File Categori') ?? null;
+                        elseif ($modelType === Information::class):
+                            return __('Informasi') ?? null;
+                        elseif ($modelType === Image::class):
+                            return __('Image') ?? null;
+                        elseif ($modelType === Video::class):
+                            return __('Video') ?? null;
+                        endif;
+                    })
+                    ->default('-')
                     ->sortable()
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('modelable_id')
-                    ->label('Model Id')
-                    ->numeric()
+                    ->toggleable(),
+                TextColumn::make('ke')
+                    ->label('Judul')
+                    ->formatStateUsing(function (Model $record) {
+                        $modelType = $record->modelable_type;
+                        $modelId = $record->modelable_id;
+                        if ($modelType === BlogArticle::class):
+                            $record = BlogArticle::where('id', $modelId)
+                                ->first();
+                            return $record->title ?? null;
+                        elseif ($modelType === BlogCategory::class):
+                            $record = BlogCategory::where('id', $modelId)
+                                ->first();
+                            return $record->title ?? null;
+                        elseif ($modelType === BlogTag::class):
+                            $record = BlogTag::where('id', $modelId)
+                                ->first();
+                            return $record->title ?? null;
+                        elseif ($modelType === Page::class):
+                            $record = Page::where('id', $modelId)
+                                ->first();
+                            return $record->title ?? null;
+                        elseif ($modelType === Link::class):
+                            $record = Link::where('id', $modelId)
+                                ->first();
+                            return $record->title ?? null;
+                        elseif ($modelType === File::class):
+                            $record = File::where('id', $modelId)
+                                ->first();
+                            return $record->title ?? null;
+                        elseif ($modelType === FileCategory::class):
+                            $record = FileCategory::where('id', $modelId)
+                                ->first();
+                            return $record->title ?? null;
+                        elseif ($modelType === Information::class):
+                            $record = Information::where('id', $modelId)
+                                ->first();
+                            return $record->title ?? null;
+                        elseif ($modelType === Image::class):
+                            $record = Image::where('id', $modelId)
+                                ->first();
+                            return $record->title ?? null;
+                        elseif ($modelType === Video::class):
+                            $record = Video::where('id', $modelId)
+                                ->first();
+                            return $record->title ?? null;
+                        endif;
+                    })
+                    ->default('-')
                     ->sortable()
                     ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
                 TextColumn::make('user.name')
                     ->label('Penulis')
                     ->badge()
                     ->color('info')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->label('Diperbarui')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->label('Dihapus')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable()
+                    ->toggleable(),
                 ToggleColumn::make('is_show')
                     ->label('Status')
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
