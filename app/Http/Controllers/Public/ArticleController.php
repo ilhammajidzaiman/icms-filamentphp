@@ -22,11 +22,11 @@ class ArticleController extends Controller
         $data['popular'] = BlogArticle::show()->limit(5)->orderByDesc('visitor')->get();
         $data['latest'] = BlogArticle::show()->limit(5)->orderByDesc('published_at')->get();
         if (!$data['item']) :
-            $data['page'] = env('APP_URL') . '/';
+            $data['share'] = env('APP_URL') . '/';
         else :
             // $data['item']->increment('visitor');
             $this->update($data['item']);
-            $data['page'] = env('APP_URL') . '/' . $data['item']->slug;
+            $data['share'] = env('APP_URL') . '/' . $data['item']->slug;
         endif;
         return view('public.article.show', $data);
     }

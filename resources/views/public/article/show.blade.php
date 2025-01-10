@@ -80,8 +80,10 @@
                                 <i class="rounded-circle bi bi-copy fs-4"></i>
                             </button>
                         </nav>
-                        <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
-                            alt="image {{ $item->title }}" class="w-100 rounded-2 bg-secondary-subtle">
+                        @if ($item->file)
+                            <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
+                                alt="image {{ $item->title }}" class="w-100 rounded-2 bg-secondary-subtle">
+                        @endif
                         @if ($item->description)
                             <div class="mt-2">
                                 <small class="text-secondary">
@@ -238,14 +240,14 @@
         function facebook() {
             let left = window.innerWidth / 2 - width / 2;
             let top = window.innerHeight / 2 - height / 2;
-            const url = '{{ $page }}'
+            const url = '{{ $share }}'
             const api = "https://www.facebook.com/sharer/sharer.php?u="
             const navUrl = api + url;
             window.open(navUrl, '_blank', 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
         }
 
         function whatsapp() {
-            const url = '{{ $page }}'
+            const url = '{{ $share }}'
             const api = "whatsapp://send?text=" + url
             const navUrl = api + url;
             window.open(navUrl);
@@ -254,7 +256,7 @@
         function twitter() {
             let left = window.innerWidth / 2 - width / 2;
             let top = window.innerHeight / 2 - height / 2;
-            const url = '{{ $page }}'
+            const url = '{{ $share }}'
             const api = 'https://twitter.com/intent/tweet?text=';
             const navUrl = api + url;
             window.open(navUrl, '_blank', 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
@@ -263,14 +265,14 @@
         function telegram() {
             let left = window.innerWidth / 2 - width / 2;
             let top = window.innerHeight / 2 - height / 2;
-            const url = '{{ $page }}'
+            const url = '{{ $share }}'
             const api = 'https://telegram.me/share/url?url=';
             const navUrl = api + url;
             window.open(navUrl, '_blank', 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
         }
 
         function copyLink() {
-            const url = '{{ $page }}'
+            const url = '{{ $share }}'
             const textarea = document.createElement('textarea');
             textarea.value = url;
             document.body.appendChild(textarea);

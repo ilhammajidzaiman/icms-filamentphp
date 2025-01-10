@@ -27,8 +27,10 @@
                 @else
                     <div class="row g-3 flex-lg-row-reverse justify-content-between">
                         <div class="col-md-4">
-                            <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-user.svg') }}"
-                                class="d-block mx-auto img-fluid w-100 rounded-3" alt="image">
+                            @if ($item->file)
+                                <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-user.svg') }}"
+                                    class="d-block mx-auto img-fluid w-100 rounded-3" alt="image">
+                            @endif
                         </div>
                         <div class="col-md-6">
                             <h1 class="display-6 fw-medium">
