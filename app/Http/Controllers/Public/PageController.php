@@ -11,16 +11,30 @@ class PageController extends Controller
 {
     public function show(string $id)
     {
-        $data['item'] = Page::show()->where('slug', $id)->first();
-        $data['articleRandom'] = BlogArticle::show()->limit(18)->inRandomOrder()->get();
-        $data['category'] = BlogCategory::show()->limit(10)->inRandomOrder()->get();
-        $data['popular'] = BlogArticle::show()->limit(5)->orderByDesc('visitor')->get();
-        $data['latest'] = BlogArticle::show()->limit(5)->orderByDesc('published_at')->get();
-        if (!$data['item']) :
+        $data['record'] = Page::show()
+            ->where('slug', $id)
+            ->first();
+        $data['articleRandom'] = BlogArticle::show()
+            ->limit(18)
+            ->inRandomOrder()
+            ->get();
+        $data['category'] = BlogCategory::show()
+            ->limit(10)
+            ->inRandomOrder()
+            ->get();
+        $data['popular'] = BlogArticle::show()
+            ->limit(5)
+            ->orderByDesc('visitor')
+            ->get();
+        $data['latest'] = BlogArticle::show()
+            ->limit(5)
+            ->orderByDesc('published_at')
+            ->get();
+        if (!$data['record']) :
             $data['share'] = env('APP_URL') . '/';
         else :
-            $data['share'] = env('APP_URL') . '/' . $data['item']->slug;
+            $data['share'] = env('APP_URL') . '/' . $data['record']->slug;
         endif;
-        return view('public.page.show', $data);
+        return view('page.public.page.show', $data);
     }
 }

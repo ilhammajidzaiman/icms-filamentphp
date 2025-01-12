@@ -12,18 +12,19 @@ class FeedbackController extends Controller
 {
     public function index()
     {
-        $data['feedbackCategory'] = FeedbackCategory::show()->get();
-        return view('public.feedback.index', $data);
+        $data['feedbackCategory'] = FeedbackCategory::show()
+            ->get();
+        return view('page.public.feedback.index', $data);
     }
 
     public function store(Request $request)
     {
         // validation input
         $request->validate([
-            'feedback_category_id'  => ['required', 'string'],
-            'name'                  => ['required', 'string'],
-            'email'                 => ['required', 'email'],
-            'message'               => ['required', 'string'],
+            'feedback_category_id' => ['required', 'string'],
+            'name' => ['required', 'string'],
+            'email' => ['required', 'email'],
+            'message' => ['required', 'string'],
         ]);
 
         Feedback::create([

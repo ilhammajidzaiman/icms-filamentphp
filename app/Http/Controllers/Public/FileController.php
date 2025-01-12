@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Public;
 
 use App\Models\Media\File;
-use App\Models\Post\BlogArticle;
-use App\Models\Post\BlogCategory;
 use App\Models\Media\FileCategory;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -13,17 +11,20 @@ class FileController extends Controller
 {
     public function index()
     {
-        $data['file'] = File::show()->orderByDesc('created_at')->paginate(15);
-        $data['category'] = BlogCategory::show()->limit(10)->inRandomOrder()->get();
-        $data['popular'] = BlogArticle::show()->limit(5)->orderByDesc('visitor')->get();
-        $data['latest'] = BlogArticle::show()->limit(5)->orderByDesc('published_at')->get();
-        return view('public.file.index', $data);
+        $data['record'] = File::show()
+            ->with(['fileCategory'])
+            ->orderByDesc('created_at')
+            ->paginate(15);
+        return view('page.public.file.index', $data);
     }
 
     public function show(string $id)
     {
-        $data['item'] = File::show()->where('slug', $id)->first();
-        return view('public.file.show', $data);
+        $data['record'] = File::show()
+            ->with(['fileCategory'])
+            ->where('slug', $id)
+            ->first();
+        return view('page.public.file.show', $data);
     }
 
     public function update($id)
@@ -33,30 +34,41 @@ class FileController extends Controller
 
     public function download($id)
     {
-        $item = File::show()->where('slug', $id)->first();
-        if ($item->file) :
-            if (Storage::disk('public')->exists($item->file)) :
-                $this->update($item);
-                return Storage::disk('public')->download($item->file);
+        $record = File::show()
+            ->with(['fileCategory'])
+            ->where('slug', $id)
+            ->first();
+        if ($record->file) :
+            if (Storage::disk('public')
+                ->exists($record->file)
+            ) :
+                $this->update($record);
+                return Storage::disk('public')
+                    ->download($record->file);
             endif;
         endif;
     }
 
     public function category(string $id)
     {
-        $data['item'] = FileCategory::show()->where('slug', $id)->first();
-        $data['file'] = File::show()
+        $data['fileCategory'] = FileCategory::show()
+            ->where('slug', $id)
+            ->first();
+        $data['record'] = File::show()
             ->whereHas('fileCategory', function ($query) use ($id) {
                 $query->where('slug', $id);
             })
             ->paginate(18);
-        return view('public.file.category', $data);
+        return view('page.public.file.category', $data);
     }
 
     public function search(string $id)
     {
         $data['keyword'] = $id;
-        $data['data'] = File::where('slug', 'like', '%' . $id . '%')->paginate(15);
-        return view('public.file.search', $data);
+        $data['record'] = File::show()
+            ->with(['fileCategory'])
+            ->where('slug', 'like', '%' . $id . '%')
+            ->paginate(15);
+        return view('page.public.file.search', $data);
     }
 }
