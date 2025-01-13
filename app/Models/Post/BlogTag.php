@@ -5,6 +5,8 @@ namespace App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Str;
 use App\Models\Post\NavMenu;
+use App\Models\Post\BlogPost;
+use App\Models\Post\BlogArticle;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -56,7 +58,7 @@ class BlogTag extends Model
         return $this->belongsToMany(BlogArticle::class, 'blog_posts', 'blog_article_id', 'blog_tag_id')->withTimestamps();
     }
 
-    public function posts(): HasMany
+    public function blogPosts(): HasMany
     {
         return $this->hasMany(BlogPost::class, 'blog_tag_id', 'id');
     }

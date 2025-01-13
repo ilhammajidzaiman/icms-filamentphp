@@ -4,6 +4,9 @@ namespace App\Models\Post;
 
 use App\Models\User;
 use Illuminate\Support\Str;
+use App\Models\Post\BlogTag;
+use App\Models\Post\NavMenu;
+use App\Models\Post\BlogCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -76,17 +79,5 @@ class BlogArticle extends Model
     public function navMenus(): MorphMany
     {
         return $this->morphMany(NavMenu::class, 'modelable');
-    }
-
-    // Relasi ke tabel posts
-    public function posts()
-    {
-        return $this->hasMany(BlogPost::class, 'blog_article_id');
-    }
-
-    // Relasi many-to-many ke tabel tags melalui tabel posts
-    public function tags()
-    {
-        return $this->belongsToMany(BlogTag::class, 'blog_posts', 'blog_article_id', 'blog_tag_id');
     }
 }

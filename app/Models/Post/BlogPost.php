@@ -3,6 +3,8 @@
 namespace App\Models\Post;
 
 use Illuminate\Support\Str;
+use App\Models\Post\BlogTag;
+use App\Models\Post\BlogArticle;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -28,12 +30,12 @@ class BlogPost extends Model
         });
     }
 
-    public function article()
+    public function blogArticle()
     {
         return $this->belongsTo(BlogArticle::class, 'blog_article_id', 'id');
     }
 
-    public function tag()
+    public function blogTag()
     {
         return $this->belongsTo(BlogTag::class, 'blog_tag_id', 'id');
     }

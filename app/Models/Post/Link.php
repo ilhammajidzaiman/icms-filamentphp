@@ -4,6 +4,7 @@ namespace App\Models\Post;
 
 use App\Models\User;
 use Illuminate\Support\Str;
+use App\Models\Post\NavMenu;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
