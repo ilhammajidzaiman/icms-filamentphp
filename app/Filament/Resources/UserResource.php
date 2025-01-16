@@ -14,20 +14,16 @@ use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Radio;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\UserResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class UserResource extends Resource
 {
@@ -138,14 +134,16 @@ class UserResource extends Resource
                                     ->required()
                                     ->default(now()),
                                 FileUpload::make('file')
-                                    ->label('Profil')
-                                    ->maxSize(1024)
+                                    ->label('File')
+                                    ->helperText('Ukuran maksimal: 1 MB. Rasio: 1:1')
                                     ->directory('user/' . date('Y/m'))
+                                    ->optimize('webp')
                                     ->image()
                                     ->imageEditor()
-                                    ->openable()
                                     ->downloadable()
-                                    ->helperText('Ukuran maksimal: 1 MB, Rasio: 1:1'),
+                                    ->openable()
+                                    ->required()
+                                    ->maxSize(1024),
                             ])
                     ]),
             ]);

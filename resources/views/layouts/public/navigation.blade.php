@@ -14,8 +14,8 @@
     class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm bg-white text-dark bg-opacity-75 fw-medium border-primary border-bottom border-2 border-opacity-50">
     <div class="container py-2">
         <a href="{{ route('index') }}" class="navbar-brand d-flex align-items-center">
-            <img src="{{ $page->logo }}" alt="Logo" height="35" class="d-inline-block align-text-center me-3" />
-            {{ $page->name ? $page->name : env('APP_NAME') }}
+            <img src="{{ $sitePage->logo }}" alt="Logo" height="35" class="d-inline-block align-text-center me-3" />
+            {{ $sitePage->name ? $sitePage->name : env('APP_NAME') }}
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2"
             aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
@@ -26,15 +26,15 @@
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasNavbar2Label">
                     MENU
-                    {{-- <img src="{{ $page->logo }}" alt="Logo" height="35" class="align-text-center me-2"> --}}
-                    {{-- {{ $page->name ? $page->name : env('APP_NAME') }} --}}
+                    {{-- <img src="{{ $sitePage->logo }}" alt="Logo" height="35" class="align-text-center me-2"> --}}
+                    {{-- {{ $sitePage->name ? $sitePage->name : env('APP_NAME') }} --}}
                 </h5>
                 <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="offcanvas" aria-label="Close">
                 </button>
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 text-capitalize">
-                    @foreach ($page->navMenus as $parent)
+                    @foreach ($sitePage->navMenus as $parent)
                         @if (count($parent->children) > 0)
                             <li class="nav-item dropdown">
                                 <a role="button" data-bs-toggle="dropdown" aria-expanded="false"

@@ -1,32 +1,35 @@
 <?php
 
-namespace App\Filament\Resources\Post;
+namespace App\Filament\Resources\Feature;
 
+use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
-use App\Models\Post\BlogCategory;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
+use App\Models\Feature\FeedbackCategory;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\Post\BlogCategoryResource\Pages;
+use App\Filament\Resources\Feature\FeedbackCategoryResource\Pages;
+use App\Filament\Resources\Feature\FeedbackCategoryResource\RelationManagers;
 
-class BlogCategoryResource extends Resource
+class FeedbackCategoryResource extends Resource
 {
-    protected static ?string $model = BlogCategory::class;
+    protected static ?string $model = FeedbackCategory::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-bookmark';
-    protected static ?string $navigationGroup = 'Blog';
-    protected static ?string $navigationParentItem = 'Artikel';
-    protected static ?string $modelLabel = 'Kategori';
-    protected static ?string $navigationLabel = 'Kategori';
-    protected static ?string $slug = 'kategori';
+    protected static ?string $navigationGroup = 'Fitur';
+    protected static ?string $navigationParentItem = 'Kritik Saran';
+    protected static ?string $modelLabel = 'Kategori Kritik Saran';
+    protected static ?string $navigationLabel = 'Kategori Kritik Saran';
+    protected static ?string $slug = 'kategori-kritik-saran';
     protected static ?string $recordTitleAttribute = 'title';
     protected static ?int $navigationSort = 1;
 
@@ -60,7 +63,7 @@ class BlogCategoryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->defaultSort('created_at', 'desc')
+            ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
                     ->label('No')
@@ -68,31 +71,20 @@ class BlogCategoryResource extends Resource
                 TextColumn::make('title')
                     ->label('Judul')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(),
                 TextColumn::make('user.name')
                     ->label('Penulis')
                     ->badge()
                     ->color('info')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->label('Diperbarui')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->label('Dihapus')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable()
+                    ->toggleable(),
                 ToggleColumn::make('is_show')
                     ->label('Status')
-                    ->sortable(),
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -123,10 +115,10 @@ class BlogCategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListBlogCategories::route('/'),
-            'create' => Pages\CreateBlogCategory::route('/create'),
-            'view' => Pages\ViewBlogCategory::route('/{record}'),
-            'edit' => Pages\EditBlogCategory::route('/{record}/edit'),
+            'index' => Pages\ListFeedbackCategories::route('/'),
+            'create' => Pages\CreateFeedbackCategory::route('/create'),
+            'view' => Pages\ViewFeedbackCategory::route('/{record}'),
+            'edit' => Pages\EditFeedbackCategory::route('/{record}/edit'),
         ];
     }
 

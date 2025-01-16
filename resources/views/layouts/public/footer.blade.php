@@ -4,15 +4,15 @@
             <div class="col-12 col-md-3 mb-3">
                 <a href="{{ route('index') }}"
                     class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
-                    <img src="{{ $page->logo }}" alt="Logo" height="50">
+                    <img src="{{ $sitePage->logo }}" alt="Logo" height="50">
                 </a>
                 <h4 class="fw-semibold">
-                    {{ $page->name ? $page->name : env('APP_NAME') }}
+                    {{ $sitePage->name ? $sitePage->name : env('APP_NAME') }}
                 </h4>
                 <ul class="list-unstyled">
-                    <li>Alamat: {{ $page->address ? $page->address : env('APP_NAME') }}</li>
-                    <li>Telp: {{ $page->phone ? $page->phone : env('APP_NAME') }}</li>
-                    <li>Email: {{ $page->email ? $page->email : env('APP_NAME') }}</li>
+                    <li>Alamat: {{ $sitePage->address ? $sitePage->address : env('APP_NAME') }}</li>
+                    <li>Telp: {{ $sitePage->phone ? $sitePage->phone : env('APP_NAME') }}</li>
+                    <li>Email: {{ $sitePage->email ? $sitePage->email : env('APP_NAME') }}</li>
                 </ul>
             </div>
 
@@ -48,7 +48,7 @@
                     $defaultMap =
                         'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16328182.633267699!2d107.22171031843773!3d-2.3813608494441247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c4c07d7496404b7%3A0xe37b4de71badf485!2sIndonesia!5e0!3m2!1sid!2sid!4v1722322760161!5m2!1sid!2sid';
                 @endphp
-                <iframe src="{{ $page->map ? $page->map : $defaultMap }}" allowfullscreen="" loading="lazy"
+                <iframe src="{{ $sitePage->map ? $sitePage->map : $defaultMap }}" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade" class="rounded-4 shadow-sm w-100 vh-50">
                 </iframe>
             </div>
@@ -58,15 +58,15 @@
         <div class="d-flex flex-wrap justify-content-between align-items-center py-3 mt-4 border-top">
             <div class="col-md-4 d-flex align-items-center">
                 <a href="{{ route('index') }}" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-                    <img src="{{ $page->logo }}" alt="Logo" height="35">
+                    <img src="{{ $sitePage->logo }}" alt="Logo" height="35">
                 </a>
                 <span class="mb-3 mb-md-0 text-body-secondary">
-                    {{ $page->name ? $page->name : env('APP_NAME') }} &copy; {{ date('Y') }}
+                    {{ $sitePage->name ? $sitePage->name : env('APP_NAME') }} &copy; {{ date('Y') }}
                 </span>
             </div>
             <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                @if ($page->socialMedia)
-                    @foreach ($page->socialMedia as $item)
+                @if ($sitePage->socialMedia)
+                    @foreach ($sitePage->socialMedia as $item)
                         <li class="ms-3">
                             <a href="{{ $item['sosmed_url'] }}" target="_blank" class="text-body-secondary">
                                 <i class="{{ $item['sosmed_icon'] }} fs-5"></i>

@@ -5,8 +5,8 @@
                 Tetap Terhubung
             </h5>
             <div class="d-grid gap-2">
-                @if ($page->socialMedia)
-                    @foreach ($page->socialMedia as $item)
+                @if ($sitePage->socialMedia)
+                    @foreach ($sitePage->socialMedia as $item)
                         <a href="{{ $item['sosmed_url'] }}" target="_blank"
                             class="btn btn-primary text-start rounded-pill px-3 py-2">
                             <i class="{{ $item['sosmed_icon'] }} me-2"></i>

@@ -6,8 +6,12 @@ Content Management System
 
 -   Php 8.2
 -   Laravel 11.x
--   Filamentphp v3.2
--   Filament Shield 3.2
+    -   Sweet Alert Laravel
+-   Filamentphp v3.x
+    -   Filament Shield
+    -   Themes:
+    -   Image Optimizer
+    -   Filament Tree
 
 ## Instalasi
 
@@ -16,6 +20,8 @@ Content Management System
 ```base
 git clone <link github>
 ```
+
+Copy dan rename file `.env.example` menjadi `.env`
 
 Install `vendor`
 
@@ -40,16 +46,6 @@ php artisan db:seed
 ```
 
 ## Pengaturan Shield
-
--   Install `filament-shield`
-
-```base
-php artisan shield:setup
-```
-
-```base
-php artisan shield:install admin
-```
 
 -   Setting `filament-shield`
 
