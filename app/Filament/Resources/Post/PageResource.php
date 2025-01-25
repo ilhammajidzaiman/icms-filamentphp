@@ -11,7 +11,6 @@ use Illuminate\Support\Str;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Support\Enums\FontWeight;
@@ -110,36 +109,18 @@ class PageResource extends Resource
                     ->label('File')
                     ->circular()
                     ->defaultImageUrl(asset('/image/default-img.svg'))
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
                 TextColumn::make('title')
                     ->label('Judul')
                     ->wrap()
+                    ->searchable()
                     ->sortable()
-                    ->searchable(),
-                TextColumn::make('user.name')
-                    ->label('Penulis')
-                    ->badge()
-                    ->color('info')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->label('Diperbarui')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->label('Dihapus')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
                 ToggleColumn::make('is_show')
                     ->label('Status')
-                    ->sortable(),
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

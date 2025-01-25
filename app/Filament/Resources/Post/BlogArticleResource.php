@@ -166,51 +166,37 @@ class BlogArticleResource extends Resource
                 TextColumn::make('title')
                     ->label('Judul')
                     ->wrap()
+                    ->searchable()
                     ->sortable()
-                    ->searchable(),
+                    ->toggleable(),
                 TextColumn::make('visitor')
                     ->label('Pengunjung')
+                    ->searchable()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
                 TextColumn::make('blogCategory.title')
                     ->label('Kategori')
+                    ->searchable()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
                 TextColumn::make('blogTags.title')
                     ->label('Tanda/Topik')
                     ->badge()
                     ->color('success')
+                    ->searchable()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('user.name')
-                    ->label('Penulis')
-                    ->badge()
-                    ->color('info')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
                 TextColumn::make('published_at')
                     ->label('Diterbitkan ')
                     ->dateTime()
+                    ->searchable()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->label('Diperbarui')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->label('Dihapus')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
                 ToggleColumn::make('is_show')
                     ->label('Status')
-                    ->sortable(),
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

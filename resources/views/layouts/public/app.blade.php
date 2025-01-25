@@ -22,7 +22,6 @@
 
 <body>
     @include('layouts.public.navigation')
-    {{-- @yield('container') --}}
     {{ $slot }}
     @include('layouts.public.footer')
     @stack('script')

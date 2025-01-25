@@ -213,13 +213,6 @@ class NavMenuResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
-                TextColumn::make('user.name')
-                    ->label('Penulis')
-                    ->badge()
-                    ->color('info')
-                    ->sortable()
-                    ->searchable()
-                    ->toggleable(),
                 ToggleColumn::make('is_show')
                     ->label('Status')
                     ->sortable()

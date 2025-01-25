@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use App\Models\Media\Information;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
@@ -40,11 +39,6 @@ class InformationResource extends Resource
         return $form
             ->columns(3)
             ->schema([
-                Hidden::make('user_id')
-                    ->required()
-                    ->default(auth()->user()->id)
-                    ->disabled()
-                    ->dehydrated(),
                 Grid::make()
                     ->columnSpan(2)
                     ->schema([
@@ -107,36 +101,18 @@ class InformationResource extends Resource
                     ->label('File')
                     ->defaultImageUrl(asset('/image/default-img.svg'))
                     ->circular()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
                 TextColumn::make('title')
                     ->label('Judul')
                     ->wrap()
+                    ->searchable()
                     ->sortable()
-                    ->searchable(),
-                TextColumn::make('user.name')
-                    ->label('Penulis')
-                    ->badge()
-                    ->color('info')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->label('Diperbarui')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->label('Dihapus')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
                 ToggleColumn::make('is_show')
                     ->label('Status')
-                    ->sortable(),
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

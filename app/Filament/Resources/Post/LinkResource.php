@@ -71,37 +71,16 @@ class LinkResource extends Resource
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('title')
                     ->label('Judul')
+                    ->searchable()
                     ->sortable()
-                    ->forceSearchCaseInsensitive()
-                    ->searchable(),
+                    ->toggleable(),
                 TextColumn::make('url')
                     ->label('Link')
                     ->icon('heroicon-m-link')
                     ->wrap()
+                    ->searchable()
                     ->sortable()
-                    ->forceSearchCaseInsensitive()
-                    ->searchable(),
-                TextColumn::make('user.name')
-                    ->label('Penulis')
-                    ->badge()
-                    ->color('info')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->label('Diperbarui')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->label('Dihapus')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
                 ToggleColumn::make('is_show')
                     ->label('Status')
                     ->sortable(),

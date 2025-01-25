@@ -26,8 +26,6 @@
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasNavbar2Label">
                     MENU
-                    {{-- <img src="{{ $sitePage->logo }}" alt="Logo" height="35" class="align-text-center me-2"> --}}
-                    {{-- {{ $sitePage->name ? $sitePage->name : env('APP_NAME') }} --}}
                 </h5>
                 <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="offcanvas" aria-label="Close">
                 </button>
@@ -74,15 +72,15 @@
                                                 @endphp
                                             @elseif ($child->modelable_type == Information::class)
                                                 @php
-                                                    $url = url('dokumen/kategori/' . $child->fileCategory->slug);
+                                                    $url = url('dokumen/kategori/' . $child->information->slug);
                                                 @endphp
                                             @elseif ($child->modelable_type == Image::class)
                                                 @php
-                                                    $url = url('image' . $child->fileCategory->slug);
+                                                    $url = url('image' . $child->image->slug);
                                                 @endphp
                                             @elseif ($child->modelable_type == Video::class)
                                                 @php
-                                                    $url = url('video/' . $child->fileCategory->slug);
+                                                    $url = url('video/' . $child->video->slug);
                                                 @endphp
                                             @endif
                                             <a href="{{ $url }}" class="dropdown-item">
@@ -99,15 +97,15 @@
                                 @endphp
                             @elseif ($parent->modelable_type == BlogArticle::class)
                                 @php
-                                    $url = url('/' . $parent->article->slug);
+                                    $url = url('/' . $parent->blogArticle->slug);
                                 @endphp
                             @elseif ($parent->modelable_type == BlogCategory::class)
                                 @php
-                                    $url = url('kategori/' . $parent->category->slug);
+                                    $url = url('kategori/' . $parent->blogCategory->slug);
                                 @endphp
                             @elseif ($parent->modelable_type == BlogTag::class)
                                 @php
-                                    $url = url('tag/' . $parent->category->slug);
+                                    $url = url('tag/' . $parent->blogTag->slug);
                                 @endphp
                             @elseif ($parent->modelable_type == Page::class)
                                 @php
@@ -115,7 +113,7 @@
                                 @endphp
                             @elseif ($parent->modelable_type == File::class)
                                 @php
-                                    $url = url('dokumen/' . $parent->fileCategory->slug);
+                                    $url = url('dokumen/' . $parent->file->slug);
                                 @endphp
                             @elseif ($parent->modelable_type == FileCategory::class)
                                 @php
@@ -123,15 +121,15 @@
                                 @endphp
                             @elseif ($parent->modelable_type == Information::class)
                                 @php
-                                    $url = url('informasi/' . $parent->category->slug);
+                                    $url = url('informasi/' . $parent->information->slug);
                                 @endphp
                             @elseif ($parent->modelable_type == Image::class)
                                 @php
-                                    $url = url('dokumen/kategori/' . $parent->fileCategory->slug);
+                                    $url = url('dokumen/kategori/' . $parent->image->slug);
                                 @endphp
                             @elseif ($parent->modelable_type == Video::class)
                                 @php
-                                    $url = url('dokumen/kategori/' . $parent->fileCategory->slug);
+                                    $url = url('dokumen/kategori/' . $parent->video->slug);
                                 @endphp
                             @endif
                             <li class="nav-item">

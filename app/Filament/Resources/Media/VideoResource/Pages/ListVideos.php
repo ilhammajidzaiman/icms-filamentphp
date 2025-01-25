@@ -4,9 +4,9 @@ namespace App\Filament\Resources\Media\VideoResource\Pages;
 
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
-use App\Filament\Resources\Media\VideoResource;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\Media\VideoResource;
 use App\Filament\Resources\Media\VideoResource\Widgets\VideoOverview;
 
 class ListVideos extends ListRecords

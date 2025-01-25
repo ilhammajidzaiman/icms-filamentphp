@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Feature;
 
-use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
@@ -18,7 +17,6 @@ use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\Feature\FeedbackCategoryResource\Pages;
-use App\Filament\Resources\Feature\FeedbackCategoryResource\RelationManagers;
 
 class FeedbackCategoryResource extends Resource
 {
@@ -70,13 +68,6 @@ class FeedbackCategoryResource extends Resource
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('title')
                     ->label('Judul')
-                    ->sortable()
-                    ->searchable()
-                    ->toggleable(),
-                TextColumn::make('user.name')
-                    ->label('Penulis')
-                    ->badge()
-                    ->color('info')
                     ->sortable()
                     ->searchable()
                     ->toggleable(),

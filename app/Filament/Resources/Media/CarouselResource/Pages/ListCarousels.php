@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Media\CarouselResource\Pages;
 
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Pages\ListRecords;
 use App\Filament\Resources\Media\CarouselResource;
 use App\Filament\Resources\Media\CarouselResource\Widgets\CarouselOverview;

@@ -105,7 +105,7 @@ class AdminPanelProvider extends PanelProvider
                     endif;
                 }
             )
-            ->brandLogoHeight(fn(): string => auth()->user() ? '3rem' : '5rem')
+            ->brandLogoHeight(fn(): string => auth()->user() ? '2.5rem' : '5rem')
             ->navigationGroups([
                 NavigationGroup::make()->label("Blog"),
                 NavigationGroup::make()->label("Media"),

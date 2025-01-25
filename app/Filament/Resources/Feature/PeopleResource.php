@@ -20,7 +20,6 @@ use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\Feature\PeopleResource\Pages;
-use App\Filament\Resources\Feature\PeopleResource\RelationManagers;
 
 class PeopleResource extends Resource
 {
@@ -109,45 +108,31 @@ class PeopleResource extends Resource
                 ImageColumn::make('file')
                     ->label('File')
                     ->defaultImageUrl(asset('/image/default-user.svg'))
-                    ->circular(),
+                    ->circular()
+                    ->toggleable(),
                 TextColumn::make('order')
                     ->label('Urutan')
                     ->numeric()
-                    ->sortable(),
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
                 TextColumn::make('name')
                     ->label('Nama')
+                    ->searchable()
                     ->sortable()
-                    ->searchable(),
+                    ->toggleable(),
                 TextColumn::make('peoplePosition.title')
                     ->label('Jabatan')
                     ->badge()
                     ->color('info')
+                    ->searchable()
                     ->sortable()
-                    ->searchable(),
-                TextColumn::make('user.name')
-                    ->label('Penulis')
-                    ->badge()
-                    ->color('info')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->label('Diperbarui')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->label('Dihapus')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
                 ToggleColumn::make('is_show')
                     ->label('Status')
-                    ->sortable(),
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

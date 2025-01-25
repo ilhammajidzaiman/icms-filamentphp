@@ -4,9 +4,9 @@ namespace App\Filament\Resources\Media\FileResource\Pages;
 
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
-use App\Filament\Resources\Media\FileResource;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\Media\FileResource;
 use App\Filament\Resources\Media\FileResource\Widgets\FileOverview;
 
 class ListFiles extends ListRecords

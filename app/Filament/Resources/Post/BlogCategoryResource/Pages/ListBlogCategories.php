@@ -3,10 +3,9 @@
 namespace App\Filament\Resources\Post\BlogCategoryResource\Pages;
 
 use Filament\Actions;
-use App\Models\BlogCategory;
 use Filament\Resources\Components\Tab;
-use Illuminate\Database\Query\Builder;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\Post\BlogCategoryResource;
 use App\Filament\Resources\Post\BlogCategoryResource\Widgets\BlogCategoryOverview;
 

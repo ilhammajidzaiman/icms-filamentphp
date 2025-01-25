@@ -4,9 +4,9 @@ namespace App\Filament\Resources\Post\LinkResource\Pages;
 
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
-use App\Filament\Resources\Post\LinkResource;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\Post\LinkResource;
 use App\Filament\Resources\Post\LinkResource\Widgets\LinkOverview;
 
 class ListLinks extends ListRecords

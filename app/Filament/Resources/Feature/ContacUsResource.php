@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Feature;
 
-use Filament\Forms;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
@@ -16,7 +15,6 @@ use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\Feature\ContacUsResource\Pages;
-use App\Filament\Resources\Feature\ContacUsResource\RelationManagers;
 
 class ContacUsResource extends Resource
 {
@@ -67,34 +65,24 @@ class ContacUsResource extends Resource
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('name')
                     ->label('Nama')
+                    ->searchable()
                     ->sortable()
-                    ->searchable(),
+                    ->toggleable(),
                 TextColumn::make('email')
                     ->label('Email')
+                    ->searchable()
                     ->sortable()
-                    ->searchable(),
+                    ->toggleable(),
                 TextColumn::make('subject')
                     ->label('Subjek')
+                    ->searchable()
                     ->sortable()
-                    ->searchable(),
-                TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->label('Diperbarui')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->label('Dihapus')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(),
                 ToggleColumn::make('is_show')
                     ->label('Status')
-                    ->sortable(),
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

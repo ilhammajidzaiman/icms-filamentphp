@@ -4,9 +4,9 @@ namespace App\Filament\Resources\Media\ImageResource\Pages;
 
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
-use App\Filament\Resources\Media\ImageResource;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\Media\ImageResource;
 use App\Filament\Resources\Media\ImageResource\Widgets\ImageOverview;
 
 class ListImages extends ListRecords
