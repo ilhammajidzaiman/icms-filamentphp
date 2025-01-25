@@ -54,7 +54,7 @@
                             <small class="text-secondary">
                                 {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
                             </small>
-                            <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}"
+                            <a href="{{ route('article.show', $item->slug) }}"
                                 class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                 <div class="fw-medium">
                                     {{ Str::limit(strip_tags($item->title), 50, '...') }}
@@ -82,7 +82,7 @@
                             <small class="text-secondary">
                                 {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
                             </small>
-                            <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}"
+                            <a href="{{ route('article.show', $item->slug) }}"
                                 class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                 <div class="fw-medium">
                                     {{ Str::limit(strip_tags($item->title), 50, '...') }}
@@ -103,8 +103,7 @@
                 </a>
             @else
                 @foreach ($category as $item)
-                    <a wire:navigate.hover href="{{ route('category.show', $item->slug) }}"
-                        class="btn btn-secondary rounded-pill mb-2">
+                    <a href="{{ route('category.show', $item->slug) }}" class="btn btn-secondary rounded-pill mb-2">
                         {{ $item->title }}
                     </a>
                 @endforeach

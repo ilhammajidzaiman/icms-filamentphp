@@ -33,7 +33,7 @@
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a href="{{ route('feedback.index') }}" target="" class="nav-link p-0 text-body-secondary">
+                        <a href="{{ route('contacus.index') }}" target="" class="nav-link p-0 text-body-secondary">
                             Kontak Kami
                         </a>
                     </li>

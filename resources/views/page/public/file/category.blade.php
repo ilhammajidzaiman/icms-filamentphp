@@ -4,12 +4,12 @@
             <div class="col-12">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a wire:navigate.hover href="{{ route('index') }}">
+                        <a href="{{ route('index') }}">
                             Beranda
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a wire:navigate.hover href="{{ route('file.index') }}">
+                        <a href="{{ route('file.index') }}">
                             Dokumen
                         </a>
                     </li>
@@ -18,7 +18,7 @@
                     </li>
                 </ul>
                 <h3 class="fs-3 mb-4">
-                    <a wire:navigate.hover href="{{ route('category.index') }}"
+                    <a href="{{ route('category.index') }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                         Dokumen
                     </a>

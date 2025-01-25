@@ -4,7 +4,7 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-8">
                 @if (!$record)
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a wire:navigate.hover href="/">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="/">Beranda</a></li>
                         <li class="breadcrumb-item">Baca</li>
                     </ul>
                     <h1 class="mb-5">
@@ -19,12 +19,12 @@
                     <div class="col-12">
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a wire:navigate.hover href="{{ route('index') }}">
+                                <a href="{{ route('index') }}">
                                     Beranda
                                 </a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a wire:navigate.hover href="{{ route('file.index') }}">
+                                <a href="{{ route('file.index') }}">
                                     Dokumen
                                 </a>
                             </li>

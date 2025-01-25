@@ -4,12 +4,12 @@
             <div class="col-12">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a wire:navigate.hover href="{{ route('index') }}">
+                        <a href="{{ route('index') }}">
                             Beranda
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a wire:navigate.hover href="{{ route('article.index') }}">
+                        <a href="{{ route('article.index') }}">
                             Artikel
                         </a>
                     </li>
@@ -19,7 +19,7 @@
                 </ul>
                 @livewire('public.search')
                 <h3 class="fs-3 my-4">
-                    <a wire:navigate.hover href="{{ route('article.search', $keyword) }}"
+                    <a href="{{ route('article.search', $keyword) }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                         Cari artikel: {{ $keyword }}
                     </a>
@@ -35,7 +35,7 @@
                         @foreach ($data as $item)
                             <div class="col-sm-6 col-md-4 col-lg-3">
                                 <div class="card bg-transparent border-0">
-                                    <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}">
+                                    <a href="{{ route('article.show', $item->slug) }}">
                                         <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
                                             alt="image {{ $item->title }}"
                                             class="w-100 rounded-2 vh-20 bg-secondary-subtle">
@@ -50,7 +50,7 @@
                                                 {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
                                             </small>
                                         </div>
-                                        <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}"
+                                        <a href="{{ route('article.show', $item->slug) }}"
                                             class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                             {{ Str::limit(strip_tags($item->title), 100, '...') }}
                                         </a>

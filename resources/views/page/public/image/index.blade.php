@@ -4,7 +4,7 @@
             <div class="col-12">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a wire:navigate.hover href="{{ route('index') }}">
+                        <a href="{{ route('index') }}">
                             Beranda
                         </a>
                     </li>
@@ -13,7 +13,7 @@
                     </li>
                 </ul>
                 <h3 class="fs-3 mb-4">
-                    <a wire:navigate.hover href="{{ route('image.index') }}"
+                    <a href="{{ route('image.index') }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                         Galeri
                     </a>
@@ -40,7 +40,7 @@
                                             </small>
                                         </div>
                                         <p class="card-text">
-                                            <a wire:navigate.hover href="{{ route('image.show', $item->slug) }}"
+                                            <a href="{{ route('image.show', $item->slug) }}"
                                                 class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                                 {{ Str::limit(strip_tags($item->description), 100, '...') }}
                                             </a>

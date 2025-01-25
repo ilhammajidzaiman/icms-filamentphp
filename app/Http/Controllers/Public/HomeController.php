@@ -16,7 +16,7 @@ class HomeController extends Controller
     {
         $data['carousel'] = Carousel::show()
             ->limit(5)
-            ->orderByDesc('created_at')
+            ->orderByDesc('id')
             ->get();
         $data['articleSlide'] = BlogArticle::show()
             ->limit(8)
@@ -45,11 +45,11 @@ class HomeController extends Controller
             ->get();
         $data['image'] = Image::show()
             ->limit(8)
-            ->orderByDesc('created_at')
+            ->orderByDesc('id')
             ->get();
         $data['video'] = Video::show()
             ->limit(8)
-            ->orderByDesc('created_at')
+            ->orderByDesc('id')
             ->get();
         $data['people'] = People::show()
             ->orderBy('order')

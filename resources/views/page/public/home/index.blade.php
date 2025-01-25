@@ -55,7 +55,7 @@
                                             class="d-block w-100 rounded-44 vh-75 bg-secondary-subtle"
                                             alt="image {{ $item->title }}">
                                         <div class="carousel-caption d-none d-md-block">
-                                            <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}"
+                                            <a href="{{ route('article.show', $item->slug) }}"
                                                 class="text-reset text-decoration-none">
                                                 <h5 class="text-shadow fs-3">
                                                     {{ Str::limit(strip_tags($item->title), 128, '...') }}
@@ -95,7 +95,7 @@
                                     class="card-img border-0 rounded-0 w-100 bg-secondary-subtle vh-25"
                                     alt="image {{ $item->title }}">
                                 <div class="card-img-overlay">
-                                    <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}"
+                                    <a href="{{ route('article.show', $item->slug) }}"
                                         class="text-reset text-decoration-none">
                                         <h5 class="card-title text-shadow">
                                             {{ Str::limit(strip_tags($item->title), 100, '...') }}
@@ -141,7 +141,7 @@
                             @foreach ($blogArticle as $item)
                                 <div class="col-6 col-sm-6 col-md-4 col-lg-4">
                                     <div class="card bg-transparent border-0 mb-4">
-                                        <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}">
+                                        <a href="{{ route('article.show', $item->slug) }}">
                                             <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
                                                 alt="image {{ $item->title }}"
                                                 class="w-100 rounded-2 vh-20 bg-secondary-subtle">
@@ -156,7 +156,7 @@
                                                     {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
                                                 </small>
                                             </div>
-                                            <a wire:navigate.hover href="{{ route('article.show', $item->slug) }}"
+                                            <a href="{{ route('article.show', $item->slug) }}"
                                                 class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                                 {{ Str::limit(strip_tags($item->title), 100, '...') }}
                                             </a>
@@ -247,7 +247,7 @@
                                 </iframe>
                             </div>
                             <div class="card-body px-0 py-2">
-                                <a wire:navigate.hover href="{{ route('video.show', $item->slug) }}"
+                                <a href="{{ route('video.show', $item->slug) }}"
                                     class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                     {{ Str::limit(strip_tags($item->title), 100, '...') }}
                                 </a>

@@ -4,12 +4,12 @@
             <div class="col-12">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a wire:navigate.hover href="{{ route('index') }}">
+                        <a href="{{ route('index') }}">
                             Beranda
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a wire:navigate.hover href="{{ route('people.index') }}">
+                        <a href="{{ route('people.index') }}">
                             Tim
                         </a>
                     </li>
@@ -33,7 +33,7 @@
                         </div>
                         <div class="col-md-6">
                             <h1 class="display-6 fw-medium">
-                                <a wire:navigate.hover href="{{ route('people.show', $record->uuid) }}"
+                                <a href="{{ route('people.show', $record->uuid) }}"
                                     class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                     {{ $record->name }}
                                 </a>

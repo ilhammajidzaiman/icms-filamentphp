@@ -4,7 +4,7 @@
             <div class="col-12">
                 <ul class="breadcrumb mb-3">
                     <li class="breadcrumb-item">
-                        <a wire:navigate.hover href="{{ route('index') }}">
+                        <a href="{{ route('index') }}">
                             Beranda
                         </a>
                     </li>
@@ -13,7 +13,7 @@
                     </li>
                 </ul>
                 <h3 class="fs-3 mb-4">
-                    <a wire:navigate.hover href="{{ route('video.index') }}"
+                    <a href="{{ route('video.index') }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                         Video
                     </a>
@@ -38,7 +38,7 @@
                                         </iframe>
                                     </div>
                                     <div class="card-body px-0 py-2">
-                                        <a wire:navigate.hover href="{{ route('video.show', $item->slug) }}"
+                                        <a href="{{ route('video.show', $item->slug) }}"
                                             class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                             {{ Str::limit(strip_tags($item->title), 100, '...') }}
                                         </a>

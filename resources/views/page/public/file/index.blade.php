@@ -4,7 +4,7 @@
             <div class="col-12">
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a wire:navigate.hover href="{{ route('index') }}">
+                        <a href="{{ route('index') }}">
                             Beranda
                         </a>
                     </li>
@@ -14,7 +14,7 @@
                 </ul>
                 @livewire('public.search-file')
                 <h3 class="fs-3 my-4">
-                    <a wire:navigate.hover href="{{ route('category.index') }}"
+                    <a href="{{ route('category.index') }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                         Dokumen
                     </a>

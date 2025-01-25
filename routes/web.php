@@ -69,3 +69,8 @@ Route::prefix('/kritik-saran')->controller(Public\FeedbackController::class)->gr
     Route::get('/', 'index')->name('feedback.index');
     Route::post('/store', 'store')->name('feedback.store');
 });
+
+Route::prefix('/kontak')->controller(Public\ContacUsController::class)->group(function () {
+    Route::get('/', 'index')->name('contacus.index');
+    Route::post('/store', 'store')->name('contacus.store');
+});

@@ -9,65 +9,46 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        Kritik Saran
+                        Kontak
                     </li>
                 </ul>
                 <h3 class="fs-3">
-                    <a href="{{ route('feedback.index') }}"
+                    <a href="{{ route('contacus.index') }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                        Kritik Saran
+                        Hubungi Kami
                     </a>
                 </h3>
             </div>
             <div class="row">
                 <div class="col-12 col-md-5">
-                    <p class="fw-light lead text-secondary mb-5">
-                        Berikan kritik dan saran anda untuk kemajuan website ini kedepannya
+                    <p class="fw-light lead text-secondary">
+                        Anda dapat menghubungi kami dengan mengisi form di bawah, dan akan segera kami respon
+                        melalui email yang anda masukkan.
                     </p>
-                    @php
-                        $message = session('message');
-                        $alert = session('alert');
-                        $icon = session('icon');
-                    @endphp
-                    @if ($message)
-                        <div class="alert alert-{{ $alert }} alert-dismissible fade show mb-5" role="alert">
-                            <div class="fs-5">
-                                <i class="{{ $icon }} me-2"></i>
-                                {{ $message }}
-                            </div>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
-                    @endif
-                    <form action="{{ route('feedback.store') }}" method="post">
+                    <p class="fw-light lead text-secondary mb-5">
+                        Atau Anda bisa menghubungi kami melalui email atau sosial media kami.
+                    </p>
+                    <form action="{{ route('contacus.store') }}" method="post">
                         @csrf
-                        <div class="mb-3">
-                            <label for="feedback_category_id" class="form-label">
-                                Kategori
-                                <span class="text-danger fw-bold">*</span>
-                            </label>
-                            <select name="feedback_category_id" id="feedback_category_id"
-                                class="form-select @error('feedback_category_id')is-invalid @enderror">
-                                <option value="" selected disabled>Pilih...</option>
-                                @foreach ($feedbackCategory as $item)
-                                    <option value="{{ $item->id }}"
-                                        {{ old('feedback_category_id') == $item->id ? 'selected' : '' }}>
-                                        {{ $item->title }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('feedback_category_id')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
                         <div class="mb-3">
                             <label for="name" class="form-label">
                                 Nama
+
                                 <span class="text-danger fw-bold">*</span>
                             </label>
                             <input type="text" name="name" id="name" value="{{ old('name') }}"
                                 class="form-control @error('name')is-invalid @enderror">
                             @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">
+                                Subject
+                            </label>
+                            <input type="text" name="subject" id="subject" value="{{ old('subject') }}"
+                                class="form-control @error('subject')is-invalid @enderror">
+                            @error('subject')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

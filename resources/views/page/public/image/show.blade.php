@@ -3,12 +3,12 @@
         <div class="row g-3 my-5 pt-5">
             <ul class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a wire:navigate.hover href="{{ route('index') }}">
+                    <a href="{{ route('index') }}">
                         Beranda
                     </a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a wire:navigate.hover href="{{ route('image.index') }}">
+                    <a href="{{ route('image.index') }}">
                         Galeri
                     </a>
                 </li>
@@ -17,7 +17,7 @@
                 </li>
             </ul>
             <h3 class="fs-3 mb-4">
-                <a wire:navigate.hover href="{{ route('image.index') }}"
+                <a href="{{ route('image.index') }}"
                     class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                     Galeri
                 </a>

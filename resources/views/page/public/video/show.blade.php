@@ -4,12 +4,12 @@
             <div class="mb-5">
                 <ul class="breadcrumb mb-3">
                     <li class="breadcrumb-item">
-                        <a wire:navigate.hover href="{{ route('index') }}">
+                        <a href="{{ route('index') }}">
                             Beranda
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a wire:navigate.hover href="{{ route('video.index') }}">
+                        <a href="{{ route('video.index') }}">
                             Video
                         </a>
                     </li>
@@ -18,7 +18,7 @@
                     </li>
                 </ul>
                 <h3 class="fs-3">
-                    <a wire:navigate.hover href="{{ route('article.show', $record->slug) }}"
+                    <a href="{{ route('article.show', $record->slug) }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                         {{ $record->title }}
                     </a>
