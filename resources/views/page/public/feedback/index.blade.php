@@ -104,19 +104,18 @@
             </div>
         </div>
     </section>
-</x-public.app-layout>
-
-@push('script')
-    @include('sweetalert::alert')
-    <script>
-        const submit = document.getElementById('submit');
-        const icon = document.getElementById('icon');
-        const spinner = document.getElementById('spinner');
-        document.addEventListener('DOMContentLoaded', function() {
-            submit.addEventListener('click', function() {
-                icon.classList.add('d-none');
-                spinner.classList.remove('d-none');
+    @push('scripts')
+        @include('sweetalert::alert')
+        <script>
+            const submit = document.getElementById('submit');
+            const icon = document.getElementById('icon');
+            const spinner = document.getElementById('spinner');
+            document.addEventListener('DOMContentLoaded', function() {
+                submit.addEventListener('click', function() {
+                    icon.classList.add('d-none');
+                    spinner.classList.remove('d-none');
+                });
             });
-        });
-    </script>
-@endpush
+        </script>
+    @endpush
+</x-public.app-layout>

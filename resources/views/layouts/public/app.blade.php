@@ -17,6 +17,7 @@
     <link rel="shortcut icon" href="{{ $sitePage->logo }}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
+    @livewireStyles
 </head>
 
 <body>
@@ -24,6 +25,7 @@
     {{ $slot }}
     @include('layouts.public.footer')
     @stack('scripts')
+    @livewireScripts
 </body>
 
 </html>
