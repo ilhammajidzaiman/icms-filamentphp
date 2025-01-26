@@ -16,16 +16,14 @@
     </title>
     <link rel="shortcut icon" href="{{ $sitePage->logo }}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @stack('style')
-    @livewireStyles
+    @stack('styles')
 </head>
 
 <body>
     @include('layouts.public.navigation')
     {{ $slot }}
     @include('layouts.public.footer')
-    @stack('script')
-    @livewireScripts
+    @stack('scripts')
 </body>
 
 </html>

@@ -1,9 +1,8 @@
 @props([
     'href' => null,
-    'wire' => null,
 ])
 <li class="page-item disabled">
-    <a class="page-link" {{ $wire }} href="{{ $href }}">
+    <a class="page-link" href="{{ $href }}">
         Halaman {{ $href }}
     </a>
 </li>

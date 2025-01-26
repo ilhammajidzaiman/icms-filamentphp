@@ -57,12 +57,10 @@
                     <div class="row mt-4">
                         <div class="col-12">
                             <x-public.pagination>
-                                <x-public.pagination.current wire="wire:navigate.hover"
+                                <x-public.pagination.current
                                     href=" {{ $blogArticle->currentPage() }} / {{ $blogArticle->lastPage() }}" />
-                                <x-public.pagination.previous wire="wire:navigate.hover"
-                                    href="{{ $blogArticle->previousPageUrl() }}" />
-                                <x-public.pagination.next wire="wire:navigate.hover"
-                                    href="{{ $blogArticle->nextPageUrl() }}" />
+                                <x-public.pagination.previous href="{{ $blogArticle->previousPageUrl() }}" />
+                                <x-public.pagination.next href="{{ $blogArticle->nextPageUrl() }}" />
                             </x-public.pagination>
                         </div>
                     </div>

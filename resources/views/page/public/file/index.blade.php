@@ -48,12 +48,10 @@
                     <div class="row mt-4">
                         <div class="col-12">
                             <x-public.pagination>
-                                <x-public.pagination.current wire="wire:navigate.hover"
+                                <x-public.pagination.current
                                     href=" {{ $record->currentPage() }} / {{ $record->lastPage() }}" />
-                                <x-public.pagination.previous wire="wire:navigate.hover"
-                                    href="{{ $record->previousPageUrl() }}" />
-                                <x-public.pagination.next wire="wire:navigate.hover"
-                                    href="{{ $record->nextPageUrl() }}" />
+                                <x-public.pagination.previous href="{{ $record->previousPageUrl() }}" />
+                                <x-public.pagination.next href="{{ $record->nextPageUrl() }}" />
                             </x-public.pagination>
                         </div>
                     </div>
