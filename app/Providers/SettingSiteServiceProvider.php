@@ -3,12 +3,12 @@
 namespace App\Providers;
 
 use App\Models\Post\NavMenu;
-use App\Models\Setting\Site;
+use App\Models\Setting\SettingSite;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 
-class SiteServiceProvider extends ServiceProvider
+class SettingSiteServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -25,9 +25,9 @@ class SiteServiceProvider extends ServiceProvider
     {
         if ((request()->segment(1)) !== 'admin'):
             View::composer('*', function ($view) {
-                $sitePage = Site::first();
-                $logo = $sitePage->logo && Storage::disk('public')->exists($sitePage->logo)
-                    ? asset('storage/' . $sitePage->logo)
+                $settingSite = SettingSite::first();
+                $logo = $settingSite->logo && Storage::disk('public')->exists($settingSite->logo)
+                    ? asset('storage/' . $settingSite->logo)
                     : asset('image/laravel.svg');
                 $navMenus = NavMenu::where('parent_id', -1)
                     ->with([
@@ -38,13 +38,13 @@ class SiteServiceProvider extends ServiceProvider
                     ])
                     ->orderBy('order')
                     ->get();
-                $data['sitePage'] = (object)[
-                    'name' => $sitePage->name,
-                    'address' => $sitePage->address,
-                    'phone' => $sitePage->phone,
-                    'email' => $sitePage->email,
-                    'map' => $sitePage->map,
-                    'socialMedia' => $sitePage->social_media,
+                $data['settingSite'] = (object)[
+                    'name' => $settingSite->name,
+                    'address' => $settingSite->address,
+                    'phone' => $settingSite->phone,
+                    'email' => $settingSite->email,
+                    'map' => $settingSite->map,
+                    'socialMedia' => $settingSite->social_media,
                     'logo' => $logo,
                     'navMenus' => $navMenus,
                 ];

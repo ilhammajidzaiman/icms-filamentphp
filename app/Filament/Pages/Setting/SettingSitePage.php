@@ -5,7 +5,7 @@ namespace App\Filament\Pages\Setting;
 use Filament\Forms\Form;
 use Filament\Pages\Page;
 use Filament\Actions\Action;
-use App\Models\Setting\Site as ModelsSite;
+use App\Models\Setting\SettingSite;
 use Filament\Forms\Components\Grid;
 use Filament\Support\Exceptions\Halt;
 use Filament\Forms\Components\Section;
@@ -19,7 +19,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use BezhanSalleh\FilamentShield\Traits\HasPageShield;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 
-class Site extends Page implements HasForms
+class SettingSitePage extends Page implements HasForms
 {
     use InteractsWithForms, HasPageShield, WithFileUploads;
 
@@ -46,7 +46,7 @@ class Site extends Page implements HasForms
 
     public function mount(): void
     {
-        $this->form->fill(ModelsSite::first()->toArray());
+        $this->form->fill(SettingSite::first()->toArray());
     }
 
     public function form(Form $form): Form
@@ -152,7 +152,7 @@ class Site extends Page implements HasForms
     {
         try {
             $data = $this->form->getState();
-            ModelsSite::first()->update($data);
+            SettingSite::first()->update($data);
         } catch (Halt $exception) {
             return;
         }

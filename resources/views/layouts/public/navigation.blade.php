@@ -14,8 +14,8 @@
     class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm bg-white text-dark bg-opacity-75 fw-medium border-primary border-bottom border-2 border-opacity-50">
     <div class="container py-2">
         <a href="{{ route('index') }}" class="navbar-brand d-flex align-items-center">
-            <img src="{{ $sitePage->logo }}" alt="Logo" height="35" class="d-inline-block align-text-center me-3" />
-            {{ $sitePage->name ? $sitePage->name : env('APP_NAME') }}
+            <img src="{{ $settingSite->logo }}" alt="Logo" height="35" class="d-inline-block align-text-center me-3" />
+            {{ $settingSite->name ? $settingSite->name : env('APP_NAME') }}
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2"
             aria-controls="offcanvasNavbar2" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 text-capitalize">
-                    @foreach ($sitePage->navMenus as $parent)
+                    @foreach ($settingSite->navMenus as $parent)
                         @if (count($parent->children) > 0)
                             <li class="nav-item dropdown">
                                 <a role="button" data-bs-toggle="dropdown" aria-expanded="false"

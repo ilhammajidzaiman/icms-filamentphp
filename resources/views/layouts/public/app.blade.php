@@ -14,7 +14,7 @@
             {{ env('APP_NAME') }}
         @endisset
     </title>
-    <link rel="shortcut icon" href="{{ $sitePage->logo }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ $settingSite->logo }}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
     @livewireStyles

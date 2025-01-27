@@ -6,5 +6,5 @@ return [
     App\Providers\Filament\AdminPanelProvider::class,
     App\Providers\HelperServiceProvider::class,
     App\Providers\PolicyServiceProvider::class,
-    App\Providers\SiteServiceProvider::class,
+    App\Providers\SettingSiteServiceProvider::class,
 ];

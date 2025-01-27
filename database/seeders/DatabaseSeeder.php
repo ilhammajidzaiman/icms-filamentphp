@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
-            Setting\SiteSeeder::class,
+            Setting\SettingSiteSeeder::class,
             Media\FileCategorySeeder::class,
             Media\FileSeeder::class,
             Media\CarouselSeeder::class,

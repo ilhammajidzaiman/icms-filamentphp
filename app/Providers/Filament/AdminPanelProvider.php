@@ -4,12 +4,11 @@ namespace App\Providers\Filament;
 
 use Filament\Pages;
 use Filament\Panel;
-use Filament\Widgets;
 use Filament\PanelProvider;
-use App\Models\Setting\Site;
 use App\Filament\Pages\Auth\Login;
 use Filament\Support\Colors\Color;
 use Hasnayeen\Themes\ThemesPlugin;
+use App\Models\Setting\SettingSite;
 use App\Filament\Widgets\AccountWidget;
 use Illuminate\Support\Facades\Storage;
 use App\Filament\Pages\Auth\EditProfile;
@@ -77,7 +76,7 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop()
             ->favicon(
                 function () {
-                    $data = Site::first();
+                    $data = SettingSite::first();
                     $default = asset('image/laravel.svg');
                     if ($data->favicon) :
                         if (Storage::disk('public')->exists($data->favicon)) :
@@ -92,7 +91,7 @@ class AdminPanelProvider extends PanelProvider
             )
             ->brandLogo(
                 function () {
-                    $data = Site::first();
+                    $data = SettingSite::first();
                     $default = asset('image/laravel.svg');
                     if ($data->logo) :
                         if (Storage::disk('public')->exists($data->logo)) :
