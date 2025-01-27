@@ -18,8 +18,8 @@ class ArticleController extends Controller
 
     public function show(string $id)
     {
-        $data['item'] = BlogArticle::show()
-            ->with(['tags', 'blogCategory'])
+        $data['record'] = BlogArticle::show()
+            ->with(['blogTags', 'blogCategory'])
             ->where('slug', $id)
             ->first();
         $data['blogArticle'] = BlogArticle::show()
@@ -39,25 +39,19 @@ class ArticleController extends Controller
             ->limit(5)
             ->orderByDesc('published_at')
             ->get();
-        if (!$data['item']) :
-            $data['share'] = env('APP_URL') . '/';
+        if ($data['record']) :
+            $data['record']->increment('visitor');
+            $data['share'] = env('APP_URL') . '/' . $data['record']->slug;
         else :
-            // $data['item']->increment('visitor');
-            $this->update($data['item']);
-            $data['share'] = env('APP_URL') . '/' . $data['item']->slug;
+            $data['share'] = env('APP_URL') . '/';
         endif;
         return view('page.public.article.show', $data);
-    }
-
-    public function update($id)
-    {
-        $id->increment('visitor');
     }
 
     public function search(string $id)
     {
         $data['keyword'] = $id;
-        $data['data'] = BlogArticle::show()
+        $data['record'] = BlogArticle::show()
             ->with(['blogCategory'])
             ->where('slug', 'like', '%' . $id . '%')
             ->paginate(15);

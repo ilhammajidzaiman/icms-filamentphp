@@ -154,7 +154,7 @@ class BlogArticleResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->defaultSort('created_at', 'desc')
+            ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
                     ->label('No')
@@ -249,59 +249,5 @@ class BlogArticleResource extends Resource
         //     ->when($user->hasRole('user'), function ($query) use ($user) {
         //         return $query->where('user_id', $user->user_id);
         //     });
-    }
-
-    public static function infolist(Infolist $infolist): Infolist
-    {
-        return $infolist
-            ->columns(3)
-            ->schema([
-                InfolistsSection::make()
-                    ->columnSpan(2)
-                    ->schema([
-                        ImageEntry::make('file')
-                            ->hiddenlabel('Gambar')
-                            ->defaultImageUrl(asset('/image/default-img.svg')),
-                        TextEntry::make('title')
-                            ->label('Judul')
-                            ->weight(FontWeight::Medium)
-                            ->size(TextEntrySize::Large),
-                        TextEntry::make('slug')
-                            ->label('Slug')
-                            ->color('gray'),
-                        TextEntry::make('blogCategory.title')
-                            ->label('Kategori')
-                            ->color('primary'),
-                        TextEntry::make('content')
-                            ->label('Content')
-                            ->html(),
-                        TextEntry::make('blogTags.title')
-                            ->label('Tanda/Topik')
-                            ->badge()
-                            ->separator(',')
-                            ->size(TextEntrySize::Large),
-                    ]),
-                InfolistsSection::make()
-                    ->columnSpan(1)
-                    ->schema([
-                        IconEntry::make('is_show')
-                            ->label('Status')
-                            ->boolean(),
-                        TextEntry::make('visitor')
-                            ->label('Pengunjung'),
-                        TextEntry::make('user.name')
-                            ->label('Penulis')
-                            ->badge(),
-                        TextEntry::make('published_at')
-                            ->label('Diterbitkan ')
-                            ->since(),
-                        TextEntry::make('created_at')
-                            ->label('Dibuat')
-                            ->since(),
-                        TextEntry::make('updated_at')
-                            ->label('Diperbarui')
-                            ->since(),
-                    ])
-            ]);
     }
 }

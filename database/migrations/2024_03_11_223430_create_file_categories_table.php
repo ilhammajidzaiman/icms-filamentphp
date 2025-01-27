@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('uuid');
             $table->foreignIdFor(User::class)
                 ->constrained()
+                ->cascadeOnUpdate()
                 ->cascadeOnDelete()
                 ->comment('id table users');
             $table->string('slug')

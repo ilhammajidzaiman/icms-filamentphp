@@ -308,12 +308,12 @@
 
     </section>
 
-    @push('style')
+    @push('styles')
         <link rel="stylesheet" href="{{ asset('owlcarousel/dist/assets/owl.carousel.min.css') }}">
         <link rel="stylesheet" href="{{ asset('owlcarousel/dist/assets/owl.theme.default.min.css') }}">
     @endpush
 
-    @push('script')
+    @push('scripts')
         <script src="{{ asset('/js/masonry.pkgd.min.js') }}"></script>
         <script src="{{ asset('/js/jquery-3.6.0.min.js') }}"></script>
         <script src="{{ asset('/owlcarousel/dist/owl.carousel.min.js') }}"></script>

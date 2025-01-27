@@ -3,7 +3,7 @@
         <div class="row g-3 justify-content-between mt-5 pt-5">
             <div class="col-12 col-sm-12 col-md-12 col-lg-8">
                 <div class="mb-5">
-                    @if (!$item)
+                    @if (!$record)
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item">
                                 <a href="/{{ route('index') }}">
@@ -35,27 +35,27 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item d-inline-block text-truncate">
-                                {{ Str::limit(strip_tags($item->title), 50, '...') }}
+                                {{ Str::limit(strip_tags($record->title), 50, '...') }}
                             </li>
                         </ul>
                         <h5>
-                            <a href="{{ route('category.show', $item->blogCategory->slug) }}"
+                            <a href="{{ route('category.show', $record->blogCategory->slug) }}"
                                 class="badge bg-primary-subtle link-primary rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                                {{ $item->blogCategory->title }}
+                                {{ $record->blogCategory->title }}
                             </a>
                         </h5>
                         <h3 class="fs-3">
-                            <a href="{{ route('article.show', $item->slug) }}"
+                            <a href="{{ route('article.show', $record->slug) }}"
                                 class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                                {{ $item->title }}
+                                {{ $record->title }}
                             </a>
                         </h3>
                         <h6 class="test-secondary">
-                            {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
+                            {{ \Carbon\Carbon::parse($record->published_at)->translatedFormat('l, j F Y') }}
                             -
-                            {{ App\Helpers\EstimateReadingTime($item->content) }} Menit baca
+                            {{ App\Helpers\EstimateReadingTime($record->content) }} Menit baca
                             -
-                            {{ $item->visitor }}x Dilihat
+                            {{ $record->visitor }}x Dilihat
                         </h6>
                         <nav class="nav mb-5">
                             <button onclick="whatsapp()" type="button"
@@ -79,26 +79,26 @@
                                 <i class="rounded-circle bi bi-copy fs-4"></i>
                             </button>
                         </nav>
-                        @if ($item->file)
-                            <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
-                                alt="image {{ $item->title }}" class="w-100 rounded-2 bg-secondary-subtle">
+                        @if ($record->file)
+                            <img src="{{ $record->file ? asset('storage/' . $record->file) : asset('image/default-img.svg') }}"
+                                alt="image {{ $record->title }}" class="w-100 rounded-2 bg-secondary-subtle">
                         @endif
-                        @if ($item->description)
+                        @if ($record->description)
                             <div class="mt-2">
                                 <small class="text-secondary">
-                                    {{ $item->description }}
+                                    {{ $record->description }}
                                 </small>
                             </div>
                         @endif
                         <div class="fs-5 fw-light my-4">
-                            {!! $item->content !!}
+                            {!! $record->content !!}
                         </div>
-                        @if ($item->attachment)
+                        @if ($record->attachment)
                             <p class="text-secondary">
                                 Galeri:
                             </p>
                             <div class="row g-3 g-3 mb-5">
-                                @foreach ($item->attachment as $file)
+                                @foreach ($record->attachment as $file)
                                     <div class="col-6 col-sm-6 col-md-4 col-lg-4">
                                         <img src="{{ asset('storage/' . $file) }}" alt="image {{ $file }}"
                                             class="w-100 rounded-2 vh-20 bg-secondary-subtle">
@@ -106,12 +106,12 @@
                                 @endforeach
                             </div>
                         @endif
-                        @if ($item->tags)
+                        @if ($record->blogTags)
                             <p class="text-secondary">
                                 Topik:
                             </p>
                             <div class="mb-5">
-                                @foreach ($item->tags as $item)
+                                @foreach ($record->blogTags as $item)
                                     <span class="fs-5">
                                         <div
                                             class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis fw-normal px-3 py-2">
@@ -187,24 +187,24 @@
                     @foreach ($blogArticle as $item)
                         <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                             <div class="card bg-transparent border-0 mb-4">
-                                <a href="{{ route('article.show', $item->slug) }}">
-                                    <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
-                                        alt="image {{ $item->title }}"
+                                <a href="{{ route('article.show', $record->slug) }}">
+                                    <img src="{{ $record->file ? asset('storage/' . $record->file) : asset('image/default-img.svg') }}"
+                                        alt="image {{ $record->title }}"
                                         class="w-100 rounded-2 vh-20 bg-secondary-subtle">
                                 </a>
                                 <div class="card-body px-0 py-2">
-                                    <a href="{{ route('category.show', $item->blogCategory->slug) }}"
+                                    <a href="{{ route('category.show', $record->blogCategory->slug) }}"
                                         class="badge bg-primary-subtle link-primary rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                                        {{ $item->blogCategory->title }}
+                                        {{ $record->blogCategory->title }}
                                     </a>
                                     <div>
                                         <small class="text-secondary">
-                                            {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
+                                            {{ \Carbon\Carbon::parse($record->published_at)->translatedFormat('l, j F Y') }}
                                         </small>
                                     </div>
-                                    <a href="{{ route('article.show', $item->slug) }}"
+                                    <a href="{{ route('article.show', $record->slug) }}"
                                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                                        {{ Str::limit(strip_tags($item->title), 100, '...') }}
+                                        {{ Str::limit(strip_tags($record->title), 100, '...') }}
                                     </a>
                                 </div>
                             </div>
@@ -214,71 +214,70 @@
             @endif
         </div>
     </section>
+    @push('seo')
+        @if ($item)
+            <meta property="og:url" content="{{ env('APP_URL') . '/' . $record->slug }}">
+            <meta property="og:type" content="website">
+            <meta property="og:title" content="{{ $record->title }}">
+            <meta property="og:description" content="">
+            <meta property="og:image" content="{{ env('APP_ASSET') . $record->file }}">
+            <meta name="twitter:card" content="summary_large_image">
+            <meta property="twitter:domain" content="{{ env('APP_URL') }}">
+            <meta property="twitter:url" content="{{ env('APP_URL') . '/' . $record->slug }}">
+            <meta name="twitter:title" content="{{ $record->title }}">
+            <meta name="twitter:image" content="{{ env('APP_ASSET') . $record->file }}">
+        @endif
+    @endpush
+
+    @push('scripts')
+        <script>
+            let width = 600;
+            let height = 400;
+
+            function facebook() {
+                let left = window.innerWidth / 2 - width / 2;
+                let top = window.innerHeight / 2 - height / 2;
+                const url = '{{ $share }}'
+                const api = "https://www.facebook.com/sharer/sharer.php?u="
+                const navUrl = api + url;
+                window.open(navUrl, '_blank', 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
+            }
+
+            function whatsapp() {
+                const url = '{{ $share }}'
+                const api = "whatsapp://send?text=" + url
+                const navUrl = api + url;
+                window.open(navUrl);
+            }
+
+            function twitter() {
+                let left = window.innerWidth / 2 - width / 2;
+                let top = window.innerHeight / 2 - height / 2;
+                const url = '{{ $share }}'
+                const api = 'https://twitter.com/intent/tweet?text=';
+                const navUrl = api + url;
+                window.open(navUrl, '_blank', 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
+            }
+
+            function telegram() {
+                let left = window.innerWidth / 2 - width / 2;
+                let top = window.innerHeight / 2 - height / 2;
+                const url = '{{ $share }}'
+                const api = 'https://telegram.me/share/url?url=';
+                const navUrl = api + url;
+                window.open(navUrl, '_blank', 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
+            }
+
+            function copyLink() {
+                const url = '{{ $share }}'
+                const textarea = document.createElement('textarea');
+                textarea.value = url;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                alert('Tautan berhasil disalin');
+            }
+        </script>
+    @endpush
 </x-public.app-layout>
-
-@push('seo')
-    @if ($item)
-        <meta property="og:url" content="{{ env('APP_URL') . '/' . $item->slug }}">
-        <meta property="og:type" content="website">
-        <meta property="og:title" content="{{ $item->title }}">
-        <meta property="og:description" content="">
-        <meta property="og:image" content="{{ env('APP_ASSET') . $item->file }}">
-        <meta name="twitter:card" content="summary_large_image">
-        <meta property="twitter:domain" content="{{ env('APP_URL') }}">
-        <meta property="twitter:url" content="{{ env('APP_URL') . '/' . $item->slug }}">
-        <meta name="twitter:title" content="{{ $item->title }}">
-        <meta name="twitter:image" content="{{ env('APP_ASSET') . $item->file }}">
-    @endif
-@endpush
-
-@push('script')
-    <script>
-        let width = 600;
-        let height = 400;
-
-        function facebook() {
-            let left = window.innerWidth / 2 - width / 2;
-            let top = window.innerHeight / 2 - height / 2;
-            const url = '{{ $share }}'
-            const api = "https://www.facebook.com/sharer/sharer.php?u="
-            const navUrl = api + url;
-            window.open(navUrl, '_blank', 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
-        }
-
-        function whatsapp() {
-            const url = '{{ $share }}'
-            const api = "whatsapp://send?text=" + url
-            const navUrl = api + url;
-            window.open(navUrl);
-        }
-
-        function twitter() {
-            let left = window.innerWidth / 2 - width / 2;
-            let top = window.innerHeight / 2 - height / 2;
-            const url = '{{ $share }}'
-            const api = 'https://twitter.com/intent/tweet?text=';
-            const navUrl = api + url;
-            window.open(navUrl, '_blank', 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
-        }
-
-        function telegram() {
-            let left = window.innerWidth / 2 - width / 2;
-            let top = window.innerHeight / 2 - height / 2;
-            const url = '{{ $share }}'
-            const api = 'https://telegram.me/share/url?url=';
-            const navUrl = api + url;
-            window.open(navUrl, '_blank', 'width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
-        }
-
-        function copyLink() {
-            const url = '{{ $share }}'
-            const textarea = document.createElement('textarea');
-            textarea.value = url;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            alert('Tautan berhasil disalin');
-        }
-    </script>
-@endpush

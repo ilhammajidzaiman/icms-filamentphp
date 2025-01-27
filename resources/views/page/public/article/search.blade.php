@@ -24,7 +24,7 @@
                         Cari artikel: {{ $keyword }}
                     </a>
                 </h3>
-                @if ($data->isEmpty())
+                @if ($record->isEmpty())
                     <div class="row g-3 justify-content-center">
                         <div class="col-sm-6 col-md-4 col-lg-3">
                             <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
@@ -32,7 +32,7 @@
                     </div>
                 @else
                     <div class="row g-3">
-                        @foreach ($data as $item)
+                        @foreach ($record as $item)
                             <div class="col-sm-6 col-md-4 col-lg-3">
                                 <div class="card bg-transparent border-0">
                                     <a href="{{ route('article.show', $item->slug) }}">
@@ -63,9 +63,9 @@
                         <div class="col-12">
                             <x-public.pagination>
                                 <x-public.pagination.current
-                                    href=" {{ $data->currentPage() }} / {{ $data->lastPage() }}" />
-                                <x-public.pagination.previous href="{{ $data->previousPageUrl() }}" />
-                                <x-public.pagination.next href="{{ $data->nextPageUrl() }}" />
+                                    href=" {{ $record->currentPage() }} / {{ $record->lastPage() }}" />
+                                <x-public.pagination.previous href="{{ $record->previousPageUrl() }}" />
+                                <x-public.pagination.next href="{{ $record->nextPageUrl() }}" />
                             </x-public.pagination>
                         </div>
                     </div>

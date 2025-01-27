@@ -2,9 +2,8 @@
 
 namespace App\Filament\Resources\Media\FileCategoryResource\Pages;
 
-use App\Filament\Resources\Media\FileCategoryResource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
+use App\Filament\Resources\Media\FileCategoryResource;
 
 class CreateFileCategory extends CreateRecord
 {

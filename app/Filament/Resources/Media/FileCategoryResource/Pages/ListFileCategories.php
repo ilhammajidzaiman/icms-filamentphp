@@ -5,8 +5,8 @@ namespace App\Filament\Resources\Media\FileCategoryResource\Pages;
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\Media\FileCategoryResource;
+use App\Filament\Resources\Media\FileCategoryResource\Widgets\FileCategoryOverview;
 
 class ListFileCategories extends ListRecords
 {
@@ -16,6 +16,13 @@ class ListFileCategories extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            FileCategoryOverview::class,
         ];
     }
 

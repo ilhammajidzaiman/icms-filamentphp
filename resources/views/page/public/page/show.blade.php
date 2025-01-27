@@ -228,7 +228,7 @@
     @endif
 @endpush
 
-@push('script')
+@push('scripts')
     <script>
         let width = 600;
         let height = 400;
