@@ -23,7 +23,7 @@ class SettingSitePage extends Page implements HasForms
 {
     use InteractsWithForms, HasPageShield, WithFileUploads;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-window';
     protected static string $view = 'filament.pages.setting.site';
     protected static ?string $navigationGroup = 'Pengaturan';
     protected static ?string $modelLabel = 'Site';
