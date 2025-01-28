@@ -21,19 +21,27 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            UserSeeder::class,
+            // setting
+            Setting\UserSeeder::class,
             Setting\SettingSiteSeeder::class,
+            Setting\SettingPageSeeder::class,
+
+            // media
             Media\FileCategorySeeder::class,
             Media\FileSeeder::class,
             Media\CarouselSeeder::class,
             Media\ImageSeeder::class,
             Media\VideoSeeder::class,
+
+            // post
             Post\BlogCategorySeeder::class,
             Post\BlogTagSeeder::class,
             Post\BlogArticleSeeder::class,
             Post\PageSeeder::class,
             Post\LinkSeeder::class,
             Post\NavMenuSeeder::class,
+
+            // feature
             Feature\PeoplePositionSeeder::class,
             Feature\PeopleSeeder::class,
             Feature\FeedbackCategorySeeder::class,
