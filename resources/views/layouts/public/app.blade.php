@@ -20,7 +20,7 @@
     @livewireStyles
 </head>
 
-<body>
+<body class="pt-5">
     @include('layouts.public.navigation')
     {{ $slot }}
     @include('layouts.public.footer')

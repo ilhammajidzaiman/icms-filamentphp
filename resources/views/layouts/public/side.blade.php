@@ -1,9 +1,9 @@
 <div class="card bg-transparent border-2">
     <div class="card-body">
         <div>
-            <h5 class="fw-semibold border-start border-5 border-secondary-subtle mb-4 ps-2">
+            <h1 class="fs-5 fw-semibold border-start border-5 border-secondary-subtle mb-4 ps-2">
                 Tetap Terhubung
-            </h5>
+            </h1>
             <div class="d-grid gap-2">
                 @if ($settingSite->socialMedia)
                     @foreach ($settingSite->socialMedia as $item)
@@ -38,9 +38,9 @@
             </div>
         </div>
         <div class="mt-5">
-            <h5 class="fw-semibold border-start border-5 border-secondary-subtle mb-4 ps-2">
+            <h1 class="fs-5 fw-semibold border-start border-5 border-secondary-subtle mb-4 ps-2">
                 Artikel Populer
-            </h5>
+            </h1>
             <ul class="list-group list-group-flush">
                 @if ($popular->isEmpty())
                     <li class="list-group-item px-0">
@@ -66,9 +66,9 @@
             </ul>
         </div>
         <div class="mt-5">
-            <h5 class="fw-semibold border-start border-5 border-secondary-subtle mb-4 ps-2">
+            <h1 class="fs-5 fw-semibold border-start border-5 border-secondary-subtle mb-4 ps-2">
                 Artikel Terbaru
-            </h5>
+            </h1>
             <ul class="list-group list-group-flush">
                 @if ($latest->isEmpty())
                     <li class="list-group-item px-0">
@@ -94,9 +94,9 @@
             </ul>
         </div>
         <div class="mt-5">
-            <h5 class="fw-semibold border-start border-5 border-secondary-subtle mb-4 ps-2">
+            <h1 class="fs-5 fw-semibold border-start border-5 border-secondary-subtle mb-4 ps-2">
                 Kategori
-            </h5>
+            </h1>
             @if ($category->isEmpty())
                 <a href="{{ route('index') }}" class="btn btn-secondary rounded-pill">
                     Not found!

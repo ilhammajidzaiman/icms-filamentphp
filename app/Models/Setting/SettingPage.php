@@ -33,4 +33,9 @@ class SettingPage extends Model
             $model->uuid = Str::uuid();
         });
     }
+
+    public function scopeShow($query)
+    {
+        return $query->where('is_show', true);
+    }
 }

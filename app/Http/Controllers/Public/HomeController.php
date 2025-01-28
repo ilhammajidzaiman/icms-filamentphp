@@ -9,6 +9,7 @@ use App\Models\Media\Carousel;
 use App\Models\Post\BlogArticle;
 use App\Models\Post\BlogCategory;
 use App\Http\Controllers\Controller;
+use App\Models\Setting\SettingPage;
 
 class HomeController extends Controller
 {
@@ -54,6 +55,28 @@ class HomeController extends Controller
         $data['people'] = People::show()
             ->orderBy('order')
             ->get();
+        $data['settingPage'] = (object)[
+            'carousel' => SettingPage::show()
+                ->where('type', 'section-home')
+                ->where('title', 'carousel')
+                ->first(),
+            'headline' => SettingPage::show()
+                ->where('type', 'section-home')
+                ->where('title', 'headline')
+                ->first(),
+            'image' => SettingPage::show()
+                ->where('type', 'section-home')
+                ->where('title', 'image')
+                ->first(),
+            'video' => SettingPage::show()
+                ->where('type', 'section-home')
+                ->where('title', 'video')
+                ->first(),
+            'people' => SettingPage::show()
+                ->where('type', 'section-home')
+                ->where('title', 'people')
+                ->first(),
+        ];
         return view('page.public.home.index', $data);
     }
 }
