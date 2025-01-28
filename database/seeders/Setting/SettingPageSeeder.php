@@ -17,27 +17,22 @@ class SettingPageSeeder extends Seeder
             [
                 "title" => "carousel",
                 "type" => "section-home",
-                "is_show" => true,
             ],
             [
                 "title" => "headline",
                 "type" => "section-home",
-                "is_show" => true,
             ],
             [
                 "title" => "image",
                 "type" => "section-home",
-                "is_show" => true,
             ],
             [
                 "title" => "people",
                 "type" => "section-home",
-                "is_show" => true,
             ],
             [
                 "title" => "video",
                 "type" => "section-home",
-                "is_show" => true,
             ]
         ];
         foreach ($data as $item) :
@@ -45,7 +40,6 @@ class SettingPageSeeder extends Seeder
                 [
                     'title' => $item['title'],
                     'type' => $item['type'],
-                    "is_show" => true,
                 ],
             );
         endforeach;
