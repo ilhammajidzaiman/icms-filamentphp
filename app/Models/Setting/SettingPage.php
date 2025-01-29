@@ -13,8 +13,8 @@ class SettingPage extends Model
 
     protected $fillable =
     [
-        'title',
         'type',
+        'title',
         'is_show',
     ];
 

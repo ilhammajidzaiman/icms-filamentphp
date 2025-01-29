@@ -15,31 +15,31 @@ class SettingPageSeeder extends Seeder
     {
         $data = [
             [
+                "type" => "section-home",
                 "title" => "carousel",
-                "type" => "section-home",
             ],
             [
+                "type" => "section-home",
                 "title" => "headline",
-                "type" => "section-home",
             ],
             [
+                "type" => "section-home",
                 "title" => "image",
-                "type" => "section-home",
             ],
             [
+                "type" => "section-home",
                 "title" => "people",
-                "type" => "section-home",
             ],
             [
-                "title" => "video",
                 "type" => "section-home",
+                "title" => "video",
             ]
         ];
         foreach ($data as $item) :
             SettingPage::create(
                 [
-                    'title' => $item['title'],
                     'type' => $item['type'],
+                    'title' => $item['title'],
                 ],
             );
         endforeach;

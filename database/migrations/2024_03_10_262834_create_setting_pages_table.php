@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('setting_pages', function (Blueprint $table) {
             $table->id();
             $table->string('uuid');
-            $table->string('title')
-                ->unique()
-                ->comment('judul elemen');
             $table->string('type')
                 ->nullable()
                 ->comment('tipe elemen');
+            $table->string('title')
+                ->nullable()
+                ->comment('judul elemen');
             $table->boolean('is_show')
                 ->default(true)
                 ->comment('status tampilkan');
