@@ -1,6 +1,6 @@
 <x-public.app-layout>
-    <section class="container pt-2">
-        <div class="row g-3 justify-content-between mt-5 pt-5">
+    <section class="container mt-5">
+        <div class="row g-3 justify-content-between">
             <div class="col-12 col-sm-12 col-md-12 col-lg-8">
                 <div class="mb-5">
                     @if (!$record)
@@ -38,9 +38,9 @@
                                 {{ Str::limit(strip_tags($record->title), 50, '...') }}
                             </li>
                         </ul>
-                        <h5>
+                        <h5 class="fs-5">
                             <a href="{{ route('category.show', $record->blogCategory->slug) }}"
-                                class="badge bg-primary-subtle link-primary rounded-pill mb-2 link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
+                                class="badge bg-primary-subtle link-primary rounded-pill link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                 {{ $record->blogCategory->title }}
                             </a>
                         </h5>
@@ -50,35 +50,13 @@
                                 {{ $record->title }}
                             </a>
                         </h3>
-                        <h6 class="test-secondary">
+                        <h6 class="fs-6 text-secondary">
                             {{ \Carbon\Carbon::parse($record->published_at)->translatedFormat('l, j F Y') }}
                             -
                             {{ App\Helpers\EstimateReadingTime($record->content) }} Menit baca
                             -
                             {{ $record->visitor }}x Dilihat
                         </h6>
-                        <nav class="nav mb-5">
-                            <button onclick="whatsapp()" type="button"
-                                class="nav-link badge btn btn-light d-flex align-items-center text-dark-emphasis">
-                                <i class="rounded-circle bi bi-whatsapp fs-4"></i>
-                            </button>
-                            <button onclick="facebook()" type="button"
-                                class="nav-link badge btn btn-light d-flex align-items-center text-dark-emphasis">
-                                <i class="rounded-circle bi bi-facebook fs-4"></i>
-                            </button>
-                            <button onclick="twitter()" type="button"
-                                class="nav-link badge btn btn-light d-flex align-items-center text-dark-emphasis">
-                                <i class="rounded-circle bi bi-twitter-x fs-4"></i>
-                            </button>
-                            <button onclick="telegram()" type="button"
-                                class="nav-link badge btn btn-light d-flex align-items-center text-dark-emphasis">
-                                <i class="rounded-circle bi bi-telegram fs-4"></i>
-                            </button>
-                            <button onclick="copyLink()" type="button"
-                                class="nav-link badge btn btn-light d-flex align-items-center text-dark-emphasis">
-                                <i class="rounded-circle bi bi-copy fs-4"></i>
-                            </button>
-                        </nav>
                         @if ($record->file)
                             <img src="{{ $record->file ? asset('storage/' . $record->file) : asset('image/default-img.svg') }}"
                                 alt="image {{ $record->title }}" class="w-100 rounded-2 bg-secondary-subtle">

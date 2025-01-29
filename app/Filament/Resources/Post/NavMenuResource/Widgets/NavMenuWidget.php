@@ -5,9 +5,16 @@ namespace App\Filament\Resources\Post\NavMenuResource\Widgets;
 use Filament\Forms\Set;
 use App\Models\Post\Link;
 use App\Models\Post\Page;
+use App\Models\Media\File;
+use App\Models\Media\Image;
+use App\Models\Media\Video;
 use Illuminate\Support\Str;
+use App\Models\Post\BlogTag;
 use App\Models\Post\NavMenu;
 use App\Models\Post\BlogArticle;
+use App\Models\Media\Information;
+use App\Models\Post\BlogCategory;
+use App\Models\Media\FileCategory;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
@@ -48,18 +55,18 @@ class NavMenuWidget extends BaseWidget
                         ->default(true),
                     TextInput::make('title')
                         ->label('Judul')
+                        ->helperText('Maksimal: 50 karakter.')
                         ->required()
                         ->maxLength(50)
                         ->live(onBlur: true)
-                        ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                        ->helperText('Maksimal: 50 karakter.'),
+                        ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
                     TextInput::make('slug')
                         ->label('Slug')
+                        ->helperText('Slug akan otomatis dihasilkan dari judul.')
                         ->required()
-                        ->maxLength(255)
                         ->disabled()
                         ->dehydrated()
-                        ->helperText('Slug akan otomatis dihasilkan dari judul.'),
+                        ->maxLength(255),
                 ]),
             MorphToSelect::make('modelable')
                 ->label('Arahkan Ke')
@@ -70,49 +77,37 @@ class NavMenuWidget extends BaseWidget
                     MorphToSelect\Type::make(BlogArticle::class)
                         ->titleAttribute('title')
                         ->label('Artikel'),
+                    MorphToSelect\Type::make(BlogCategory::class)
+                        ->titleAttribute('title')
+                        ->label('Kategori Artikel'),
+                    MorphToSelect\Type::make(BlogTag::class)
+                        ->titleAttribute('title')
+                        ->label('Tag Artikel'),
                     MorphToSelect\Type::make(Page::class)
                         ->titleAttribute('title')
                         ->label('Halaman'),
                     MorphToSelect\Type::make(Link::class)
                         ->titleAttribute('title')
-                        ->label('Link'),
+                        ->label('Tautan'),
+                    MorphToSelect\Type::make(File::class)
+                        ->titleAttribute('title')
+                        ->label('Dokumen'),
+                    MorphToSelect\Type::make(FileCategory::class)
+                        ->titleAttribute('title')
+                        ->label('Kategori Dokumen'),
+                    MorphToSelect\Type::make(Information::class)
+                        ->titleAttribute('title')
+                        ->label('Informasi'),
+                    MorphToSelect\Type::make(Image::class)
+                        ->titleAttribute('title')
+                        ->label('Image'),
+                    MorphToSelect\Type::make(Video::class)
+                        ->titleAttribute('title')
+                        ->label('Video'),
                 ])
         ];
     }
 
-    // INFOLIST, CAN DELETE
-    public function getViewFormSchema(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    // CUSTOMIZE ICON OF EACH RECORD, CAN DELETE
-    // public function getTreeRecordIcon(?\Illuminate\Database\Eloquent\Model $record = null): ?string
-    // {
-    //     return null;
-    // }
-
-    // CUSTOMIZE ACTION OF EACH RECORD, CAN DELETE 
-    // protected function getTreeActions(): array
-    // {
-    //     return [
-    //         Action::make('helloWorld')
-    //             ->action(function () {
-    //                 Notification::make()->success()->title('Hello World')->send();
-    //             }),
-    //         // ViewAction::make(),
-    //         // EditAction::make(),
-    //         ActionGroup::make([
-    //             
-    //             ViewAction::make(),
-    //             EditAction::make(),
-    //         ]),
-    //         DeleteAction::make(),
-    //     ];
-    // }
-    // OR OVERRIDE FOLLOWING METHODS
     protected function hasDeleteAction(): bool
     {
         return true;

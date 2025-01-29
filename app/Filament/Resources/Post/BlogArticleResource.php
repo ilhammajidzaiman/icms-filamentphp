@@ -166,36 +166,36 @@ class BlogArticleResource extends Resource
                 TextColumn::make('title')
                     ->label('Judul')
                     ->wrap()
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 TextColumn::make('visitor')
                     ->label('Pengunjung')
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 TextColumn::make('blogCategory.title')
                     ->label('Kategori')
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 TextColumn::make('blogTags.title')
                     ->label('Tanda/Topik')
                     ->badge()
                     ->color('success')
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 TextColumn::make('published_at')
                     ->label('Diterbitkan ')
                     ->dateTime()
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
                     ->label('Status')
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
             ])
             ->filters([

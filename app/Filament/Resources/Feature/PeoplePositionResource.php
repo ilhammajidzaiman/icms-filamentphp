@@ -68,13 +68,13 @@ class PeoplePositionResource extends Resource
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('title')
                     ->label('Judul')
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
                     ->label('Status')
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
             ])
             ->filters([

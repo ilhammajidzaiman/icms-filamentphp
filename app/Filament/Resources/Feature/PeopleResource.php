@@ -113,25 +113,25 @@ class PeopleResource extends Resource
                 TextColumn::make('order')
                     ->label('Urutan')
                     ->numeric()
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 TextColumn::make('name')
                     ->label('Nama')
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 TextColumn::make('peoplePosition.title')
                     ->label('Jabatan')
                     ->badge()
                     ->color('info')
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
                     ->label('Status')
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
             ])
             ->filters([

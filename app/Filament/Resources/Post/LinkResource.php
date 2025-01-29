@@ -71,15 +71,15 @@ class LinkResource extends Resource
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('title')
                     ->label('Judul')
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 TextColumn::make('url')
                     ->label('Link')
                     ->icon('heroicon-m-link')
                     ->wrap()
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
                     ->label('Status')

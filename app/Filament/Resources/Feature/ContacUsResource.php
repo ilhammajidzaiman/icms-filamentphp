@@ -65,23 +65,23 @@ class ContacUsResource extends Resource
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('name')
                     ->label('Nama')
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 TextColumn::make('email')
                     ->label('Email')
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 TextColumn::make('subject')
                     ->label('Subjek')
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
                     ->label('Status')
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
             ])
             ->filters([

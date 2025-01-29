@@ -142,7 +142,6 @@ class UserResource extends Resource
                                     ->imageEditor()
                                     ->downloadable()
                                     ->openable()
-                                    ->required()
                                     ->maxSize(1024),
                             ])
                     ]),
@@ -164,27 +163,27 @@ class UserResource extends Resource
                     ->toggleable(),
                 TextColumn::make('name')
                     ->label('Nama')
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 TextColumn::make('username')
                     ->label('Username')
                     ->copyable()
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 TextColumn::make('email')
                     ->label('Email')
                     ->copyable()
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 TextColumn::make('roles.name')
                     ->label('Peran')
                     ->default('-')
                     ->badge()
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
             ])
             ->filters([

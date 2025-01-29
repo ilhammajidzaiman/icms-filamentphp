@@ -105,13 +105,13 @@ class InformationResource extends Resource
                 TextColumn::make('title')
                     ->label('Judul')
                     ->wrap()
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
                     ->label('Status')
-                    ->searchable()
                     ->sortable()
+                    ->searchable()
                     ->toggleable(),
             ])
             ->filters([
