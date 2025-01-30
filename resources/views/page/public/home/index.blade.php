@@ -1,15 +1,10 @@
 <x-public.app-layout>
     @if ($settingPage->carousel)
-        <section class="container mt-5">
+        <x-public.section>
             @if ($carousel->isEmpty())
-                <div class="row justify-content-center">
-                    <div class="col-12">
-                        <img src="{{ asset('image/default-carousel.svg') }}" alt="image"
-                            class="d-block w-100 rounded-4 vh-65 bg-secondary-subtle">
-                    </div>
-                </div>
+                <x-public.empty-record />
             @else
-                <div id="carouselCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <x-public.carousel id="carousel">
                     <div class="carousel-inner">
                         @foreach ($carousel as $item)
                             <div class="carousel-item {{ $loop->iteration == 1 ? 'active' : '' }}">
@@ -23,32 +18,20 @@
                             </div>
                         @endforeach
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselCarousel"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselCarousel"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
+                    <x-public.carousel.previous target="#carousel" slide="prev" />
+                    <x-public.carousel.next target="#carousel" slide="next" />
+                </x-public.carousel>
             @endif
-        </section>
+        </x-public.section>
     @endif
     @if ($settingPage->headline)
-        <section class="container mt-5 px-4">
+        <x-public.section class="px-4">
             <div class="row">
                 <div class="col-12 col-md-9 p-0">
                     @if ($articleSlide->isEmpty())
-                        <div class="row justify-content-center">
-                            <div class="col-6 col-sm-6 col-md-4 col-lg-4">
-                                <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
-                            </div>
-                        </div>
+                        <x-public.empty-record />
                     @else
-                        <div id="carouselNews" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <x-public.carousel id="carouselNews">
                             <div class="carousel-inner">
                                 @foreach ($articleSlide as $item)
                                     <div class="carousel-item {{ $loop->iteration == 1 ? 'active' : '' }}">
@@ -69,26 +52,14 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselNews"
-                                data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselNews"
-                                data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
+                            <x-public.carousel.previous target="#carouselNews" slide="prev" />
+                            <x-public.carousel.next target="#carouselNews" slide="next" />
+                        </x-public.carousel>
                     @endif
                 </div>
                 <div class="col-12 col-md-3 p-0">
                     @if ($articleTop->isEmpty())
-                        <div class="row justify-content-center">
-                            <div class="col-12">
-                                <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
-                            </div>
-                        </div>
+                        <x-public.empty-record />
                     @else
                         @foreach ($articleTop as $item)
                             <div class="card text-bg-dark border-0 rounded-0">
@@ -111,60 +82,32 @@
                     @endif
                 </div>
             </div>
-            {{-- </div> --}}
-        </section>
+        </x-public.section>
     @endif
 
-    <section class="container mt-5">
-        <div class="row">
+    <x-public.section>
+        <x-public.row>
             <div class="col-12 col-sm-12 col-md-8 col-lg-9">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="d-flex justify-content-between align-items-end border-bottom mb-5">
-                            <h1 class="fs-3">
-                                Artikel
-                            </h1>
-                            <h6 class="fw-normal">
-                                <a href="{{ route('article.index') }}" class="text-decoration-none link-secondary">
-                                    Selengkapnya
-                                    <i class="bi bi-box-arrow-up-right"></i>
-                                </a>
-                            </h6>
-                        </div>
-                    </div>
-                </div>
+                <x-public.section-header value="{{ __('artikel') }}" href="{{ route('article.index') }}" />
                 @if ($blogArticle->isEmpty())
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                            <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
-                        </div>
-                    </div>
+                    <x-public.empty-record />
                 @else
-                    <div class="row g-4">
+                    <div class="row g-3">
                         @foreach ($blogArticle as $item)
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-4 bg-dangedr">
-                                <div class="card bg-primarsy border-0">
-                                    <a href="{{ route('article.show', $item->slug) }}">
-                                        <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
-                                            alt="image {{ $item->title }}"
-                                            class="w-100 rounded-2 vh-20 bg-secondary-subtle">
-                                    </a>
-                                    <div class="card-body px-0 py-22">
-                                        <a href="{{ route('category.show', $item->blogCategory->slug) }}"
-                                            class="badge bg-primary-subtle link-primary rounded-pill  link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                                            {{ $item->blogCategory->title }}
-                                        </a>
-                                        <div class="card-text">
-                                            <small class="text-secondary">
-                                                {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
-                                            </small>
-                                        </div>
-                                        <a href="{{ route('article.show', $item->slug) }}"
-                                            class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                                            {{ Str::limit(strip_tags($item->title), 100, '...') }}
-                                        </a>
-                                    </div>
-                                </div>
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+                                <x-public.card>
+                                    <x-public.card.image href="{{ route('article.show', $item->slug) }}"
+                                        src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}" />
+                                    <x-public.card.body>
+                                        <x-public.badge.link value="{{ $item->blogCategory->title }}"
+                                            href="{{ route('category.show', $item->blogCategory->slug) }}" />
+                                        <x-public.card.text
+                                            value="{{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}" />
+                                        <x-public.card.link
+                                            value="{{ Str::limit(strip_tags($item->title), 100, '...') }}"
+                                            href="{{ route('article.show', $item->slug) }}" />
+                                    </x-public.card.body>
+                                </x-public.card>
                             </div>
                         @endforeach
                     </div>
@@ -174,72 +117,35 @@
             <div class="col-12 col-sm-12 col-md-4 col-lg-3">
                 @include('layouts.public.side')
             </div>
-        </div>
-    </section>
+        </x-public.row>
+    </x-public.section>
 
     @if ($settingPage->image)
-        <section class="container mt-5">
-            <div class="row">
-                <div class="col-12">
-                    <div class="border-bottom mb-5 d-flex justify-content-between align-items-end">
-                        <h1 class="fs-3">
-                            Galeri
-                        </h1>
-                        <h6 class="fw-normal">
-                            <a href="{{ route('image.index') }}" class="text-decoration-none link-secondary">
-                                Selengkapnya
-                                <i class="bi bi-box-arrow-up-right"></i>
-                            </a>
-                        </h6>
-                    </div>
-                </div>
-            </div>
+        <x-public.section>
+            <x-public.section-header value="{{ __('galeri') }}" href="{{ route('image.index') }}" />
             @if ($image->isEmpty())
-                <div class="row justify-content-center">
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-3">
-                        <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
-                    </div>
-                </div>
+                <x-public.empty-record />
             @else
-                <div class="row g-3" data-masonry='{"percentPosition": true }'>
+                <x-public.row data-masonry='{"percentPosition": true }'>
                     @foreach ($image as $item)
                         <div class="col-sm-6 col-md-4 col-lg-3">
-                            <a href="{{ route('image.show', $item->slug) }}">
-                                <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
-                                    alt="image {{ $item->file }}" class="w-100 rounded-2 bg-secondary-subtle">
-                            </a>
+                            <x-public.image-link value="{{ $item->file }}"
+                                href="{{ route('image.show', $item->slug) }}"
+                                src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}" />
                         </div>
                     @endforeach
-                </div>
+                </x-public.row>
             @endif
-        </section>
+        </x-public.section>
     @endif
 
     @if ($settingPage->video)
-        <section class="container mt-5">
-            <div class="row">
-                <div class="col-12">
-                    <div class="border-bottom mb-5 d-flex justify-content-between align-items-end">
-                        <h1 class="fs-3">
-                            Video
-                        </h1>
-                        <h6 class="fw-normal">
-                            <a href="{{ route('video.index') }}" class="text-decoration-none link-secondary">
-                                Selengkapnya
-                                <i class="bi bi-box-arrow-up-right"></i>
-                            </a>
-                        </h6>
-                    </div>
-                </div>
-            </div>
+        <x-public.section>
+            <x-public.section-header value="{{ __('vidio') }}" href="{{ route('video.index') }}" />
             @if ($video->isEmpty())
-                <div class="row justify-content-center">
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-3">
-                        <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
-                    </div>
-                </div>
+                <x-public.empty-record />
             @else
-                <div class="row g-3">
+                <x-public.row>
                     @foreach ($video as $item)
                         <div class="col-sm-6 col-md-4 col-lg-3">
                             <div class="card bg-transparent border-0 mb-4">
@@ -260,38 +166,20 @@
                             </div>
                         </div>
                     @endforeach
-                </div>
+                </x-public.row>
             @endif
-        </section>
+        </x-public.section>
     @endif
 
     @if ($settingPage->people)
-        <section class="container mt-5">
-            <div class="row">
-                <div class="col-12">
-                    <div class="border-bottom mb-5 d-flex justify-content-between align-items-end">
-                        <h1 class="fs-3">
-                            Tim
-                        </h1>
-                        <h6 class="fw-normal">
-                            <a href="{{ route('people.index') }}" class="text-decoration-none link-secondary">
-                                Selengkapnya
-                                <i class="bi bi-box-arrow-up-right"></i>
-                            </a>
-                        </h6>
-                    </div>
-                </div>
-            </div>
+        <x-public.section>
+            <x-public.section-header value="{{ __('tim') }}" href="{{ route('people.index') }}" />
             @if ($people->isEmpty())
-                <div class="row justify-content-center">
-                    <div class="col-6 col-sm-4 col-md-3 col-lg-3">
-                        <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
-                    </div>
-                </div>
+                <x-public.empty-record />
             @else
                 <div class="owl-carousel owl-theme owl-loaded">
                     @foreach ($people as $item)
-                        <div class="card border-0 rounded-4 m-2 p-3 pb-0">
+                        <div class="card border-0 rounded-4">
                             <a href="{{ route('people.show', $item->uuid) }}">
                                 <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-user.svg') }}"
                                     alt="{{ $item->title }}"
@@ -312,7 +200,7 @@
                     @endforeach
                 </div>
             @endif
-        </section>
+        </x-public.section>
     @endif
 
     @push('styles')
@@ -335,7 +223,7 @@
                     autoplayHoverPause: true,
                     responsive: {
                         0: {
-                            items: 2
+                            items: 1
                         },
                         768: {
                             items: 2
