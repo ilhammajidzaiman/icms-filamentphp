@@ -2,6 +2,7 @@
 
 namespace App\Models\Setting;
 
+use App\Enums\PageTypeEnum;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,7 +24,7 @@ class SettingPage extends Model
     ];
 
     protected $casts = [
-        'social_media' => 'array',
+        'type' => PageTypeEnum::class,
     ];
 
     protected static function boot()

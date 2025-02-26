@@ -6,9 +6,11 @@ use Filament\Tables;
 use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Enums\PageTypeEnum;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use App\Models\Setting\SettingPage;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
@@ -37,21 +39,20 @@ class SettingPageResource extends Resource
                 Section::make()
                     ->schema([
                         Toggle::make('is_show')
-                            ->label('Status')
+                            ->label(Str::headline(__('status')))
                             ->required()
                             ->default(true),
                         TextInput::make('title')
-                            ->label('Judul')
+                            ->label(Str::headline(__('judul')))
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn(Set $set, ?string $state) => $set('title', Str::slug($state))),
-                        TextInput::make('type')
-                            ->label('Tipe')
+                        Select::make('type')
+                            ->label(Str::headline(__('tipe')))
                             ->required()
-                            ->maxLength(255)
-                            ->live(onBlur: true)
-                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('type', Str::slug($state))),
+                            ->native(false)
+                            ->options(PageTypeEnum::class),
                     ]),
             ]);
     }
@@ -62,20 +63,20 @@ class SettingPageResource extends Resource
             ->defaultSort('title')
             ->columns([
                 TextColumn::make('index')
-                    ->label('No')
+                    ->label(Str::headline(__('no')))
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(Str::headline(__('judul')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('type')
-                    ->label('Tipe')
+                    ->label(Str::headline(__('tipe')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
-                    ->label('Status')
+                    ->label(Str::headline(__('status')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),

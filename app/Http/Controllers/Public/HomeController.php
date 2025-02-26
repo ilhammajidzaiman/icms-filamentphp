@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Public;
 
+use App\Enums\PageTypeEnum;
 use App\Models\Media\Image;
 use App\Models\Media\Video;
 use App\Models\Feature\People;
@@ -57,23 +58,23 @@ class HomeController extends Controller
             ->get();
         $data['settingPage'] = (object)[
             'carousel' => SettingPage::show()
-                ->where('type', 'section-home')
+                ->where('type', PageTypeEnum::SectionHome->value)
                 ->where('title', 'carousel')
                 ->first(),
             'headline' => SettingPage::show()
-                ->where('type', 'section-home')
+                ->where('type', PageTypeEnum::SectionHome->value)
                 ->where('title', 'headline')
                 ->first(),
             'image' => SettingPage::show()
-                ->where('type', 'section-home')
+                ->where('type', PageTypeEnum::SectionHome->value)
                 ->where('title', 'image')
                 ->first(),
             'video' => SettingPage::show()
-                ->where('type', 'section-home')
+                ->where('type', PageTypeEnum::SectionHome->value)
                 ->where('title', 'video')
                 ->first(),
             'people' => SettingPage::show()
-                ->where('type', 'section-home')
+                ->where('type', PageTypeEnum::SectionHome->value)
                 ->where('title', 'people')
                 ->first(),
         ];
