@@ -165,44 +165,4 @@ class PageResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
-
-    public static function infolist(Infolist $infolist): Infolist
-    {
-        return $infolist
-            ->columns(3)
-            ->schema([
-                InfolistsSection::make()
-                    ->columnSpan(2)
-                    ->schema([
-                        ImageEntry::make('file')
-                            ->hiddenlabel('Gambar')
-                            ->defaultImageUrl(asset('/image/default-img.svg')),
-                        TextEntry::make('title')
-                            ->label('Judul')
-                            ->weight(FontWeight::Medium)
-                            ->size(TextEntrySize::Large),
-                        TextEntry::make('slug')
-                            ->label('Slug')
-                            ->color('gray'),
-                        TextEntry::make('content')
-                            ->label('Content')
-                            ->html(),
-                    ]),
-                InfolistsSection::make()
-                    ->columnSpan(1)
-                    ->schema([
-                        IconEntry::make('is_show')
-                            ->label('Status'),
-                        TextEntry::make('user.name')
-                            ->label('Penulis')
-                            ->badge(),
-                        TextEntry::make('created_at')
-                            ->label('Dibuat')
-                            ->since(),
-                        TextEntry::make('updated_at')
-                            ->label('Diperbarui')
-                            ->since(),
-                    ])
-            ]);
-    }
 }
