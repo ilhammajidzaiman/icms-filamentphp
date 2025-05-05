@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('setting_sites', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
+            $table->softDeletes();
             $table->string('uuid');
             $table->string('name')
                 ->nullable()
@@ -38,8 +40,6 @@ return new class extends Migration
             $table->string('logo')
                 ->nullable()
                 ->comment('logo website');
-            $table->timestamps();
-            $table->softDeletes();
         });
     }
 

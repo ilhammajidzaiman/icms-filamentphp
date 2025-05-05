@@ -17,9 +17,9 @@ use Filament\Http\Middleware\Authenticate;
 use Hasnayeen\Themes\Http\Middleware\SetTheme;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
+use Filament\Http\Middleware\AuthenticateSession;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Illuminate\Routing\Middleware\SubstituteBindings;
-use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -65,12 +65,12 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
                 SetTheme::class,
             ])
-            ->authMiddleware([
-                Authenticate::class,
-            ])
             ->plugins([
                 FilamentShieldPlugin::make(),
                 ThemesPlugin::make(),
+            ])
+            ->authMiddleware([
+                Authenticate::class,
             ])
             ->maxContentWidth('full')
             ->sidebarCollapsibleOnDesktop()
@@ -110,7 +110,6 @@ class AdminPanelProvider extends PanelProvider
                 NavigationGroup::make()->label("Media"),
                 NavigationGroup::make()->label("Fitur")->collapsible(),
                 NavigationGroup::make()->label("Pengaturan")->collapsible(),
-            ])
-        ;
+            ]);
     }
 }

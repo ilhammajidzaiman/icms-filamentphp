@@ -14,6 +14,8 @@ return new class extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
+            $table->softDeletes();
             $table->string('uuid');
             $table->foreignIdFor(User::class)
                 ->constrained()
@@ -37,8 +39,6 @@ return new class extends Migration
             $table->boolean('is_show')
                 ->default(true)
                 ->comment('status tampilkan');
-            $table->timestamps();
-            $table->softDeletes();
         });
     }
 
