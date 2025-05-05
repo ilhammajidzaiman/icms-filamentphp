@@ -8,13 +8,11 @@ use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use App\Models\Post\BlogArticle;
-use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
-use Filament\Support\Enums\FontWeight;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
@@ -23,14 +21,9 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Infolists\Components\IconEntry;
-use Filament\Infolists\Components\TextEntry;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Infolists\Components\ImageEntry;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\Post\BlogArticleResource\Pages;
-use Filament\Infolists\Components\TextEntry\TextEntrySize;
-use Filament\Infolists\Components\Section as InfolistsSection;
 
 class BlogArticleResource extends Resource
 {
@@ -52,45 +45,45 @@ class BlogArticleResource extends Resource
                 Grid::make()
                     ->columnSpan(2)
                     ->schema([
-                        Section::make('Isi')
+                        Section::make(Str::headline(__('isi')))
                             ->icon('heroicon-o-newspaper')
                             ->schema([
                                 Textarea::make('title')
                                     ->autosize()
-                                    ->label('Judul')
+                                    ->label(Str::headline(__('judul')))
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
                                 TextInput::make('slug')
-                                    ->label('Slug')
+                                    ->label(Str::headline(__('slug')))
                                     ->required()
                                     ->maxLength(255)
                                     ->disabled()
                                     ->dehydrated()
-                                    ->helperText('Slug akan otomatis dihasilkan dari judul.'),
+                                    ->helperText(Str::ucfirst(__('Slug akan otomatis dihasilkan dari judul.'))),
                                 RichEditor::make('content')
-                                    ->label('Isi')
+                                    ->label(Str::headline(__('isi')))
                                     ->required(),
                             ]),
                     ]),
                 Grid::make()
                     ->columnSpan(1)
                     ->schema([
-                        Section::make('Informasi')
+                        Section::make(Str::headline(__('Informasi')))
                             ->icon('heroicon-o-information-circle')
                             ->collapsible()
                             ->schema([
                                 Toggle::make('is_show')
-                                    ->label('Status')
+                                    ->label(Str::headline(__('status')))
                                     ->required()
                                     ->default(true),
                                 DateTimePicker::make('published_at')
-                                    ->label('Tanggal rilis')
+                                    ->label(Str::headline(__('Tanggal rilis')))
                                     ->required()
                                     ->default(now()),
                                 Select::make('blog_category_id')
-                                    ->label('Kategori')
+                                    ->label(Str::headline(__('kategori')))
                                     ->required()
                                     ->forceSearchCaseInsensitive()
                                     ->searchable()
@@ -103,7 +96,7 @@ class BlogArticleResource extends Resource
                                             ->where('is_show', true)
                                     ),
                                 Select::make('blogTags')
-                                    ->label('Tanda/Topik')
+                                    ->label(Str::headline(__('topik')))
                                     ->required()
                                     ->multiple()
                                     ->forceSearchCaseInsensitive()
@@ -117,13 +110,13 @@ class BlogArticleResource extends Resource
                                             ->where('is_show', true),
                                     ),
                             ]),
-                        Section::make('Lampiran')
+                        Section::make(Str::headline(__('lampiran')))
                             ->icon('heroicon-o-paper-clip')
                             ->collapsible()
                             ->schema([
                                 FileUpload::make('file')
-                                    ->label('File')
-                                    ->helperText('Ukuran maksimal: 1 MB.')
+                                    ->label(Str::headline(__('file')))
+                                    ->helperText(Str::ucfirst(__('ukuran maksimal: 1 MB.')))
                                     ->directory('blog-article/' . date('Y/m'))
                                     ->optimize('webp')
                                     ->image()
@@ -132,12 +125,12 @@ class BlogArticleResource extends Resource
                                     ->required()
                                     ->maxSize(1024),
                                 Textarea::make('description')
-                                    ->label('Keterangan Gambar')
+                                    ->label(Str::headline(__('keterangan gambar')))
                                     ->autosize()
                                     ->maxLength(255),
                                 FileUpload::make('attachment')
-                                    ->label('Galeri')
-                                    ->helperText('Ukuran maksimal: 1 MB.  Jumlah maksimal: 5 File.')
+                                    ->label(Str::headline(__('galeri')))
+                                    ->helperText(Str::ucfirst(__('ukuran maksimal: 1 MB.  Jumlah maksimal: 5 File.')))
                                     ->directory('blog-article-attachment/' . date('Y/m'))
                                     ->optimize('webp')
                                     ->image()
@@ -157,43 +150,43 @@ class BlogArticleResource extends Resource
             ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
-                    ->label('No')
+                    ->label(Str::headline(__('no')))
                     ->rowIndex(isFromZero: false),
                 ImageColumn::make('file')
-                    ->label('File')
+                    ->label(Str::headline(__('file')))
                     ->defaultImageUrl(asset('/image/default-img.svg'))
                     ->circular(),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(Str::headline(__('judul')))
                     ->wrap()
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('visitor')
-                    ->label('Pengunjung')
+                    ->label(Str::headline(__('pengunjung')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('blogCategory.title')
-                    ->label('Kategori')
+                    ->label(Str::headline(__('kategori')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('blogTags.title')
-                    ->label('Tanda/Topik')
+                    ->label(Str::headline(__('topik')))
                     ->badge()
                     ->color('success')
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('published_at')
-                    ->label('Diterbitkan ')
+                    ->label(Str::headline(__('diterbitkan ')))
                     ->dateTime()
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
-                    ->label('Status')
+                    ->label(Str::headline(__('status')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
@@ -240,14 +233,5 @@ class BlogArticleResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
-
-        // $user = auth()->user();
-        // return parent::getEloquentQuery()
-        //     ->when($user->hasRole('super-admin') || $user->hasRole('admin'), function ($query) use ($user) {
-        //         return $query;
-        //     })
-        //     ->when($user->hasRole('user'), function ($query) use ($user) {
-        //         return $query->where('user_id', $user->user_id);
-        //     });
     }
 }

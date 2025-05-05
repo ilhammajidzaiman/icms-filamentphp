@@ -37,18 +37,18 @@ class BlogCategoryResource extends Resource
                 Section::make()
                     ->schema([
                         Toggle::make('is_show')
-                            ->label('Status')
+                            ->label(Str::headline(__('status')))
                             ->required()
                             ->default(true),
                         TextInput::make('title')
-                            ->label('Judul')
+                            ->label(Str::headline(__('judul')))
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
                         TextInput::make('slug')
-                            ->label('Slug')
-                            ->helperText('Slug akan otomatis dihasilkan dari judul.')
+                            ->label(Str::headline(__('slug')))
+                            ->helperText(Str::ucfirst(__('slug akan otomatis dihasilkan dari judul.')))
                             ->required()
                             ->disabled()
                             ->dehydrated()
@@ -60,18 +60,18 @@ class BlogCategoryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->defaultSort('created_at', 'desc')
+            ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
-                    ->label('No')
+                    ->label(Str::headline(__('no')))
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(Str::headline(__('judul')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
-                    ->label('Status')
+                    ->label(Str::headline(__('status')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),

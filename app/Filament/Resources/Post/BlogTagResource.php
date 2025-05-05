@@ -38,22 +38,22 @@ class BlogTagResource extends Resource
                 Section::make()
                     ->schema([
                         Toggle::make('is_show')
-                            ->label('Status')
+                            ->label(Str::headline(__('Status')))
                             ->required()
                             ->default(true),
                         TextInput::make('title')
-                            ->label('Judul')
+                            ->label(Str::headline(__('Judul')))
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
                         TextInput::make('slug')
-                            ->label('Slug')
+                            ->label(Str::headline(__('slug')))
                             ->required()
                             ->maxLength(255)
                             ->disabled()
                             ->dehydrated()
-                            ->helperText('Slug akan otomatis dihasilkan dari judul.'),
+                            ->helperText('slug akan otomatis dihasilkan dari judul.'),
                     ]),
             ]);
     }
@@ -61,18 +61,18 @@ class BlogTagResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->defaultSort('created_at', 'desc')
+            ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
-                    ->label('No')
+                    ->label(Str::headline(__('no')))
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(Str::headline(__('judul')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
-                    ->label('Status')
+                    ->label(Str::headline(__('status')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),

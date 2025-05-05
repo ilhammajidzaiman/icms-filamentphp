@@ -64,7 +64,7 @@ class LinkResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->defaultSort('created_at', 'desc')
+            ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
                     ->label('No')
@@ -78,6 +78,7 @@ class LinkResource extends Resource
                     ->label('Link')
                     ->icon('heroicon-m-link')
                     ->wrap()
+                    ->copyable()
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
