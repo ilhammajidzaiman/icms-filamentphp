@@ -24,6 +24,7 @@
     @include('layouts.public.navigation')
     {{ $slot }}
     @include('layouts.public.footer')
+    @livewire('public.search.search-modal')
     @stack('scripts')
     @livewireScripts
 </body>

@@ -1,22 +1,23 @@
 <?php
 
-namespace App\Livewire\Public;
+namespace App\Livewire\Public\Search;
 
 use Livewire\Component;
 use Illuminate\Support\Str;
 
-class Search extends Component
+class SearchInput extends Component
 {
+
     public $keyword;
 
     public function search()
     {
         $keyword = Str::slug($this->keyword);
-        return $this->redirectRoute('article.search', $keyword, navigate: true);
+        return $this->redirectRoute('search', $keyword, navigate: true);
     }
 
     public function render()
     {
-        return view('livewire.public.search');
+        return view('livewire.public.search.search-input');
     }
 }

@@ -9,22 +9,45 @@
                         </a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('article.index') }}">
-                            Artikel
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
                         Cari
                     </li>
                 </ul>
-                @livewire('public.search')
+                @livewire('public.search.search-input')
                 <h3 class="fs-3 my-4">
-                    <a href="{{ route('article.search', $keyword) }}"
+                    <a href="{{ route('search', $keyword) }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                        Cari artikel: {{ $keyword }}
+                        Cari: {{ $keyword }}
                     </a>
                 </h3>
-                @if ($record->isEmpty())
+                <ol>
+                    @if ($article->isNotEmpty())
+                        <div class="mb-3">
+                            <h5>Artikel: </h5>
+                            @foreach ($article as $item)
+                                <li>{{ $item->title }}</li>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    @if ($category->isNotEmpty())
+                        <div class="mb-3">
+                            <h5>Kategori: </h5>
+                            @foreach ($category as $item)
+                                <li>{{ $item->title }}</li>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    @if ($document->isNotEmpty())
+                        <div class="mb-3">
+                            <h5>Dokumen: </h5>
+                            @foreach ($document as $item)
+                                <li>{{ $item->title }}</li>
+                            @endforeach
+                        </div>
+                    @endif
+                </ol>
+                {{-- @if ($record->isEmpty())
                     <div class="row g-3 justify-content-center">
                         <div class="col-sm-6 col-md-4 col-lg-3">
                             <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
@@ -69,7 +92,7 @@
                             </x-public.pagination>
                         </div>
                     </div>
-                @endif
+                @endif --}}
             </div>
         </div>
     </section>

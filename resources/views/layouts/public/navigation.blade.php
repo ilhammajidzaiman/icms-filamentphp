@@ -14,7 +14,8 @@
     class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm bg-white text-dark bg-opacity-75 fw-medium border-primary border-bottom border-2 border-opacity-50">
     <div class="container py-2">
         <a href="{{ route('index') }}" class="navbar-brand d-flex align-items-center">
-            <img src="{{ $settingSite->logo }}" alt="Logo" height="35" class="d-inline-block align-text-center me-3" />
+            <img src="{{ $settingSite->logo }}" alt="Logo" height="35"
+                class="d-inline-block align-text-center me-3" />
             {{ $settingSite->name ? $settingSite->name : env('APP_NAME') }}
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2"
@@ -25,7 +26,7 @@
             aria-labelledby="offcanvasNavbar2Label">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasNavbar2Label">
-                    MENU
+                    {{ Str::upper(__('menu')) }}
                 </h5>
                 <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="offcanvas" aria-label="Close">
                 </button>
@@ -140,7 +141,10 @@
                         @endif
                     @endforeach
                 </ul>
-                @livewire('public.search')
+                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                    data-bs-target="#modalSearch">
+                    <i class="bi-search"></i>
+                </button>
             </div>
         </div>
     </div>

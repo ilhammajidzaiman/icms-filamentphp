@@ -74,11 +74,11 @@
                         <p class="text-secondary">
                             Galeri:
                         </p>
-                        <div class="row g-3 g-3 mb-5">
+                        <div class="row g-3 mb-5">
                             @foreach ($record->attachment as $file)
                                 <div class="col-6 col-sm-6 col-md-4 col-lg-4">
                                     <img src="{{ asset('storage/' . $file) }}" alt="image {{ $file }}"
-                                        class="w-100 rounded-2 vh-20 bg-secondary-subtle">
+                                        class="w-100 rounded-2 bg-secondary-subtle vh-20">
                                 </div>
                             @endforeach
                         </div>

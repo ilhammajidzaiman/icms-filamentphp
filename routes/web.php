@@ -11,10 +11,13 @@ Route::prefix('/')->controller(Public\HomeController::class)->group(function () 
     Route::get('/', 'index')->name('index');
 });
 
+Route::prefix('/search')->controller(Public\SearchController::class)->group(function () {
+    Route::get('/{id}', 'index')->name('search');
+});
+
 Route::prefix('/artikel')->controller(Public\ArticleController::class)->group(function () {
     Route::get('/', 'index')->name('article.index');
     Route::get('/{id}', 'show')->name('article.show');
-    Route::get('/cari/{id}', 'search')->name('article.search');
 });
 
 Route::prefix('/halaman')->controller(Public\PageController::class)->group(function () {
@@ -47,7 +50,6 @@ Route::prefix('/dokumen')->controller(Public\FileController::class)->group(funct
     Route::get('/{id}', 'show')->name('file.show');
     Route::get('/download/{id}', 'download')->name('file.download');
     Route::get('/kategori/{id}', 'category')->name('file.category');
-    Route::get('/cari/{id}', 'search')->name('file.search');
 });
 
 Route::prefix('/kritik-saran')->controller(Public\FeedbackController::class)->group(function () {
