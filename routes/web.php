@@ -12,7 +12,8 @@ Route::prefix('/')->controller(Public\HomeController::class)->group(function () 
 });
 
 Route::prefix('/search')->controller(Public\SearchController::class)->group(function () {
-    Route::get('/{id}', 'index')->name('search');
+    Route::get('/', 'index')->name('search.index');
+    Route::get('/{id}', 'show')->name('search.show');
 });
 
 Route::prefix('/artikel')->controller(Public\ArticleController::class)->group(function () {

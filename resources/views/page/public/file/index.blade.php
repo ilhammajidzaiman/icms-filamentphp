@@ -12,7 +12,7 @@
                         Dokumen
                     </li>
                 </ul>
-                @livewire('public.search-file')
+                @livewire('public.search.search-input')
                 <h3 class="fs-3 my-4">
                     <a href="{{ route('category.index') }}"
                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">

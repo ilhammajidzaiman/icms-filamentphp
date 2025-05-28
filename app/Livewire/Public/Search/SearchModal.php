@@ -11,8 +11,12 @@ class SearchModal extends Component
 
     public function search()
     {
-        $keyword = Str::slug($this->keyword);
-        return $this->redirectRoute('search', $keyword, navigate: true);
+        $keyword = Str::of($this->keyword)->trim();
+        if (empty($keyword)) :
+            return;
+        endif;
+        $keyword = Str::slug($keyword);
+        return $this->redirectRoute('search.show', $keyword, navigate: true);
     }
 
     public function render()
