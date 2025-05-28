@@ -51,8 +51,8 @@ class SearchController extends Controller
                 return $item;
             });
 
-        $combined = $queryCategory
-            ->concat($queryArticle)
+        $combined = $queryArticle
+            ->concat($queryCategory)
             ->concat($queryPage)
             ->concat($queryFile)
             ->sortByDesc('created_at')
