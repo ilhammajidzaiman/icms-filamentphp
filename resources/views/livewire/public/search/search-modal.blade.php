@@ -13,7 +13,7 @@
                         placeholder="{{ Str::ucfirst(__('tulis kata kunci di sini…')) }}" autofocus>
                 </div>
                 <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modalSearch">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         <i class="bi-x-lg"></i>
                         {{ Str::headline(__('tutup')) }}
                     </button>
