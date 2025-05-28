@@ -29,58 +29,58 @@ class CarouselResource extends Resource
     protected static ?string $navigationGroup = 'Media';
     protected static ?string $modelLabel = 'Carousel';
     protected static ?string $navigationLabel = 'Carousel';
-    protected static ?string $slug = 'Carousel';
+    protected static ?string $slug = 'carousel';
     protected static ?string $recordTitleAttribute = 'title';
     protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
         return $form
-            ->columns(3)
+            ->columns(2)
             ->schema([
                 Grid::make()
-                    ->columnSpan(2)
+                    ->columnSpan(1)
                     ->schema([
-                        Section::make('Isi')
-                            ->icon('heroicon-o-newspaper')
+                        Section::make(Str::headline(__('rincian')))
+                            ->icon('heroicon-o-information-circle')
                             ->schema([
+                                Toggle::make('is_show')
+                                    ->label(Str::headline(__('status')))
+                                    ->required()
+                                    ->default(true),
                                 Textarea::make('title')
-                                    ->label('Judul')
+                                    ->label(Str::headline(__('judul')))
+                                    ->autosize()
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
                                     ->maxLength(255),
                                 TextInput::make('slug')
-                                    ->label('Slug')
-                                    ->helperText('Slug akan otomatis dihasilkan dari judul.')
+                                    ->label(Str::headline(__('slug')))
                                     ->disabled()
                                     ->dehydrated()
                                     ->maxLength(255),
                                 Textarea::make('description')
-                                    ->label('Deskripsi')
-                                    ->autosize(),
+                                    ->label(Str::headline(__('deskripsi')))
+                                    ->autosize()
+                                    ->maxLength(1024),
                             ]),
                     ]),
                 Grid::make()
                     ->columnSpan(1)
                     ->schema([
-                        Section::make('Lampiran')
+                        Section::make(Str::headline(__('lampiran')))
                             ->icon('heroicon-o-paper-clip')
-                            ->collapsible()
                             ->schema([
-                                Toggle::make('is_show')
-                                    ->label('Status')
-                                    ->required()
-                                    ->default(true),
                                 FileUpload::make('file')
-                                    ->label('File')
-                                    ->required()
-                                    ->maxSize(1024)
-                                    ->directory('Carousel/' . date('Y/m'))
+                                    ->label(Str::headline(__('file')))
+                                    ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
+                                    ->directory('carousel/' . date('Y/m'))
+                                    ->optimize('webp')
                                     ->image()
                                     ->imageEditor()
                                     ->openable()
-                                    ->downloadable()
-                                    ->helperText('Ukuran maksimal: 1 MB.'),
+                                    ->required()
+                                    ->maxSize(10240),
                             ]),
                     ]),
             ]);
