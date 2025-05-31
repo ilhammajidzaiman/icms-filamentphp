@@ -34,7 +34,7 @@ class ViewPage extends ViewRecord
                     ->columnSpan(2)
                     ->schema([
                         ImageEntry::make('file')
-                            ->hiddenlabel(Str::headline(__('gambar')))
+                            ->hiddenlabel(Str::headline(__('file')))
                             ->defaultImageUrl(asset('/image/default-img.svg')),
                         TextEntry::make('title')
                             ->label(Str::headline(__('judul')))
@@ -60,6 +60,9 @@ class ViewPage extends ViewRecord
                             ->since(),
                         TextEntry::make('updated_at')
                             ->label(Str::headline(__('diperbarui')))
+                            ->since(),
+                        TextEntry::make('deleted_at')
+                            ->label(Str::headline(__('dihapus')))
                             ->since(),
                     ])
             ]);

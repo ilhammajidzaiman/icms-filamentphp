@@ -8,12 +8,10 @@ use Filament\Forms\Form;
 use App\Models\Post\Page;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
-use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
-use Filament\Support\Enums\FontWeight;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
@@ -22,13 +20,8 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Infolists\Components\IconEntry;
-use Filament\Infolists\Components\TextEntry;
-use Filament\Infolists\Components\ImageEntry;
 use App\Filament\Resources\Post\PageResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Infolists\Components\TextEntry\TextEntrySize;
-use Filament\Infolists\Components\Section as InfolistsSection;
 
 class PageResource extends Resource
 {
@@ -49,49 +42,49 @@ class PageResource extends Resource
                 Grid::make()
                     ->columnSpan(2)
                     ->schema([
-                        Section::make('Isi')
-                            ->icon('heroicon-o-newspaper')
+                        Section::make(Str::headline(__('rincian')))
+                            ->icon('heroicon-o-information-circle')
+                            ->collapsible()
                             ->schema([
-                                Textarea::make('title')
-                                    ->label('Judul')
-                                    ->autosize()
+                                Toggle::make('is_show')
+                                    ->label(Str::headline(__('status')))
                                     ->required()
-                                    ->maxLength(255)
+                                    ->default(true),
+                                Textarea::make('title')
+                                    ->label(Str::headline(__('judul')))
+                                    ->required()
+                                    ->autosize()
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                                    ->maxLength(255),
                                 TextInput::make('slug')
-                                    ->label('Slug')
-                                    ->helperText('Slug akan otomatis dihasilkan dari judul.')
+                                    ->label(Str::headline(__('slug')))
                                     ->required()
                                     ->disabled()
                                     ->dehydrated()
                                     ->maxLength(255),
                                 RichEditor::make('content')
-                                    ->label('Isi')
+                                    ->label(Str::headline(__('konten')))
                                     ->required(),
                             ]),
                     ]),
                 Grid::make()
                     ->columnSpan(1)
                     ->schema([
-                        Section::make('Lampiran')
+                        Section::make(Str::headline(__('lampiran')))
                             ->icon('heroicon-o-paper-clip')
                             ->collapsible()
                             ->schema([
-                                Toggle::make('is_show')
-                                    ->label('Status')
-                                    ->required()
-                                    ->default(true),
                                 FileUpload::make('file')
-                                    ->label('File')
-                                    ->helperText('Ukuran maksimal: 1 MB.')
+                                    ->label(Str::headline(__('file')))
+                                    ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
                                     ->directory('page/' . date('Y/m'))
                                     ->optimize('webp')
                                     ->image()
                                     ->imageEditor()
                                     ->openable()
                                     ->downloadable()
-                                    ->maxSize(1024),
+                                    ->maxSize(10240),
                             ])
                     ]),
             ]);
@@ -106,18 +99,18 @@ class PageResource extends Resource
                     ->label('No')
                     ->rowIndex(isFromZero: false),
                 ImageColumn::make('file')
-                    ->label('File')
-                    ->circular()
+                    ->label(Str::headline(__('file')))
                     ->defaultImageUrl(asset('/image/default-img.svg'))
+                    ->circular()
                     ->toggleable(),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(Str::headline(__('judul')))
                     ->wrap()
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
-                    ->label('Status')
+                    ->label(Str::headline(__('status')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
