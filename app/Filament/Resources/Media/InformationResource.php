@@ -9,7 +9,6 @@ use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
 use App\Models\Media\Information;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
@@ -39,53 +38,47 @@ class InformationResource extends Resource
         return $form
             ->columns(3)
             ->schema([
-                Grid::make()
+                Section::make(Str::headline(__('rincian')))
+                    ->icon('heroicon-o-information-circle')
                     ->columnSpan(2)
+                    ->collapsible()
                     ->schema([
-                        Section::make(Str::headline(__('rincian')))
-                            ->icon('heroicon-o-information-circle')
-                            ->collapsible()
-                            ->schema([
-                                Toggle::make('is_show')
-                                    ->label(Str::headline(__('status')))
-                                    ->required()
-                                    ->default(true),
-                                Textarea::make('title')
-                                    ->label(Str::headline(__('judul')))
-                                    ->required()
-                                    ->autosize()
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                                    ->maxLength(255),
-                                TextInput::make('slug')
-                                    ->label(Str::headline(__('slug')))
-                                    ->required()
-                                    ->disabled()
-                                    ->dehydrated()
-                                    ->maxLength(255),
-                                RichEditor::make('content')
-                                    ->label(Str::headline(__('konten')))
-                                    ->required(),
-                            ]),
+                        Toggle::make('is_show')
+                            ->label(Str::headline(__('status')))
+                            ->required()
+                            ->default(true),
+                        Textarea::make('title')
+                            ->label(Str::headline(__('judul')))
+                            ->required()
+                            ->autosize()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                            ->maxLength(255),
+                        TextInput::make('slug')
+                            ->label(Str::headline(__('slug')))
+                            ->required()
+                            ->disabled()
+                            ->dehydrated()
+                            ->maxLength(255),
+                        RichEditor::make('content')
+                            ->label(Str::headline(__('konten')))
+                            ->required(),
                     ]),
-                Grid::make()
+                Section::make(Str::headline(__('lampiran')))
+                    ->icon('heroicon-o-paper-clip')
                     ->columnSpan(1)
+                    ->collapsible()
                     ->schema([
-                        Section::make(Str::headline(__('lampiran')))
-                            ->icon('heroicon-o-paper-clip')
-                            ->collapsible()
-                            ->schema([
-                                FileUpload::make('file')
-                                    ->label(Str::headline(__('file')))
-                                    ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
-                                    ->directory('information/' . date('Y/m'))
-                                    ->optimize('webp')
-                                    ->image()
-                                    ->imageEditor()
-                                    ->openable()
-                                    ->downloadable()
-                                    ->maxSize(10240),
-                            ])
+                        FileUpload::make('file')
+                            ->label(Str::headline(__('file')))
+                            ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
+                            ->directory('information/' . date('Y/m'))
+                            ->optimize('webp')
+                            ->image()
+                            ->imageEditor()
+                            ->openable()
+                            ->downloadable()
+                            ->maxSize(10240),
                     ]),
             ]);
     }
