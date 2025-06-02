@@ -9,7 +9,6 @@ use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use App\Models\Media\Carousel;
 use Filament\Resources\Resource;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
@@ -38,50 +37,44 @@ class CarouselResource extends Resource
         return $form
             ->columns(2)
             ->schema([
-                Grid::make()
+                Section::make(Str::headline(__('rincian')))
+                    ->icon('heroicon-o-information-circle')
                     ->columnSpan(1)
                     ->schema([
-                        Section::make(Str::headline(__('rincian')))
-                            ->icon('heroicon-o-information-circle')
-                            ->schema([
-                                Toggle::make('is_show')
-                                    ->label(Str::headline(__('status')))
-                                    ->required()
-                                    ->default(true),
-                                Textarea::make('title')
-                                    ->label(Str::headline(__('judul')))
-                                    ->autosize()
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                                    ->maxLength(255),
-                                TextInput::make('slug')
-                                    ->label(Str::headline(__('slug')))
-                                    ->disabled()
-                                    ->dehydrated()
-                                    ->maxLength(255),
-                                Textarea::make('description')
-                                    ->label(Str::headline(__('deskripsi')))
-                                    ->autosize()
-                                    ->maxLength(1024),
-                            ]),
+                        Toggle::make('is_show')
+                            ->label(Str::headline(__('status')))
+                            ->required()
+                            ->default(true),
+                        Textarea::make('title')
+                            ->label(Str::headline(__('judul')))
+                            ->autosize()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                            ->maxLength(255),
+                        TextInput::make('slug')
+                            ->label(Str::headline(__('slug')))
+                            ->disabled()
+                            ->dehydrated()
+                            ->maxLength(255),
+                        Textarea::make('description')
+                            ->label(Str::headline(__('deskripsi')))
+                            ->autosize()
+                            ->maxLength(1024),
                     ]),
-                Grid::make()
+                Section::make(Str::headline(__('lampiran')))
+                    ->icon('heroicon-o-paper-clip')
                     ->columnSpan(1)
                     ->schema([
-                        Section::make(Str::headline(__('lampiran')))
-                            ->icon('heroicon-o-paper-clip')
-                            ->schema([
-                                FileUpload::make('file')
-                                    ->label(Str::headline(__('file')))
-                                    ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
-                                    ->directory('carousel/' . date('Y/m'))
-                                    ->optimize('webp')
-                                    ->image()
-                                    ->imageEditor()
-                                    ->openable()
-                                    ->required()
-                                    ->maxSize(10240),
-                            ]),
+                        FileUpload::make('file')
+                            ->label(Str::headline(__('file')))
+                            ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
+                            ->directory('carousel/' . date('Y/m'))
+                            ->optimize('webp')
+                            ->image()
+                            ->imageEditor()
+                            ->openable()
+                            ->required()
+                            ->maxSize(10240),
                     ]),
             ]);
     }
@@ -92,21 +85,21 @@ class CarouselResource extends Resource
             ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
-                    ->label('No')
+                    ->label(Str::headline(__('no')))
                     ->rowIndex(isFromZero: false),
                 ImageColumn::make('file')
-                    ->label('File')
-                    ->defaultImageUrl(asset('/image/default-Carousel.svg'))
+                    ->label(Str::headline(__('file')))
+                    ->defaultImageUrl(asset('/image/default-img.svg'))
                     ->circular()
                     ->toggleable(),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(Str::headline(__('judul')))
                     ->wrap()
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
-                    ->label('Status')
+                    ->label(Str::headline(__('status')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
