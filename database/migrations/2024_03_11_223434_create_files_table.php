@@ -18,32 +18,31 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->string('uuid');
-            $table->foreignIdFor(User::class)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->comment('id table User');
-            $table->foreignIdFor(FileCategory::class)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->comment('id table FileCategory');
-            $table->string('slug')
-                ->unique()
-                ->comment('slug');
-            $table->string('title')
-                ->unique()
-                ->comment('judul');
-            $table->bigInteger('downloader')
-                ->default(0)
-                ->comment('jumlah pengunduh');
-            $table->string('file')
-                ->nullable()
-                ->comment('gambar cover');
-            $table->string('attachment')
-                ->nullable()
-                ->comment('lampiran file: pdf, doc, xls, ppt, jpg, png, dll');
             $table->boolean('is_show')
-                ->default(true)
-                ->comment('status tampilkan');
+                ->default(true);
+            $table->foreignIdFor(User::class)
+                ->nullable()
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreignIdFor(FileCategory::class)
+                ->nullable()
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->string('slug')
+                ->nullable()
+                ->unique();
+            $table->string('title')
+                ->nullable()
+                ->unique();
+            $table->bigInteger('downloader')
+                ->nullable()
+                ->default(0);
+            $table->string('file')
+                ->nullable();
+            $table->string('attachment')
+                ->nullable();
         });
     }
 

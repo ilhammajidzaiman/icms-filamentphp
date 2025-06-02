@@ -17,20 +17,19 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->string('uuid');
+            $table->boolean('is_show')
+                ->default(true);
             $table->foreignIdFor(User::class)
+                ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete()
-                ->comment('id table users');
+                ->cascadeOnDelete();
             $table->string('slug')
-                ->unique()
-                ->comment('slug');
+                ->nullable()
+                ->unique();
             $table->string('title')
-                ->unique()
-                ->comment('judul');
-            $table->boolean('is_show')
-                ->default(true)
-                ->comment('status tampilkan');
+                ->nullable()
+                ->unique();
         });
     }
 

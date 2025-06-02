@@ -34,25 +34,26 @@ class FileCategoryResource extends Resource
     {
         return $form
             ->schema([
-                Section::make()
+                Section::make(Str::headline(__('rincian')))
+                    ->icon('heroicon-o-information-circle')
+                    ->collapsible()
                     ->schema([
                         Toggle::make('is_show')
-                            ->label('Status')
+                            ->label(Str::headline(__('status')))
                             ->required()
                             ->default(true),
                         TextInput::make('title')
-                            ->label('Judul')
+                            ->label(Str::headline(__('judul')))
                             ->required()
-                            ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                            ->maxLength(255),
                         TextInput::make('slug')
-                            ->label('Slug')
+                            ->label(Str::headline(__('slug')))
                             ->required()
-                            ->maxLength(255)
                             ->disabled()
                             ->dehydrated()
-                            ->helperText('Slug akan otomatis dihasilkan dari judul.'),
+                            ->maxLength(255),
                     ]),
             ]);
     }
@@ -63,15 +64,16 @@ class FileCategoryResource extends Resource
             ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
-                    ->label('No')
+                    ->label(Str::headline(__('no')))
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(Str::headline(__('judul')))
+                    ->wrap()
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
-                    ->label('Status')
+                    ->label(Str::headline(__('status')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),

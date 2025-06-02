@@ -9,10 +9,8 @@ use App\Models\Media\File;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use Filament\Resources\Resource;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
@@ -38,56 +36,50 @@ class FileResource extends Resource
         return $form
             ->columns(3)
             ->schema([
-                Grid::make()
+                Section::make(Str::headline(__('rincian')))
+                    ->icon('heroicon-o-information-circle')
                     ->columnSpan(2)
+                    ->collapsible()
                     ->schema([
-                        Section::make('Isi')
-                            ->icon('heroicon-o-newspaper')
-                            ->schema([
-                                TextArea::make('title')
-                                    ->label('Judul')
-                                    ->autosize()
-                                    ->required()
-                                    ->maxLength(255)
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
-                                TextInput::make('slug')
-                                    ->label('Slug')
-                                    ->required()
-                                    ->maxLength(255)
-                                    ->disabled()
-                                    ->dehydrated()
-                                    ->helperText('Slug akan otomatis dihasilkan dari judul.'),
-                                FileUpload::make('attachment')
-                                    ->label('Lampiran')
-                                    ->required()
-                                    ->maxSize(5120)
-                                    ->directory('attachment/' . date('Y/m'))
-                                    // ->acceptedFileTypes(['application/pdf', 'document/docx'])
-                                    ->helperText('Ukuran maksimal: 1 MB. Ekstensi: pdf, doc, xls, ppt, jpg, png, svg, zip, rar.'),
-                            ]),
+                        Toggle::make('is_show')
+                            ->label(Str::headline(__('status')))
+                            ->required()
+                            ->default(true),
+                        TextInput::make('title')
+                            ->label(Str::headline(__('judul')))
+                            ->required()
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                            ->maxLength(255),
+                        TextInput::make('slug')
+                            ->label(Str::headline(__('slug')))
+                            ->required()
+                            ->disabled()
+                            ->dehydrated()
+                            ->maxLength(255),
                     ]),
-                Grid::make()
+                Section::make(Str::headline(__('lampiran')))
+                    ->icon('heroicon-o-paper-clip')
                     ->columnSpan(1)
+                    ->collapsible()
                     ->schema([
-                        Section::make('Lampiran')
-                            ->icon('heroicon-o-paper-clip')
-                            ->collapsible()
-                            ->schema([
-                                Toggle::make('is_show')
-                                    ->label('Status')
-                                    ->required()
-                                    ->default(true),
-                                FileUpload::make('file')
-                                    ->label('File Cover/Sampul')
-                                    ->maxSize(1024)
-                                    ->directory('file/' . date('Y/m'))
-                                    ->image()
-                                    ->imageEditor()
-                                    ->openable()
-                                    ->downloadable()
-                                    ->helperText('Ukuran maksimal: 1 MB.'),
-                            ])
+                        FileUpload::make('file')
+                            ->label(Str::headline(__('sampul')))
+                            ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
+                            ->directory('file-cover/' . date('Y/m'))
+                            ->optimize('webp')
+                            ->image()
+                            ->imageEditor()
+                            ->openable()
+                            ->downloadable()
+                            ->maxSize(10240),
+                        FileUpload::make('attachment')
+                            ->label(Str::headline(__('lampiran')))
+                            ->helperText(Str::ucfirst(__('Ukuran maksimal: 10 MB. Ekstensi: pdf, doc, xls, ppt, jpg, png, svg, zip, rar.')))
+                            ->directory('file-attachment/' . date('Y/m'))
+                            ->required()
+                            ->downloadable()
+                            ->maxSize(10240),
                     ]),
             ]);
     }
@@ -98,21 +90,21 @@ class FileResource extends Resource
             ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
-                    ->label('No')
+                    ->label(Str::headline(__('no')))
                     ->rowIndex(isFromZero: false),
                 ImageColumn::make('file')
-                    ->label('Sampul')
+                    ->label(Str::headline(__('sampul')))
                     ->defaultImageUrl(asset('/image/default-img.svg'))
                     ->circular()
                     ->toggleable(),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(Str::headline(__('judul')))
                     ->wrap()
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
-                    ->label('Status')
+                    ->label(Str::headline(__('status')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),

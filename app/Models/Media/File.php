@@ -18,6 +18,7 @@ class File extends Model
 
     protected $fillable =
     [
+        'is_show',
         'user_id',
         'file_category_id',
         'slug',
@@ -25,7 +26,6 @@ class File extends Model
         'downloader',
         'file',
         'attachment',
-        'is_show',
     ];
 
     protected $hidden = [
