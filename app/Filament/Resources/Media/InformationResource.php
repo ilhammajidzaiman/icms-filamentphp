@@ -42,48 +42,49 @@ class InformationResource extends Resource
                 Grid::make()
                     ->columnSpan(2)
                     ->schema([
-                        Section::make('Isi')
-                            ->icon('heroicon-o-newspaper')
+                        Section::make(Str::headline(__('rincian')))
+                            ->icon('heroicon-o-information-circle')
+                            ->collapsible()
                             ->schema([
+                                Toggle::make('is_show')
+                                    ->label(Str::headline(__('status')))
+                                    ->required()
+                                    ->default(true),
                                 Textarea::make('title')
+                                    ->label(Str::headline(__('judul')))
+                                    ->required()
                                     ->autosize()
-                                    ->label('Judul')
-                                    ->required()
-                                    ->maxLength(255)
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                                    ->maxLength(255),
                                 TextInput::make('slug')
-                                    ->label('Slug')
+                                    ->label(Str::headline(__('slug')))
                                     ->required()
-                                    ->maxLength(255)
                                     ->disabled()
                                     ->dehydrated()
-                                    ->helperText('Slug akan otomatis dihasilkan dari judul.'),
+                                    ->maxLength(255),
                                 RichEditor::make('content')
-                                    ->label('Isi')
+                                    ->label(Str::headline(__('konten')))
                                     ->required(),
                             ]),
                     ]),
                 Grid::make()
                     ->columnSpan(1)
                     ->schema([
-                        Section::make('Lampiran')
+                        Section::make(Str::headline(__('lampiran')))
                             ->icon('heroicon-o-paper-clip')
                             ->collapsible()
                             ->schema([
-                                Toggle::make('is_show')
-                                    ->label('Status')
-                                    ->required()
-                                    ->default(true),
                                 FileUpload::make('file')
-                                    ->label('File')
-                                    ->maxSize(1024)
-                                    ->directory('page/' . date('Y/m'))
+                                    ->label(Str::headline(__('file')))
+                                    ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
+                                    ->directory('information/' . date('Y/m'))
+                                    ->optimize('webp')
                                     ->image()
                                     ->imageEditor()
                                     ->openable()
                                     ->downloadable()
-                                    ->helperText('Ukuran maksimal: 1 MB.'),
+                                    ->maxSize(10240),
                             ])
                     ]),
             ]);
@@ -95,21 +96,21 @@ class InformationResource extends Resource
             ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
-                    ->label('No')
+                    ->label(Str::headline(__('no')))
                     ->rowIndex(isFromZero: false),
                 ImageColumn::make('file')
-                    ->label('File')
+                    ->label(Str::headline(__('file')))
                     ->defaultImageUrl(asset('/image/default-img.svg'))
                     ->circular()
                     ->toggleable(),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(Str::headline(__('judul')))
                     ->wrap()
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
-                    ->label('Status')
+                    ->label(Str::headline(__('status')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
