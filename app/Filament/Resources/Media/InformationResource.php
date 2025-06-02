@@ -45,7 +45,6 @@ class InformationResource extends Resource
                     ->schema([
                         Toggle::make('is_show')
                             ->label(Str::headline(__('status')))
-                            ->required()
                             ->default(true),
                         Textarea::make('title')
                             ->label(Str::headline(__('judul')))
@@ -53,13 +52,13 @@ class InformationResource extends Resource
                             ->autosize()
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                            ->maxLength(255),
+                            ->maxLength(1024),
                         TextInput::make('slug')
                             ->label(Str::headline(__('slug')))
                             ->required()
                             ->disabled()
                             ->dehydrated()
-                            ->maxLength(255),
+                            ->maxLength(1024),
                         RichEditor::make('content')
                             ->label(Str::headline(__('konten')))
                             ->required(),

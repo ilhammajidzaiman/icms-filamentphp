@@ -40,20 +40,19 @@ class FileCategoryResource extends Resource
                     ->schema([
                         Toggle::make('is_show')
                             ->label(Str::headline(__('status')))
-                            ->required()
                             ->default(true),
                         TextInput::make('title')
                             ->label(Str::headline(__('judul')))
                             ->required()
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                            ->maxLength(255),
+                            ->maxLength(1024),
                         TextInput::make('slug')
                             ->label(Str::headline(__('slug')))
                             ->required()
                             ->disabled()
                             ->dehydrated()
-                            ->maxLength(255),
+                            ->maxLength(1024),
                     ]),
             ]);
     }

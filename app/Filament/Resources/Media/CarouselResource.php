@@ -43,19 +43,18 @@ class CarouselResource extends Resource
                     ->schema([
                         Toggle::make('is_show')
                             ->label(Str::headline(__('status')))
-                            ->required()
                             ->default(true),
                         Textarea::make('title')
                             ->label(Str::headline(__('judul')))
                             ->autosize()
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                            ->maxLength(255),
+                            ->maxLength(1024),
                         TextInput::make('slug')
                             ->label(Str::headline(__('slug')))
                             ->disabled()
                             ->dehydrated()
-                            ->maxLength(255),
+                            ->maxLength(1024),
                         Textarea::make('description')
                             ->label(Str::headline(__('deskripsi')))
                             ->autosize()
@@ -70,10 +69,11 @@ class CarouselResource extends Resource
                             ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
                             ->directory('carousel/' . date('Y/m'))
                             ->optimize('webp')
+                            ->required()
                             ->image()
                             ->imageEditor()
                             ->openable()
-                            ->required()
+                            ->downloadable()
                             ->maxSize(10240),
                     ]),
             ]);

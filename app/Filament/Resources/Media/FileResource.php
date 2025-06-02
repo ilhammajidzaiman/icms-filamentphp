@@ -43,20 +43,19 @@ class FileResource extends Resource
                     ->schema([
                         Toggle::make('is_show')
                             ->label(Str::headline(__('status')))
-                            ->required()
                             ->default(true),
                         TextInput::make('title')
                             ->label(Str::headline(__('judul')))
                             ->required()
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                            ->maxLength(255),
+                            ->maxLength(1024),
                         TextInput::make('slug')
                             ->label(Str::headline(__('slug')))
                             ->required()
                             ->disabled()
                             ->dehydrated()
-                            ->maxLength(255),
+                            ->maxLength(1024),
                     ]),
                 Section::make(Str::headline(__('lampiran')))
                     ->icon('heroicon-o-paper-clip')
@@ -78,6 +77,7 @@ class FileResource extends Resource
                             ->helperText(Str::ucfirst(__('Ukuran maksimal: 10 MB. Ekstensi: pdf, doc, xls, ppt, jpg, png, svg, zip, rar.')))
                             ->directory('file-attachment/' . date('Y/m'))
                             ->required()
+                            ->openable()
                             ->downloadable()
                             ->maxSize(10240),
                     ]),
