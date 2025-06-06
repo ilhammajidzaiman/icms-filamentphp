@@ -24,4 +24,10 @@ class EditPeople extends EditRecord
     {
         return $this->getResource()::getUrl('index');
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        $data['user_id'] = auth()->user()->name;
+        return $data;
+    }
 }

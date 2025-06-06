@@ -15,13 +15,13 @@ class People extends Model
 
     protected $fillable =
     [
+        'is_show',
         'user_id',
         'people_position_id',
         'order',
         'name',
         'description',
         'file',
-        'is_show',
     ];
 
     protected $hidden = [

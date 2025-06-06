@@ -39,6 +39,7 @@ class CarouselResource extends Resource
             ->schema([
                 Section::make(Str::headline(__('rincian')))
                     ->icon('heroicon-o-information-circle')
+                    ->collapsible()
                     ->columnSpan(1)
                     ->schema([
                         Toggle::make('is_show')

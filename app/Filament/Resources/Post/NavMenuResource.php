@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Post;
 
 use Filament\Tables;
-use Filament\Forms\Set;
 use Filament\Forms\Form;
 use App\Models\Post\Link;
 use App\Models\Post\Page;
@@ -19,15 +18,11 @@ use Filament\Resources\Resource;
 use App\Models\Media\Information;
 use App\Models\Post\BlogCategory;
 use App\Models\Media\FileCategory;
-use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Section;
+use App\Services\Form\NavMenuForm;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
-use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\MorphToSelect;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\Post\NavMenuResource\Pages;
 
@@ -45,77 +40,7 @@ class NavMenuResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->columns(1)
-            ->schema([
-                Hidden::make('parent_id')
-                    ->required()
-                    ->default(-1)
-                    ->disabled()
-                    ->dehydrated(),
-                Section::make()
-                    ->schema([
-                        Toggle::make('is_show')
-                            ->label('Status')
-                            ->required()
-                            ->default(true),
-                        TextInput::make('order')
-                            ->required()
-                            ->numeric()
-                            ->default(0),
-                        TextInput::make('title')
-                            ->label('Judul')
-                            ->required()
-                            ->maxLength(50)
-                            ->live(onBlur: true)
-                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                            ->helperText('Jumlah karakter maksimal: 50.'),
-                        TextInput::make('slug')
-                            ->label('Slug')
-                            ->required()
-                            ->maxLength(255)
-                            ->disabled()
-                            ->dehydrated()
-                            ->helperText('Slug akan otomatis dihasilkan dari judul.'),
-                        MorphToSelect::make('modelable')
-                            ->label('Arahkan Ke')
-                            ->required()
-                            ->native(false)
-                            ->searchable()
-                            ->preload()
-                            ->types([
-                                MorphToSelect\Type::make(BlogArticle::class)
-                                    ->titleAttribute('title')
-                                    ->label('Artikel'),
-                                MorphToSelect\Type::make(BlogCategory::class)
-                                    ->titleAttribute('title')
-                                    ->label('Kategori Artikel'),
-                                MorphToSelect\Type::make(BlogTag::class)
-                                    ->titleAttribute('title')
-                                    ->label('Tag Artikel'),
-                                MorphToSelect\Type::make(Page::class)
-                                    ->titleAttribute('title')
-                                    ->label('Halaman'),
-                                MorphToSelect\Type::make(Link::class)
-                                    ->titleAttribute('title')
-                                    ->label('Tautan'),
-                                MorphToSelect\Type::make(File::class)
-                                    ->titleAttribute('title')
-                                    ->label('Dokumen'),
-                                MorphToSelect\Type::make(FileCategory::class)
-                                    ->titleAttribute('title')
-                                    ->label('Kategori Dokumen'),
-                                MorphToSelect\Type::make(Information::class)
-                                    ->titleAttribute('title')
-                                    ->label('Informasi'),
-                                MorphToSelect\Type::make(Image::class)
-                                    ->titleAttribute('title')
-                                    ->label('Image'),
-                                MorphToSelect\Type::make(Video::class)
-                                    ->titleAttribute('title')
-                                    ->label('Video'),
-                            ]),
-                    ]),
-            ]);
+            ->schema(NavMenuForm::schema());
     }
 
     public static function table(Table $table): Table
@@ -124,16 +49,16 @@ class NavMenuResource extends Resource
             ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
-                    ->label('No')
+                    ->label(Str::headline(__('no')))
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('title')
-                    ->label('Menu')
+                    ->label(Str::headline(__('menu')))
                     ->wrap()
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('type')
-                    ->label('Type')
+                    ->label(Str::headline(__('tipe')))
                     ->formatStateUsing(function (Model $record) {
                         $modelType = $record->modelable_type;
                         if ($modelType === BlogArticle::class):
@@ -163,7 +88,7 @@ class NavMenuResource extends Resource
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('ke')
-                    ->label('Judul')
+                    ->label(Str::headline(__('judul')))
                     ->formatStateUsing(function (Model $record) {
                         $modelType = $record->modelable_type;
                         $modelId = $record->modelable_id;
@@ -214,7 +139,7 @@ class NavMenuResource extends Resource
                     ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
-                    ->label('Status')
+                    ->label(Str::headline(__('status')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),

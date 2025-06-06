@@ -14,9 +14,9 @@ class SettingPage extends Model
 
     protected $fillable =
     [
+        'is_show',
         'type',
         'title',
-        'is_show',
     ];
 
     protected $hidden = [

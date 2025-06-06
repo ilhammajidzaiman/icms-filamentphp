@@ -18,13 +18,13 @@ class Image extends Model
 
     protected $fillable =
     [
+        'is_show',
         'user_id',
         'slug',
         'title',
         'description',
         'file',
         'attachment',
-        'is_show',
     ];
 
     protected $hidden = [

@@ -21,10 +21,10 @@ class BlogTag extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'is_show',
         'user_id',
         'slug',
         'title',
-        'is_show'
     ];
 
     protected $hidden = [

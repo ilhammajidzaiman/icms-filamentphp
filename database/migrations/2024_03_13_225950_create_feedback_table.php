@@ -17,19 +17,19 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->string('uuid');
-            $table->foreignIdFor(FeedbackCategory::class)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->comment('id table FeedbackCategory');
-            $table->string('name')
-                ->comment('nama pengunjung');
-            $table->string('email')
-                ->comment('email');
-            $table->text('message')
-                ->comment('pesan kritik dan saran');
             $table->boolean('is_show')
-                ->default(true)
-                ->comment('status tampilkan');
+                ->default(true);
+            $table->foreignIdFor(FeedbackCategory::class)
+                ->nullable()
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->string('name')
+                ->nullable();
+            $table->string('email')
+                ->nullable();
+            $table->text('message')
+                ->nullable();
         });
     }
 

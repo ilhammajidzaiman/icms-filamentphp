@@ -49,19 +49,17 @@ class BlogArticleResource extends Resource
                             ->icon('heroicon-o-newspaper')
                             ->schema([
                                 Textarea::make('title')
-                                    ->autosize()
                                     ->label(Str::headline(__('judul')))
                                     ->required()
-                                    ->maxLength(255)
+                                    ->autosize()
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                                    ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                                    ->maxLength(1024),
                                 TextInput::make('slug')
                                     ->label(Str::headline(__('slug')))
-                                    ->required()
-                                    ->maxLength(255)
                                     ->disabled()
                                     ->dehydrated()
-                                    ->helperText(Str::ucfirst(__('Slug akan otomatis dihasilkan dari judul.'))),
+                                    ->maxLength(1024),
                                 RichEditor::make('content')
                                     ->label(Str::headline(__('isi')))
                                     ->required(),
@@ -70,13 +68,12 @@ class BlogArticleResource extends Resource
                 Grid::make()
                     ->columnSpan(1)
                     ->schema([
-                        Section::make(Str::headline(__('Informasi')))
+                        Section::make(Str::headline(__('informasi')))
                             ->icon('heroicon-o-information-circle')
                             ->collapsible()
                             ->schema([
                                 Toggle::make('is_show')
                                     ->label(Str::headline(__('status')))
-                                    ->required()
                                     ->default(true),
                                 DateTimePicker::make('published_at')
                                     ->label(Str::headline(__('Tanggal rilis')))
@@ -116,29 +113,32 @@ class BlogArticleResource extends Resource
                             ->schema([
                                 FileUpload::make('file')
                                     ->label(Str::headline(__('file')))
-                                    ->helperText(Str::ucfirst(__('ukuran maksimal: 1 MB.')))
+                                    ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
                                     ->directory('blog-article/' . date('Y/m'))
                                     ->optimize('webp')
+                                    ->required()
                                     ->image()
                                     ->imageEditor()
                                     ->openable()
-                                    ->required()
-                                    ->maxSize(1024),
+                                    ->downloadable()
+                                    ->maxSize(10240),
                                 Textarea::make('description')
                                     ->label(Str::headline(__('keterangan gambar')))
                                     ->autosize()
                                     ->maxLength(255),
                                 FileUpload::make('attachment')
-                                    ->label(Str::headline(__('galeri')))
-                                    ->helperText(Str::ucfirst(__('ukuran maksimal: 1 MB.  Jumlah maksimal: 5 File.')))
+                                    ->label(Str::headline(__('lampiran')))
+                                    ->helperText(Str::ucfirst(__('Ukuran maksimal: 10 MB. Jumlah maksimal: 5 File.')))
                                     ->directory('blog-article-attachment/' . date('Y/m'))
                                     ->optimize('webp')
+                                    ->required()
                                     ->image()
-                                    ->imageEditor()
                                     ->openable()
+                                    ->downloadable()
+                                    ->imageEditor()
                                     ->multiple()
-                                    ->reorderable()
-                                    ->maxFiles(10),
+                                    ->maxFiles(20)
+                                    ->maxSize(10240),
                             ])
                     ]),
             ]);

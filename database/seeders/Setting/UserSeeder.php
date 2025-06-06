@@ -26,11 +26,11 @@ class UserSeeder extends Seeder
         foreach ($datas as $data) :
             User::create(
                 [
-                    'name'              => $data['name'],
-                    'username'          => Str::lower(Str::replace(' ', '', $data['name'])),
-                    'email'             => Str::lower(Str::replace(' ', '', $data['name'])) . '@gmail.com',
+                    'name' => $data['name'],
+                    'username' => Str::lower(Str::replace(' ', '', $data['name'])),
+                    'email' => Str::lower(Str::replace(' ', '', $data['name'])) . '@gmail.com',
                     'email_verified_at' => now(),
-                    'password'          => Hash::make('*#' . Str::lower(Str::replace(' ', '', $data['name']))),
+                    'password' => Hash::make('*#' . Str::lower(Str::replace(' ', '', $data['name']))),
                 ],
             );
         endforeach;

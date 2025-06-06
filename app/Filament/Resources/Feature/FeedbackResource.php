@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Feature;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 use App\Models\Feature\Feedback;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
@@ -35,10 +36,12 @@ class FeedbackResource extends Resource
         return $form
 
             ->schema([
-                Section::make()
+                Section::make(Str::headline(__('rincian')))
+                    ->icon('heroicon-o-information-circle')
+                    ->collapsible()
                     ->schema([
                         Select::make('feedback_category_id')
-                            ->label('Kategori')
+                            ->label(Str::headline(__('kategori')))
                             ->required()
                             ->forceSearchCaseInsensitive()
                             ->searchable()
@@ -51,20 +54,20 @@ class FeedbackResource extends Resource
                                     ->where('is_show', true)
                             ),
                         TextInput::make('name')
-                            ->label('Nama')
+                            ->label(Str::headline(__('nama')))
                             ->required()
                             ->maxLength(255),
                         TextInput::make('email')
-                            ->label('Email')
+                            ->label(Str::headline(__('email')))
                             ->email()
                             ->required()
                             ->maxLength(255),
                         Textarea::make('message')
-                            ->label('Pesan')
+                            ->label(Str::headline(__('pesan')))
                             ->required()
                             ->autosize(),
                         Toggle::make('is_show')
-                            ->label('Status')
+                            ->label(Str::headline(__('status')))
                             ->required()
                             ->default(true),
                     ]),
@@ -77,40 +80,30 @@ class FeedbackResource extends Resource
             ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
-                    ->label('No')
+                    ->label(Str::headline(__('no')))
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('name')
-                    ->label('Nama')
+                    ->label(Str::headline(__('nama')))
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(),
                 TextColumn::make('email')
-                    ->label('Email')
+                    ->label(Str::headline(__('email')))
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(),
                 TextColumn::make('feedbackCategory.title')
-                    ->label('Kategori')
+                    ->label(Str::headline(__('kategori')))
                     ->badge()
                     ->color('info')
                     ->sortable()
-                    ->searchable(),
-                TextColumn::make('created_at')
-                    ->label('Dibuat')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->label('Diperbarui')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->label('Dihapus')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable()
+                    ->toggleable(),
                 ToggleColumn::make('is_show')
-                    ->label('Status')
-                    ->sortable(),
+                    ->label(Str::headline(__('status')))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

@@ -18,29 +18,28 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->string('uuid');
+            $table->boolean('is_show')
+                ->default(true);
             $table->foreignIdFor(User::class)
+                ->nullable()
                 ->constrained()
-                ->cascadeOnDelete()
-                ->comment('id table User');
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->foreignIdFor(PeoplePosition::class)
+                ->nullable()
                 ->constrained()
-                ->cascadeOnDelete()
-                ->comment('id table PeoplePosition');
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->integer('order')
                 ->nullable()
                 ->default(1)
                 ->index();
             $table->string('name')
-                ->comment('nama');
+                ->nullable();
             $table->text('description')
-                ->nullable()
-                ->comment('deskripsi');
+                ->nullable();
             $table->string('file')
-                ->nullable()
-                ->comment('gambar staff');
-            $table->boolean('is_show')
-                ->default(true)
-                ->comment('status tampilkan');
+                ->nullable();
         });
     }
 

@@ -38,21 +38,19 @@ class LinkResource extends Resource
                     ->schema([
                         Toggle::make('is_show')
                             ->label('Status')
-                            ->required()
                             ->default(true),
-                        TextInput::make('title')
-                            ->label('Judul')
+                        Textarea::make('title')
+                            ->label(Str::headline(__('judul')))
                             ->required()
+                            ->autosize()
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
-                            ->maxLength(255),
+                            ->maxLength(1024),
                         TextInput::make('slug')
-                            ->label('Slug')
-                            ->helperText('Slug akan otomatis dihasilkan dari judul.')
+                            ->label(Str::headline(__('slug')))
                             ->disabled()
                             ->dehydrated()
-                            ->required()
-                            ->maxLength(255),
+                            ->maxLength(1024),
                         Textarea::make('url')
                             ->label('Url')
                             ->required()
@@ -67,10 +65,11 @@ class LinkResource extends Resource
             ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
-                    ->label('No')
+                    ->label(Str::headline(__('no')))
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(Str::headline(__('judul')))
+                    ->wrap()
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
@@ -83,8 +82,10 @@ class LinkResource extends Resource
                     ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
-                    ->label('Status')
-                    ->sortable(),
+                    ->label(Str::headline(__('status')))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

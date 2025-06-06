@@ -18,17 +18,16 @@ return new class extends Migration
             $table->softDeletes();
             $table->string('uuid');
             $table->foreignIdFor(User::class)
+                ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete()
-                ->comment('id table users');
+                ->cascadeOnDelete();
             $table->date('birth_date')
                 ->nullable();
             $table->string('gender',)
-                ->comment('jenis kelamin');
+                ->nullable();
             $table->string('file')
-                ->nullable()
-                ->comment('gambar profile');
+                ->nullable();
         });
     }
 

@@ -21,6 +21,7 @@ class BlogArticle extends Model
 
     protected $fillable =
     [
+        'is_show',
         'user_id',
         'blog_category_id',
         'slug',
@@ -30,7 +31,6 @@ class BlogArticle extends Model
         'description',
         'attachment',
         'visitor',
-        'is_show',
         'published_at',
     ];
 

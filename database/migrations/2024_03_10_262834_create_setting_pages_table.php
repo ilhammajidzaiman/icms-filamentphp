@@ -16,15 +16,12 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->string('uuid');
-            $table->string('type')
-                ->nullable()
-                ->comment('tipe elemen');
-            $table->string('title')
-                ->nullable()
-                ->comment('judul elemen');
             $table->boolean('is_show')
-                ->default(true)
-                ->comment('status tampilkan');
+                ->default(true);
+            $table->string('type')
+                ->nullable();
+            $table->string('title')
+                ->nullable();
         });
     }
 

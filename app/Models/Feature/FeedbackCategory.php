@@ -15,10 +15,10 @@ class FeedbackCategory extends Model
 
     protected $fillable =
     [
+        'is_show',
         'user_id',
         'slug',
         'title',
-        'is_show',
     ];
 
     protected $hidden = [

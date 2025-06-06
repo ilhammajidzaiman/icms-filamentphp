@@ -16,18 +16,16 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->string('uuid');
-            $table->string('name')
-                ->comment('nama pengirim');
-            $table->string('email')
-                ->comment('email pengirim');
-            $table->string('subject')
-                ->nullable()
-                ->comment('subjek pesan');
-            $table->text('message')
-                ->comment('isi pesan');
             $table->boolean('is_show')
-                ->default(true)
-                ->comment('status tampilkan');
+                ->default(true);
+            $table->string('name')
+                ->nullable();
+            $table->string('email')
+                ->nullable();
+            $table->string('subject')
+                ->nullable();
+            $table->text('message')
+                ->nullable();
         });
     }
 

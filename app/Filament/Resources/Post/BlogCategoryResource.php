@@ -38,21 +38,17 @@ class BlogCategoryResource extends Resource
                     ->schema([
                         Toggle::make('is_show')
                             ->label(Str::headline(__('status')))
-                            ->required()
                             ->default(true),
                         TextInput::make('title')
                             ->label(Str::headline(__('judul')))
-                            ->required()
-                            ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                            ->maxLength(1024),
                         TextInput::make('slug')
                             ->label(Str::headline(__('slug')))
-                            ->helperText(Str::ucfirst(__('slug akan otomatis dihasilkan dari judul.')))
-                            ->required()
                             ->disabled()
                             ->dehydrated()
-                            ->maxLength(255),
+                            ->maxLength(1024),
                     ]),
             ]);
     }
@@ -67,6 +63,7 @@ class BlogCategoryResource extends Resource
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('title')
                     ->label(Str::headline(__('judul')))
+                    ->wrap()
                     ->sortable()
                     ->searchable()
                     ->toggleable(),

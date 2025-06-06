@@ -18,41 +18,36 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->string('uuid');
-            $table->foreignIdFor(User::class)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->comment('id table users');
-            $table->foreignIdFor(BlogCategory::class)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->comment('id table BlogCategory');
-            $table->string('slug')
-                ->unique()
-                ->comment('slug');
-            $table->string('title')
-                ->unique()
-                ->comment('judul');
-            $table->longText('content')
-                ->nullable()
-                ->comment('isi ');
-            $table->string('file')
-                ->nullable()
-                ->comment('gambar cover');
-            $table->string('description')
-                ->nullable()
-                ->comment('deskripsi gambar');
-            $table->json('attachment')
-                ->nullable()
-                ->comment('gambar galeri foto');
-            $table->bigInteger('visitor')
-                ->default(0)
-                ->comment('jumlah pengunjung');
             $table->boolean('is_show')
-                ->default(true)
-                ->comment('status tampilkan');
-            $table->timestamp('published_at')
+                ->default(true);
+            $table->foreignIdFor(User::class)
                 ->nullable()
-                ->comment('diterbitkan');
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreignIdFor(BlogCategory::class)
+                ->nullable()
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->string('slug')
+                ->nullable()
+                ->unique();
+            $table->string('title')
+                ->nullable()
+                ->unique();
+            $table->longText('content')
+                ->nullable();
+            $table->string('file')
+                ->nullable();
+            $table->string('description')
+                ->nullable();
+            $table->json('attachment')
+                ->nullable();
+            $table->bigInteger('visitor')
+                ->default(0);
+            $table->timestamp('published_at')
+                ->nullable();
         });
     }
 

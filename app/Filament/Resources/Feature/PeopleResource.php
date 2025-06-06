@@ -5,9 +5,9 @@ namespace App\Filament\Resources\Feature;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 use App\Models\Feature\People;
 use Filament\Resources\Resource;
-use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
@@ -38,60 +38,56 @@ class PeopleResource extends Resource
         return $form
             ->columns(3)
             ->schema([
-                Grid::make()
+                Section::make(Str::headline(__('rincian')))
+                    ->icon('heroicon-o-information-circle')
+                    ->collapsible()
                     ->columnSpan(2)
                     ->schema([
-                        Section::make('Isi')
-                            ->icon('heroicon-o-newspaper')
-                            ->schema([
-                                TextInput::make('order')
-                                    ->label('Urutan')
-                                    ->required()
-                                    ->numeric()
-                                    ->default(1),
-                                Select::make('people_position_id')
-                                    ->label('Jabatan')
-                                    ->required()
-                                    ->forceSearchCaseInsensitive()
-                                    ->searchable()
-                                    ->preload()
-                                    ->relationship(
-                                        name: 'peoplePosition',
-                                        titleAttribute: 'title',
-                                        modifyQueryUsing: fn(Builder $query) => $query
-                                            ->orderBy('title')
-                                            ->where('is_show', true)
-                                    ),
-                                TextInput::make('name')
-                                    ->label('Nama')
-                                    ->required()
-                                    ->maxLength(255),
-                                RichEditor::make('description')
-                                    ->label('Deskripsi')
-                                    ->required(),
-                            ]),
+                        Toggle::make('is_show')
+                            ->label(Str::headline(__('status')))
+                            ->default(true),
+                        TextInput::make('order')
+                            ->label(Str::headline(__('urutan')))
+                            ->required()
+                            ->numeric()
+                            ->default(1),
+                        Select::make('people_position_id')
+                            ->label(Str::headline(__('jabatan')))
+                            ->required()
+                            ->forceSearchCaseInsensitive()
+                            ->searchable()
+                            ->preload()
+                            ->relationship(
+                                name: 'peoplePosition',
+                                titleAttribute: 'title',
+                                modifyQueryUsing: fn(Builder $query) => $query
+                                    ->orderBy('title')
+                                    ->where('is_show', true)
+                            ),
+                        TextInput::make('name')
+                            ->label(Str::headline(__('nama')))
+                            ->required()
+                            ->maxLength(255),
+                        RichEditor::make('description')
+                            ->label(Str::headline(__('deskripsi')))
+                            ->required(),
                     ]),
-                Grid::make()
+                Section::make(Str::headline(__('lampiran')))
+                    ->icon('heroicon-o-paper-clip')
+                    ->collapsible()
                     ->columnSpan(1)
                     ->schema([
-                        Section::make('Lampiran')
-                            ->icon('heroicon-o-paper-clip')
-                            ->schema([
-                                Toggle::make('is_show')
-                                    ->label('Status')
-                                    ->required()
-                                    ->default(true),
-                                FileUpload::make('file')
-                                    ->label('File')
-                                    ->required()
-                                    ->maxSize(1024)
-                                    ->directory('blog-article/' . date('Y/m'))
-                                    ->image()
-                                    ->imageEditor()
-                                    ->openable()
-                                    ->downloadable()
-                                    ->helperText('Ukuran maksimal: 1 MB.'),
-                            ]),
+                        FileUpload::make('file')
+                            ->label(Str::headline(__('file')))
+                            ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
+                            ->directory('people/' . date('Y/m'))
+                            ->optimize('webp')
+                            ->required()
+                            ->image()
+                            ->imageEditor()
+                            ->openable()
+                            ->downloadable()
+                            ->maxSize(10240),
                     ]),
             ]);
     }
@@ -103,33 +99,33 @@ class PeopleResource extends Resource
             ->reorderable('order')
             ->columns([
                 TextColumn::make('index')
-                    ->label('No')
+                    ->label(Str::headline(__('no')))
                     ->rowIndex(isFromZero: false),
                 ImageColumn::make('file')
-                    ->label('File')
+                    ->label(Str::headline(__('file')))
                     ->defaultImageUrl(asset('/image/default-user.svg'))
                     ->circular()
                     ->toggleable(),
                 TextColumn::make('order')
-                    ->label('Urutan')
+                    ->label(Str::headline(__('urutan')))
                     ->numeric()
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('name')
-                    ->label('Nama')
+                    ->label(Str::headline(__('nama')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('peoplePosition.title')
-                    ->label('Jabatan')
+                    ->label(Str::headline(__('jabatan')))
                     ->badge()
                     ->color('info')
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
-                    ->label('Status')
+                    ->label(Str::headline(__('status')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),

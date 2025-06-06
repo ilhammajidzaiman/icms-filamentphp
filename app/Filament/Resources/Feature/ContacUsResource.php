@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Feature;
 use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
 use App\Models\Feature\ContacUs;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Section;
@@ -32,25 +33,22 @@ class ContacUsResource extends Resource
     {
         return $form
             ->schema([
-                Section::make()
+                Section::make(Str::headline(__('rincian')))
+                    ->icon('heroicon-o-information-circle')
                     ->schema([
                         TextInput::make('name')
-                            ->label('Nama')
-                            ->required()
-                            ->maxLength(255),
+                            ->label(Str::headline(__('nama')))
+                            ->maxLength(1024),
                         TextInput::make('email')
-                            ->label('Email')
-                            ->email()
-                            ->required()
-                            ->maxLength(255),
+                            ->label(Str::headline(__('email')))
+                            ->maxLength(1024),
                         TextInput::make('subject')
-                            ->label('Subjek')
-                            ->required()
-                            ->maxLength(255),
+                            ->label(Str::headline(__('subjek')))
+                            ->maxLength(1024),
                         Textarea::make('message')
-                            ->label('Pesan')
-                            ->required()
-                            ->autosize(),
+                            ->label(Str::headline(__('pesan')))
+                            ->autosize()
+                            ->maxLength(1024),
                     ]),
             ]);
     }
@@ -61,25 +59,26 @@ class ContacUsResource extends Resource
             ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
-                    ->label('No')
+                    ->label(Str::headline(__('no')))
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('name')
-                    ->label('Nama')
+                    ->label(Str::headline(__('nama')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('email')
                     ->label('Email')
+                    ->label(Str::headline(__('email')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('subject')
-                    ->label('Subjek')
+                    ->label(Str::headline(__('subjek')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
-                    ->label('Status')
+                    ->label(Str::headline(__('status')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),

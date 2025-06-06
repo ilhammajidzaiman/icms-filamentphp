@@ -6,11 +6,12 @@ use Illuminate\Support\Str;
 use App\Models\Post\BlogTag;
 use App\Models\Post\BlogArticle;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BlogPost extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable =
     [

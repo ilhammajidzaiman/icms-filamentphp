@@ -18,12 +18,12 @@ class Video extends Model
 
     protected $fillable =
     [
+        'is_show',
         'user_id',
         'slug',
         'title',
         'url',
         'embed',
-        'is_show',
     ];
 
     protected $hidden = [

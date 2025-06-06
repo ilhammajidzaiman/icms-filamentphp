@@ -16,14 +16,18 @@ return new class extends Migration
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes();
+            $table->string('uuid');
             $table->foreignIdFor(BlogArticle::class)
+                ->nullable()
                 ->constrained()
-                ->cascadeOnDelete()
-                ->comment('id table articles');
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->foreignIdFor(BlogTag::class)
+                ->nullable()
                 ->constrained()
-                ->cascadeOnDelete()
-                ->comment('id table tags');
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 

@@ -23,6 +23,7 @@ class NavMenu extends Model
     use HasFactory, SoftDeletes, ModelTree;
 
     protected $fillable = [
+        'is_show',
         'user_id',
         'parent_id',
         'modelable_type',
@@ -30,7 +31,6 @@ class NavMenu extends Model
         'order',
         'slug',
         'title',
-        'is_show',
     ];
 
     protected $hidden = [

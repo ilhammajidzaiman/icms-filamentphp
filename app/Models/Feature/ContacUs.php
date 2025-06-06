@@ -13,11 +13,11 @@ class ContacUs extends Model
 
     protected $fillable =
     [
+        'is_show',
         'name',
         'email',
         'subject',
         'message',
-        'is_show',
     ];
 
     protected $hidden = [

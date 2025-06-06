@@ -35,25 +35,25 @@ class FeedbackCategoryResource extends Resource
     {
         return $form
             ->schema([
-                Section::make()
+                Section::make(Str::headline(__('rincian')))
+                    ->icon('heroicon-o-information-circle')
+                    ->collapsible()
                     ->schema([
                         Toggle::make('is_show')
-                            ->label('Status')
-                            ->required()
+                            ->label(Str::headline(__('status')))
                             ->default(true),
                         TextInput::make('title')
-                            ->label('Judul')
+                            ->label(Str::headline(__('judul')))
                             ->required()
-                            ->maxLength(255)
                             ->live(onBlur: true)
-                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state))),
+                            ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                            ->maxLength(1024),
                         TextInput::make('slug')
-                            ->label('Slug')
-                            ->helperText('Slug akan otomatis dihasilkan dari judul.')
+                            ->label(Str::headline(__('slug')))
                             ->required()
                             ->disabled()
                             ->dehydrated()
-                            ->maxLength(255),
+                            ->maxLength(1024),
                     ]),
             ]);
     }
@@ -64,15 +64,15 @@ class FeedbackCategoryResource extends Resource
             ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
-                    ->label('No')
+                    ->label(Str::headline(__('no')))
                     ->rowIndex(isFromZero: false),
                 TextColumn::make('title')
-                    ->label('Judul')
+                    ->label(Str::headline(__('judul')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
-                    ->label('Status')
+                    ->label(Str::headline(__('status')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),

@@ -17,11 +17,11 @@ class Link extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'is_show',
         'user_id',
         'slug',
         'title',
         'url',
-        'is_show',
     ];
 
     protected $hidden = [

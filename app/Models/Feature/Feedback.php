@@ -14,11 +14,11 @@ class Feedback extends Model
 
     protected $fillable =
     [
+        'is_show',
         'feedback_category_id',
         'name',
         'email',
         'message',
-        'is_show',
     ];
 
     protected $hidden = [
