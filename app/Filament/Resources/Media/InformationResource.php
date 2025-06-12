@@ -71,7 +71,7 @@ class InformationResource extends Resource
                         FileUpload::make('file')
                             ->label(Str::headline(__('file')))
                             ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
-                            ->directory('information/' . date('Y/m'))
+                            ->directory('information-file/' . date('Y/m'))
                             ->optimize('webp')
                             ->image()
                             ->imageEditor()

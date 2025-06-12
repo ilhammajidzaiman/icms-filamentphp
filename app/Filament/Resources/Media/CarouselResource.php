@@ -68,7 +68,7 @@ class CarouselResource extends Resource
                         FileUpload::make('file')
                             ->label(Str::headline(__('file')))
                             ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
-                            ->directory('carousel/' . date('Y/m'))
+                            ->directory('carousel-file/' . date('Y/m'))
                             ->optimize('webp')
                             ->required()
                             ->image()

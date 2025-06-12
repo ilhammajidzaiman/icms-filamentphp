@@ -8,6 +8,7 @@ use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use App\Models\Feature\ContacUs;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
@@ -36,6 +37,9 @@ class ContacUsResource extends Resource
                 Section::make(Str::headline(__('rincian')))
                     ->icon('heroicon-o-information-circle')
                     ->schema([
+                        Toggle::make('is_show')
+                            ->label(Str::headline(__('status')))
+                            ->default(true),
                         TextInput::make('name')
                             ->label(Str::headline(__('nama')))
                             ->maxLength(1024),

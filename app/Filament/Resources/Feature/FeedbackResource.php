@@ -40,6 +40,9 @@ class FeedbackResource extends Resource
                     ->icon('heroicon-o-information-circle')
                     ->collapsible()
                     ->schema([
+                        Toggle::make('is_show')
+                            ->label(Str::headline(__('status')))
+                            ->default(true),
                         Select::make('feedback_category_id')
                             ->label(Str::headline(__('kategori')))
                             ->required()
@@ -66,10 +69,6 @@ class FeedbackResource extends Resource
                             ->label(Str::headline(__('pesan')))
                             ->required()
                             ->autosize(),
-                        Toggle::make('is_show')
-                            ->label(Str::headline(__('status')))
-                            ->required()
-                            ->default(true),
                     ]),
             ]);
     }

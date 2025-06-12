@@ -40,7 +40,6 @@ class VideoResource extends Resource
                     ->schema([
                         Toggle::make('is_show')
                             ->label(Str::headline(__('status')))
-                            ->required()
                             ->default(true),
                         Textarea::make('title')
                             ->label(Str::headline(__('judul')))

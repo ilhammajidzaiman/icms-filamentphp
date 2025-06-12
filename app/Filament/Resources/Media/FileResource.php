@@ -65,7 +65,7 @@ class FileResource extends Resource
                         FileUpload::make('file')
                             ->label(Str::headline(__('sampul')))
                             ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
-                            ->directory('file-cover/' . date('Y/m'))
+                            ->directory('file-file/' . date('Y/m'))
                             ->optimize('webp')
                             ->image()
                             ->imageEditor()

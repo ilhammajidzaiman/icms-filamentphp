@@ -80,7 +80,7 @@ class PeopleResource extends Resource
                         FileUpload::make('file')
                             ->label(Str::headline(__('file')))
                             ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
-                            ->directory('people/' . date('Y/m'))
+                            ->directory('people-file/' . date('Y/m'))
                             ->optimize('webp')
                             ->required()
                             ->image()

@@ -18,9 +18,9 @@ use Filament\Resources\Resource;
 use App\Models\Media\Information;
 use App\Models\Post\BlogCategory;
 use App\Models\Media\FileCategory;
-use App\Services\Form\NavMenuForm;
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Model;
+use App\Services\Form\NavMenuFormService;
 use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -40,7 +40,7 @@ class NavMenuResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema(NavMenuForm::schema());
+            ->schema(NavMenuFormService::schema());
     }
 
     public static function table(Table $table): Table

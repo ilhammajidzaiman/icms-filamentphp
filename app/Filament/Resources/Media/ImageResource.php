@@ -44,7 +44,6 @@ class ImageResource extends Resource
                     ->schema([
                         Toggle::make('is_show')
                             ->label(Str::headline(__('status')))
-                            ->required()
                             ->default(true),
                         Textarea::make('title')
                             ->label(Str::headline(__('judul')))
@@ -72,7 +71,7 @@ class ImageResource extends Resource
                         FileUpload::make('file')
                             ->label(Str::headline(__('sampul')))
                             ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
-                            ->directory('image-cover/' . date('Y/m'))
+                            ->directory('image-file/' . date('Y/m'))
                             ->optimize('webp')
                             ->required()
                             ->image()

@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Post\NavMenuResource\Widgets;
 
 use App\Models\Post\NavMenu;
-use App\Services\Form\NavMenuForm;
+use App\Services\Form\NavMenuFormService;
 use SolutionForest\FilamentTree\Widgets\Tree as BaseWidget;
 
 class NavMenuWidget extends BaseWidget
@@ -15,7 +15,7 @@ class NavMenuWidget extends BaseWidget
 
     protected function getFormSchema(): array
     {
-        return NavMenuForm::schema();
+        return NavMenuFormService::schema();
     }
 
     protected function hasDeleteAction(): bool

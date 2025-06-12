@@ -3,13 +3,16 @@
 namespace App\Filament\Resources\UserResource\Pages;
 
 use Filament\Actions;
+use Illuminate\Support\Str;
 use Filament\Infolists\Infolist;
-use Filament\Support\Enums\FontWeight;
+use Filament\Infolists\Components\Tabs;
 use App\Filament\Resources\UserResource;
+use Filament\Infolists\Components\Group;
 use Filament\Resources\Pages\ViewRecord;
-use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\Tabs\Tab;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Components\ImageEntry;
+use App\Services\Infolist\ViewInfolistService;
 use Filament\Infolists\Components\TextEntry\TextEntrySize;
 
 class ViewUser extends ViewRecord
@@ -26,49 +29,61 @@ class ViewUser extends ViewRecord
     public function infolist(Infolist $infolist): Infolist
     {
         return $infolist
-            ->columns(3)
             ->schema([
-                Section::make()
-                    ->columnSpan(2)
-                    ->schema([
-                        ImageEntry::make('profile.file')
-                            ->hiddenlabel('Gambar')
-                            ->defaultImageUrl(asset('/image/default-img.svg')),
-                        TextEntry::make('roles.name')
-                            ->label('Peran')
-                            ->badge()
-                            ->separator(',')
-                            ->size(TextEntrySize::Large),
-                        TextEntry::make('name')
-                            ->label('Nama')
-                            ->weight(FontWeight::Medium)
-                            ->size(TextEntrySize::Large),
-                        TextEntry::make('username')
-                            ->label('Username'),
-                        TextEntry::make('email')
-                            ->label('Email'),
-                        TextEntry::make('profile.gender')
-                            ->label('Jenis Kelamin'),
-                        TextEntry::make('profile.birth_date')
-                            ->label('Tanggal Lahir')
-                            ->date('d F Y'),
-                        TextEntry::make('profile.birth_date')
-                            ->label('Umur')
-                            ->since(),
+                Tabs::make()
+                    ->columnSpanFull()
+                    ->tabs([
+                        Tab::make(Str::headline(__('details')))
+                            ->icon('heroicon-o-bars-3')
+                            ->columns(2)
+                            ->schema([
+                                Group::make()
+                                    ->columnSpan(1)
+                                    ->schema([
+                                        ImageEntry::make('profile.file')
+                                            ->hiddenlabel(Str::headline(__('gambar')))
+                                            ->defaultImageUrl(asset('/image/default-img.svg')),
+                                        TextEntry::make('roles.name')
+                                            ->label(Str::headline(__('peran')))
+                                            ->size(TextEntrySize::Large)
+                                            ->color('secondary'),
+                                        TextEntry::make('username')
+                                            ->label(Str::headline(__('username')))
+                                            ->size(TextEntrySize::Large)
+                                            ->color('secondary'),
+                                        TextEntry::make('email')
+                                            ->label(Str::headline(__('email')))
+                                            ->size(TextEntrySize::Large)
+                                            ->color('secondary'),
+                                    ]),
+                                Group::make()
+                                    ->columnSpan(1)
+                                    ->schema([
+                                        TextEntry::make('name')
+                                            ->label(Str::headline(__('nama')))
+                                            ->size(TextEntrySize::Large)
+                                            ->color('secondary'),
+                                        TextEntry::make('profile.gender')
+                                            ->label(Str::headline(__('jenis kelamin')))
+                                            ->size(TextEntrySize::Large)
+                                            ->color('secondary')
+                                            ->default('-'),
+                                        TextEntry::make('profile.birth_date')
+                                            ->label(Str::headline(__('tanggal lahir')))
+                                            ->size(TextEntrySize::Large)
+                                            ->color('secondary')
+                                            ->date('d F Y'),
+                                        TextEntry::make('profile.birth_date')
+                                            ->label(Str::headline(__('umur')))
+                                            ->size(TextEntrySize::Large)
+                                            ->color('secondary')
+                                            ->since(),
+                                    ]),
+                            ]),
+                        Tab::make(Str::headline(__('properties')))
+                            ->icon('heroicon-o-information-circle')
+                            ->schema(ViewInfolistService::schema()),
                     ]),
-                Section::make()
-                    ->columnSpan(1)
-                    ->schema([
-                        TextEntry::make('created_at')
-                            ->label('Dibuat')
-                            ->since(),
-                        TextEntry::make('updated_at')
-                            ->label('Diperbarui')
-                            ->since(),
-                        TextEntry::make('deleted_at')
-                            ->label('Dihapus')
-                            ->since(),
-                    ])
             ]);
     }
 }

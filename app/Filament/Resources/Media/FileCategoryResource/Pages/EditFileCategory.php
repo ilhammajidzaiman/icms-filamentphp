@@ -27,7 +27,7 @@ class EditFileCategory extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        $data['user_id'] = auth()->user()->name;
+        $data['user_id'] = auth()->user()->id;
         return $data;
     }
 }

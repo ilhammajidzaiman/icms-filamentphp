@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-            $table->string('uuid');
+            $table->string('uuid')
+                ->nullable();
             $table->string('name')
                 ->nullable()
                 ->comment('nama website');

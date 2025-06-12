@@ -5,13 +5,13 @@ namespace App\Filament\Resources\Post\PageResource\Pages;
 use Filament\Actions;
 use Illuminate\Support\Str;
 use Filament\Infolists\Infolist;
-use Filament\Support\Enums\FontWeight;
+use Filament\Infolists\Components\Tabs;
 use Filament\Resources\Pages\ViewRecord;
-use Filament\Infolists\Components\Section;
-use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\Tabs\Tab;
 use Filament\Infolists\Components\TextEntry;
 use App\Filament\Resources\Post\PageResource;
 use Filament\Infolists\Components\ImageEntry;
+use App\Services\Infolist\ViewInfolistService;
 use Filament\Infolists\Components\TextEntry\TextEntrySize;
 
 class ViewPage extends ViewRecord
@@ -28,43 +28,34 @@ class ViewPage extends ViewRecord
     public function infolist(Infolist $infolist): Infolist
     {
         return $infolist
-            ->columns(3)
             ->schema([
-                Section::make()
-                    ->columnSpan(2)
-                    ->schema([
-                        ImageEntry::make('file')
-                            ->hiddenlabel(Str::headline(__('file')))
-                            ->defaultImageUrl(asset('/image/default-img.svg')),
-                        TextEntry::make('title')
-                            ->label(Str::headline(__('judul')))
-                            ->weight(FontWeight::Medium)
-                            ->size(TextEntrySize::Large),
-                        TextEntry::make('slug')
-                            ->label(Str::headline(__('slug')))
-                            ->color('gray'),
-                        TextEntry::make('content')
-                            ->label(Str::headline(__('konten')))
-                            ->html(),
+                Tabs::make()
+                    ->columnSpanFull()
+                    ->tabs([
+                        Tab::make(Str::headline(__('details')))
+                            ->icon('heroicon-o-bars-3')
+                            ->schema([
+                                ImageEntry::make('file')
+                                    ->label(Str::headline(__('file')))
+                                    ->defaultImageUrl(asset('/image/default-img.svg')),
+                                TextEntry::make('title')
+                                    ->label(Str::headline(__('judul')))
+                                    ->size(TextEntrySize::Large)
+                                    ->color('secondary'),
+                                TextEntry::make('slug')
+                                    ->label(Str::headline(__('slug')))
+                                    ->size(TextEntrySize::Large)
+                                    ->color('secondary'),
+                                TextEntry::make('content')
+                                    ->label(Str::headline(__('konten')))
+                                    ->size(TextEntrySize::Large)
+                                    ->color('secondary')
+                                    ->html(),
+                            ]),
+                        Tab::make(Str::headline(__('properties')))
+                            ->icon('heroicon-o-information-circle')
+                            ->schema(ViewInfolistService::schema()),
                     ]),
-                Section::make()
-                    ->columnSpan(1)
-                    ->schema([
-                        IconEntry::make('is_show')
-                            ->label(Str::headline(__('status'))),
-                        TextEntry::make('user.name')
-                            ->label(Str::headline(__('penulis')))
-                            ->badge(),
-                        TextEntry::make('created_at')
-                            ->label(Str::headline(__('dibuat')))
-                            ->since(),
-                        TextEntry::make('updated_at')
-                            ->label(Str::headline(__('diperbarui')))
-                            ->since(),
-                        TextEntry::make('deleted_at')
-                            ->label(Str::headline(__('dihapus')))
-                            ->since(),
-                    ])
             ]);
     }
 }

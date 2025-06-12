@@ -20,7 +20,7 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\MorphToSelect;
 
-final class NavMenuForm
+class NavMenuFormService
 {
     public static function schema(): array
     {
