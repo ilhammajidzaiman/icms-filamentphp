@@ -10,7 +10,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $data['blogArticle'] = BlogArticle::show()
+        $data['article'] = BlogArticle::show()
             ->with(['blogCategory'])
             ->paginate(18);
         return view('page.public.article.index', $data);
@@ -22,7 +22,7 @@ class ArticleController extends Controller
             ->with(['blogTags', 'blogCategory'])
             ->where('slug', $id)
             ->first();
-        $data['blogArticle'] = BlogArticle::show()
+        $data['article'] = BlogArticle::show()
             ->with(['blogCategory'])
             ->limit(18)
             ->inRandomOrder()
@@ -39,6 +39,9 @@ class ArticleController extends Controller
             ->limit(5)
             ->orderByDesc('published_at')
             ->get();
+        // if (!$data['record']) :
+        //     abort(404);
+        // endif;
         if ($data['record']) :
             $data['record']->increment('visitor');
             $data['share'] = env('APP_URL') . '/' . $data['record']->slug;

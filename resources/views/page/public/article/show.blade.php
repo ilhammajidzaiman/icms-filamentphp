@@ -1,54 +1,25 @@
 <x-public.app-layout>
     <x-public.section>
         <x-public.row class="justify-content-between">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-8">
+            <x-public.col class="col-lg-8">
+                <x-public.breadcrumb>
+                    <x-public.breadcrumb.link href="{{ route('index') }}" value="{{ Str::headline(__('dashboard')) }}" />
+                    <x-public.breadcrumb.link href="{{ route('article.index') }}"
+                        value="{{ Str::headline(__('artikel')) }}" />
+                    @if ($record)
+                        <x-public.breadcrumb.item
+                            value="{{ Str::limit(strip_tags($record->title ?? null), 50, '...') }}" />
+                    @endif
+                </x-public.breadcrumb>
                 @if (!$record)
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="/{{ route('index') }}">
-                                Beranda
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            Baca
-                        </li>
-                    </ul>
-                    <h1 class="mb-5">
-                        Baca
-                    </h1>
-                    <div class="col-12">
-                        <p class="fs-5 text-danger mb-5 pb-5">
-                            Hasil tidak ditemukan.
-                        </p>
-                    </div>
+                    <x-public.empty-record />
                 @else
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('index') }}">
-                                Beranda
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('article.index') }}">
-                                Artikel
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item d-inline-block text-truncate">
-                            {{ Str::limit(strip_tags($record->title), 50, '...') }}
-                        </li>
-                    </ul>
-                    <h5 class="fs-5">
-                        <a href="{{ route('category.show', $record->blogCategory->slug) }}"
-                            class="badge bg-primary-subtle link-primary rounded-pill link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                            {{ $record->blogCategory->title }}
-                        </a>
-                    </h5>
-                    <h3 class="fs-3">
-                        <a href="{{ route('article.show', $record->slug) }}"
-                            class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                            {{ $record->title }}
-                        </a>
-                    </h3>
+                    <x-public.badge.link href="{{ route('category.show', $record->blogCategory->slug) }}"
+                        value="{{ $record->blogCategory->title }}" class="text-bg-secondary" />
+
+                    <x-public.heading.link.h3 href="{{ route('article.show', $record->slug) }}"
+                        value="{{ $record->title ?? null }}" />
+
                     <h6 class="fs-6 text-secondary">
                         {{ \Carbon\Carbon::parse($record->published_at)->translatedFormat('l, j F Y') }}
                         -
@@ -129,52 +100,26 @@
                         </button>
                     </nav>
                 @endif
-            </div>
+            </x-public.col>
 
-            <div class="col-12 col-sm-12 col-md-12 col-lg-3">
+            <x-public.col class="col-lg-3">
                 @include('layouts.public.side')
-            </div>
+            </x-public.col>
         </x-public.row>
     </x-public.section>
 
-    <x-public.section>
-        <x-public.section.header value="{{ __('artikel lainnya') }}" href="{{ route('article.index') }}" />
-        @if ($blogArticle->isEmpty())
-            <x-public.empty-record />
-        @else
-            <x-public.row>
-                @foreach ($blogArticle as $item)
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                        <x-public.card>
-                            <x-public.card.image href="{{ route('article.show', $item->slug) }}"
-                                src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}" />
-                            <x-public.card.body>
-                                <x-public.badge.link value="{{ $item->blogCategory->title }}"
-                                    href="{{ route('category.show', $item->blogCategory->slug) }}" />
-                                <x-public.card.text
-                                    value="{{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}" />
-                                <x-public.card.link value="{{ Str::limit(strip_tags($item->title), 100, '...') }}"
-                                    href="{{ route('article.show', $item->slug) }}" />
-                            </x-public.card.body>
-                        </x-public.card>
-                    </div>
-                @endforeach
-            </x-public.row>
-        @endif
-    </x-public.section>
-
     @push('seo')
-        @if ($item)
-            <meta property="og:url" content="{{ env('APP_URL') . '/' . $record->slug }}">
+        @if ($record)
+            <meta property="og:url" content="{{ env('APP_URL') . '/' . $record->slug ?? null }}">
             <meta property="og:type" content="website">
-            <meta property="og:title" content="{{ $record->title }}">
+            <meta property="og:title" content="{{ $record->title ?? null }}">
             <meta property="og:description" content="">
-            <meta property="og:image" content="{{ env('APP_ASSET') . $record->file }}">
+            <meta property="og:image" content="{{ env('APP_ASSET') . $record->file ?? null }}">
             <meta name="twitter:card" content="summary_large_image">
             <meta property="twitter:domain" content="{{ env('APP_URL') }}">
-            <meta property="twitter:url" content="{{ env('APP_URL') . '/' . $record->slug }}">
-            <meta name="twitter:title" content="{{ $record->title }}">
-            <meta name="twitter:image" content="{{ env('APP_ASSET') . $record->file }}">
+            <meta property="twitter:url" content="{{ env('APP_URL') . '/' . $record->slug ?? null }}">
+            <meta name="twitter:title" content="{{ $record->title ?? null }}">
+            <meta name="twitter:image" content="{{ env('APP_ASSET') . $record->file ?? null }}">
         @endif
     @endpush
 

@@ -1,13 +1,13 @@
 <div class="accordion" id="accordionPanelsStayOpenExample">
     <div class="accordion-item">
         <h2 class="accordion-header">
-            <button class="accordion-button bg-body-tertiary bg-gradient" type="button" data-bs-toggle="collapse"
+            <div class="accordion-button bg-body-tertiary bg-gradient" data-bs-toggle="collapse"
                 data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
                 aria-controls="panelsStayOpen-collapseOne">
                 <div class="fs-6 fw-semibold border-start border-5 border-secondary-subtle ps-2">
                     {{ Str::headline(__('tetap terhubung')) }}
                 </div>
-            </button>
+            </div>
         </h2>
         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
             <div class="accordion-body p-3">
@@ -48,13 +48,13 @@
     </div>
     <div class="accordion-item">
         <h2 class="accordion-header">
-            <button class="accordion-button bg-body-tertiary bg-gradient" type="button" data-bs-toggle="collapse"
+            <div class="accordion-button bg-body-tertiary bg-gradient" data-bs-toggle="collapse"
                 data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
                 aria-controls="panelsStayOpen-collapseTwo">
                 <div class="fs-6 fw-semibold border-start border-5 border-secondary-subtle ps-2">
                     {{ Str::headline(__('artikel populer')) }}
                 </div>
-            </button>
+            </div>
         </h2>
         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show">
             <div class="accordion-body">
@@ -86,13 +86,13 @@
     </div>
     <div class="accordion-item">
         <h2 class="accordion-header">
-            <button class="accordion-button bg-body-tertiary bg-gradient" type="button" data-bs-toggle="collapse"
+            <div class="accordion-button bg-body-tertiary bg-gradient" data-bs-toggle="collapse"
                 data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true"
                 aria-controls="panelsStayOpen-collapseThree">
                 <div class="fs-6 fw-semibold border-start border-5 border-secondary-subtle ps-2">
                     {{ Str::headline(__('artikel terbaru')) }}
                 </div>
-            </button>
+            </div>
         </h2>
         <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show">
             <div class="accordion-body">
@@ -124,13 +124,13 @@
     </div>
     <div class="accordion-item">
         <h2 class="accordion-header">
-            <button class="accordion-button bg-body-tertiary bg-gradient" type="button" data-bs-toggle="collapse"
+            <div class="accordion-button bg-body-tertiary bg-gradient" data-bs-toggle="collapse"
                 data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="true"
                 aria-controls="panelsStayOpen-collapseFour">
                 <div class="fs-6 fw-semibold border-start border-5 border-secondary-subtle ps-2">
                     {{ Str::headline(__('kategori')) }}
                 </div>
-            </button>
+            </div>
         </h2>
         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show">
             <div class="accordion-body">

@@ -18,10 +18,10 @@ class CategoryController extends Controller
 
     public function show(string $id)
     {
-        $data['item'] = BlogCategory::show()
+        $data['category'] = BlogCategory::show()
             ->where('slug', $id)
             ->first();
-        $data['blogArticle'] = BlogArticle::show()
+        $data['article'] = BlogArticle::show()
             ->whereHas('blogCategory', function ($query) use ($id) {
                 $query->where('slug', $id);
             })
