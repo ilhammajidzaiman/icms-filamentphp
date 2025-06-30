@@ -1,3 +1,5 @@
+@props(['title' => null])
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -8,11 +10,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @stack('seo')
     <title>
-        @isset($header)
-            {{ Str::ucfirst($header) . ' | ' . env('APP_NAME') }}
-        @else
-            {{ env('APP_NAME') }}
-        @endisset
+        {{ Str::ucfirst($title) }}
+        {{ $title ? '|' : null }}
+        {{ $settingSite->name ? $settingSite->name : env('APP_NAME') }}
     </title>
     <link rel="shortcut icon" href="{{ $settingSite->logo }}" type="image/x-icon">
     @vite(['resources/css/app.css', 'resources/js/app.js'])

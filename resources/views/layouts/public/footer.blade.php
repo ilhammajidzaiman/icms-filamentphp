@@ -1,4 +1,4 @@
-<footer class="wrapper bg-body-secondary mt-5">
+<footer class="bg-body-secondary mt-5 bg-shiny">
     <div class="container pt-5">
         <div class="row justify-content-between">
             <div class="col-12 col-md-3 mb-3">
@@ -15,7 +15,6 @@
                     <li>Email: {{ $settingSite->email ? $settingSite->email : env('APP_NAME') }}</li>
                 </ul>
             </div>
-
 
             <div class="col-12 col-md-3 mb-3">
                 <h4 class="fw-semibold border-start border-5 border-secondary-subtle mb-4 ps-2">
@@ -48,8 +47,8 @@
                     $defaultMap =
                         'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16328182.633267699!2d107.22171031843773!3d-2.3813608494441247!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c4c07d7496404b7%3A0xe37b4de71badf485!2sIndonesia!5e0!3m2!1sid!2sid!4v1722322760161!5m2!1sid!2sid';
                 @endphp
-                <iframe src="{{ $settingSite->map ? $settingSite->map : $defaultMap }}" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade" class="rounded-4 shadow-sm w-100 vh-50">
+                <iframe src="{{ $settingSite->map ? $settingSite->map : $defaultMap }}" allowfullscreen=""
+                    loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="rounded-4 shadow-sm w-100 vh-50">
                 </iframe>
             </div>
         </div>

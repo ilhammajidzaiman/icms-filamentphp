@@ -1,4 +1,4 @@
-<x-public.app-layout>
+<x-public.app-layout title="{{ Str::headline(__('dokumen')) }}">
     <section class="container pt-2">
         <div class="row g-3 justify-content-between mt-5 pt-5">
             <div class="col-12">

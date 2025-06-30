@@ -17,7 +17,7 @@ class BlogArticleChart extends ChartWidget
     protected static string $color = 'info';
     protected static ?string $maxHeight = '300px';
     protected static bool $isLazy = true;
-    protected static ?int $sort = 2;
+    protected static ?int $sort = 3;
 
     protected function getData(): array
     {

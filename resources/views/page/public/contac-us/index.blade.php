@@ -1,4 +1,4 @@
-<x-public.app-layout>
+<x-public.app-layout title="{{ Str::headline(__('kontak')) }}">
     <x-public.section>
         <x-public.row>
             <div class="col-12">

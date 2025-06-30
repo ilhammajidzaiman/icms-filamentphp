@@ -1,4 +1,4 @@
-<x-public.app-layout>
+<x-public.app-layout title="{{ Str::headline(__('page')) }}">
     <x-public.section>
         <x-public.row class="justify-content-between">
             <div class="col-12 col-sm-12 col-md-12 col-lg-8">

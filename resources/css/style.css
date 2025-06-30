@@ -101,3 +101,13 @@ body {
     height: auto;
 }
 
+.bg-shiny {
+    padding: 0;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-image: url('/image/shiny.png');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+

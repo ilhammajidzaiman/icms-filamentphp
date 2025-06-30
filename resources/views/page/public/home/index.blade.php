@@ -1,4 +1,4 @@
-<x-public.app-layout>
+<x-public.app-layout title="{{ Str::headline(__('beranda')) }}">
     @if ($settingPage->carousel)
         <x-public.section>
             @if ($carousel->isEmpty())
@@ -27,7 +27,7 @@
     @if ($settingPage->headline)
         <x-public.section class="px-4">
             <div class="row">
-                <div class="col-12 col-md-9 p-0">
+                <x-public.col class="col-md-9 p-0">
                     @if ($articleSlide->isEmpty())
                         <x-public.empty-record />
                     @else
@@ -56,8 +56,8 @@
                             <x-public.carousel.next target="#carouselNews" slide="next" />
                         </x-public.carousel>
                     @endif
-                </div>
-                <div class="col-12 col-md-3 p-0">
+                </x-public.col>
+                <x-public.col class="col-md-3 p-0">
                     @if ($articleTop->isEmpty())
                         <x-public.empty-record />
                     @else
@@ -80,43 +80,50 @@
                             </div>
                         @endforeach
                     @endif
-                </div>
+                </x-public.col>
             </div>
         </x-public.section>
     @endif
 
     <x-public.section>
         <x-public.row>
-            <div class="col-12 col-sm-12 col-md-8 col-lg-9">
+            <x-public.col class="col-md-8 col-lg-9">
                 <x-public.section-header value="{{ __('artikel') }}" href="{{ route('article.index') }}" />
                 @if ($blogArticle->isEmpty())
                     <x-public.empty-record />
                 @else
-                    <div class="row g-3">
+                    <x-public.row>
                         @foreach ($blogArticle as $item)
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-                                <x-public.card>
-                                    <x-public.card.image href="{{ route('article.show', $item->slug) }}"
-                                        src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}" />
+                            <x-public.col class="col-sm-6 col-md-4 col-lg-4">
+                                <x-public.card.>
+                                    <x-public.link href="{{ route('article.show', $item->slug) }}">
+                                        <x-public.card.image
+                                            src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}" />
+                                    </x-public.link>
                                     <x-public.card.body>
-                                        <x-public.badge.link value="{{ $item->blogCategory->title }}"
-                                            href="{{ route('category.show', $item->blogCategory->slug) }}" />
-                                        <x-public.card.text
-                                            value="{{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}" />
-                                        <x-public.card.link
-                                            value="{{ Str::limit(strip_tags($item->title), 100, '...') }}"
-                                            href="{{ route('article.show', $item->slug) }}" />
+                                        <x-public.link href="{{ route('article.show', $item->slug) }}">
+                                            <x-public.badge class="bg-secondary">
+                                                {{ $item->blogCategory->title }}
+                                            </x-public.badge>
+                                        </x-public.link>
+                                        <x-public.card.text class="text-secondary">
+                                            {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
+                                        </x-public.card.text>
+                                        <x-public.card.text>
+                                            <x-public.link href="{{ route('article.show', $item->slug) }}">
+                                                {{ Str::limit(strip_tags($item->title), 100, '...') }}
+                                            </x-public.link>
+                                        </x-public.card.text>
                                     </x-public.card.body>
-                                </x-public.card>
-                            </div>
+                                </x-public.card.>
+                            </x-public.col>
                         @endforeach
-                    </div>
+                    </x-public.row>
                 @endif
-            </div>
-
-            <div class="col-12 col-sm-12 col-md-4 col-lg-3">
+            </x-public.col>
+            <x-public.col class="col-md-4 col-lg-3">
                 @include('layouts.public.side')
-            </div>
+            </x-public.col>
         </x-public.row>
     </x-public.section>
 
@@ -126,15 +133,18 @@
             @if ($image->isEmpty())
                 <x-public.empty-record />
             @else
-                <x-public.row data-masonry='{"percentPosition": true }'>
-                    @foreach ($image as $item)
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <x-public.image-link value="{{ $item->file }}"
-                                href="{{ route('image.show', $item->slug) }}"
-                                src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}" />
-                        </div>
-                    @endforeach
-                </x-public.row>
+                <div data-masonry='{"percentPosition": true }'>
+                    <x-public.row>
+                        @foreach ($image as $item)
+                            <x-public.col class="col-sm-6 col-md-4 col-lg-3">
+                                <x-public.link href="{{ route('image.show', $item->slug) }}">
+                                    <x-public.image
+                                        src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}" />
+                                </x-public.link>
+                            </x-public.col>
+                        @endforeach
+                    </x-public.row>
+                </div>
             @endif
         </x-public.section>
     @endif

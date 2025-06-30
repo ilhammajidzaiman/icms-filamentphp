@@ -1,4 +1,4 @@
-<x-public.app-layout>
+<x-public.app-layout title="{{ Str::limit(strip_tags($record->title ?? null), 50, '...') }}">
     <x-public.section>
         <x-public.row class="justify-content-between">
             <x-public.col class="col-lg-8">

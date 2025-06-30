@@ -1,4 +1,4 @@
-<x-public.app-layout>
+<x-public.app-layout title="{{ Str::headline(__('halaman')) }}">
     <section class="container pt-2">
         <div class="row my-5 pt-5">
             <div class="mb-5">
