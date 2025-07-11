@@ -1,30 +1,15 @@
 <x-public.app-layout title="{{ Str::headline(__('dokumen')) }}">
-    <section class="container pt-2">
-        <div class="row g-3 justify-content-between mt-5 pt-5">
-            <div class="col-12">
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('index') }}">
-                            Beranda
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        Dokumen
-                    </li>
-                </ul>
+    <x-public.section>
+        <x-public.row>
+            <x-public.col>
+                <x-public.breadcrumb>
+                    <x-public.breadcrumb.link href="{{ route('index') }}" value="{{ Str::headline(__('dashboard')) }}" />
+                    <x-public.breadcrumb.item value="{{ Str::headline(__('dokumen')) }}" />
+                </x-public.breadcrumb>
+                <x-public.heading.link.h3 href="{{ route('file.index') }}" value="{{ Str::headline(__('dokumen')) }}" />
                 @livewire('public.search.search-input')
-                <h3 class="fs-3 my-4">
-                    <a href="{{ route('category.index') }}"
-                        class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                        Dokumen
-                    </a>
-                </h3>
                 @if ($record->isEmpty())
-                    <div class="row g-3 justify-content-center">
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
-                        </div>
-                    </div>
+                    <x-public.empty-record />
                 @else
                     <ul class="list-group list-group-flush">
                         @foreach ($record as $item)
@@ -45,18 +30,19 @@
                             </li>
                         @endforeach
                     </ul>
-                    <div class="row mt-4">
-                        <div class="col-12">
+
+                    <x-public.row class="mt-5">
+                        <x-public.col>
                             <x-public.pagination>
                                 <x-public.pagination.current
                                     href=" {{ $record->currentPage() }} / {{ $record->lastPage() }}" />
                                 <x-public.pagination.previous href="{{ $record->previousPageUrl() }}" />
                                 <x-public.pagination.next href="{{ $record->nextPageUrl() }}" />
                             </x-public.pagination>
-                        </div>
-                    </div>
+                        </x-public.col>
+                    </x-public.row>
                 @endif
-            </div>
-        </div>
-    </section>
+            </x-public.col>
+        </x-public.row>
+    </x-public.section>
 </x-public.app-layout>
