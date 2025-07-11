@@ -1,3 +1,3 @@
-<ul {{ $attributes->merge(['class' => 'pagination']) }}>
+<ul {{ $attributes->merge(['class' => 'pagination mt-3']) }}>
     {{ $slot }}
 </ul>

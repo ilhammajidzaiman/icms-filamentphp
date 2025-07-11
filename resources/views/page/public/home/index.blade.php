@@ -95,10 +95,11 @@
                     <x-public.row>
                         @foreach ($blogArticle as $item)
                             <x-public.col class="col-sm-6 col-md-4 col-lg-4">
-                                <x-public.card.>
+                                <x-public.card>
                                     <x-public.link href="{{ route('article.show', $item->slug) }}">
                                         <x-public.card.image
-                                            src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}" />
+                                            src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
+                                            class="vh-20" />
                                     </x-public.link>
                                     <x-public.card.body>
                                         <x-public.link href="{{ route('article.show', $item->slug) }}">
@@ -115,7 +116,7 @@
                                             </x-public.link>
                                         </x-public.card.text>
                                     </x-public.card.body>
-                                </x-public.card.>
+                                </x-public.card>
                             </x-public.col>
                         @endforeach
                     </x-public.row>

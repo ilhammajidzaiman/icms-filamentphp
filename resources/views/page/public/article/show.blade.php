@@ -28,8 +28,8 @@
                         {{ $record->visitor }}x Dilihat
                     </h6>
                     @if ($record->file)
-                        <img src="{{ $record->file ? asset('storage/' . $record->file) : asset('image/default-img.svg') }}"
-                            alt="image {{ $record->title }}" class="w-100 rounded-2 bg-secondary-subtle">
+                        <x-public.image
+                            src="{{ $record->file ? asset('storage/' . $record->file) : asset('image/default-img.svg') }}" />
                     @endif
                     @if ($record->description)
                         <div class="mt-2">
