@@ -9,6 +9,13 @@ use App\Http\Controllers\Controller;
 
 class PageController extends Controller
 {
+    public function index()
+    {
+        $data['data'] = Page::show()
+            ->paginate(18);
+        return view('page.public.page.index', $data);
+    }
+
     public function show(string $id)
     {
         $data['record'] = Page::show()
