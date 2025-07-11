@@ -14,6 +14,8 @@
                 @if (!$record)
                     <x-public.empty-record />
                 @else
+                    <x-public.heading.link.h3 href="{{ route('article.show', $record->slug) }}"
+                        value="{{ $record->title ?? null }}" />
                     <div class="ratio ratio-1x1 my-5">
                         <embed type="application/pdf" src="{{ asset('storage/' . $record->attachment) }}"></embed>
                     </div>
