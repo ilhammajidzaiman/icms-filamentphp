@@ -11,7 +11,7 @@ class PeopleController extends Controller
     {
         $data['record'] = People::show()
             ->with(['peoplePosition'])
-            ->orderByDesc('id')
+            ->orderBy('order')
             ->paginate(10);
         return view('page.public.people.index', $data);
     }
