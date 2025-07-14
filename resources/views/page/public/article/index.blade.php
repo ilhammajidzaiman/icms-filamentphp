@@ -1,13 +1,13 @@
 <x-public.app-layout title="{{ Str::headline(__('article')) }}">
     <x-public.section>
+        <x-public.breadcrumb>
+            <x-public.breadcrumb.link href="{{ route('index') }}" value="{{ Str::headline(__('dashboard')) }}" />
+            <x-public.breadcrumb.item value="{{ Str::headline(__('artikel')) }}" />
+        </x-public.breadcrumb>
+        <x-public.heading.link.h3 href="{{ route('article.index') }}" value="{{ Str::headline(__('artikel')) }}" />
+
         <x-public.row class="justify-content-between">
             <x-public.col>
-                <x-public.breadcrumb>
-                    <x-public.breadcrumb.link href="{{ route('index') }}" value="{{ Str::headline(__('dashboard')) }}" />
-                    <x-public.breadcrumb.item value="{{ Str::headline(__('artikel')) }}" />
-                </x-public.breadcrumb>
-                <x-public.heading.link.h3 href="{{ route('article.index') }}"
-                    value="{{ Str::headline(__('artikel')) }}" />
                 @livewire('public.search.search-input')
                 @if ($article->isEmpty())
                     <x-public.empty-record />

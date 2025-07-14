@@ -1,14 +1,13 @@
 <x-public.app-layout title="{{ Str::headline(__('kategori')) }}">
     <x-public.section>
+        <x-public.breadcrumb>
+            <x-public.breadcrumb.link href="{{ route('index') }}" value="{{ Str::headline(__('dashboard')) }}" />
+            <x-public.breadcrumb.link href="{{ route('category.index') }}" value="{{ Str::headline(__('kategori')) }}" />
+        </x-public.breadcrumb>
+        <x-public.heading.link.h3 href="{{ route('category.index') }}" value="{{ Str::headline(__('kategori')) }}" />
+
         <x-public.row class="justify-content-between">
             <x-public.col>
-                <x-public.breadcrumb>
-                    <x-public.breadcrumb.link href="{{ route('index') }}" value="{{ Str::headline(__('dashboard')) }}" />
-                    <x-public.breadcrumb.link href="{{ route('category.index') }}"
-                        value="{{ Str::headline(__('kategori')) }}" />
-                </x-public.breadcrumb>
-                <x-public.heading.link.h3 href="{{ route('category.index') }}"
-                    value="{{ Str::headline(__('kategori')) }}" />
                 @livewire('public.search.search-input')
                 @if ($category->isEmpty())
                     <x-public.empty-record />

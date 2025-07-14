@@ -1,25 +1,13 @@
 <x-public.app-layout title="{{ Str::headline(__('kontak')) }}">
     <x-public.section>
+        <x-public.breadcrumb>
+            <x-public.breadcrumb.link href="{{ route('index') }}" value="{{ Str::headline(__('dashboard')) }}" />
+            <x-public.breadcrumb.item value="{{ Str::headline(__('kontak')) }}" />
+        </x-public.breadcrumb>
+        <x-public.heading.link.h3 href="{{ route('contacus.index') }}" value="{{ Str::title(__('hubungi kami')) }}" />
+
         <x-public.row>
-            <div class="col-12">
-                <ul class="breadcrumb mb-3">
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('index') }}">
-                            Beranda
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        Kontak
-                    </li>
-                </ul>
-                <h3 class="fs-3">
-                    <a href="{{ route('contacus.index') }}"
-                        class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                        Hubungi Kami
-                    </a>
-                </h3>
-            </div>
-            <div class="col-12 col-md-5">
+            <x-public.col class="col-md-5">
                 <p class="fw-light fs-5 text-secondary">
                     Anda dapat menghubungi kami dengan mengisi form di bawah, dan akan segera kami respon
                     melalui email yang anda masukkan.
@@ -79,7 +67,7 @@
                         </button>
                     </div>
                 </form>
-            </div>
+            </x-public.col>
         </x-public.row>
     </x-public.section>
 

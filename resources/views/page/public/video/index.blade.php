@@ -1,34 +1,20 @@
 <x-public.app-layout title="{{ Str::headline(__('vidio')) }}">
-    <section class="container pt-2">
-        <div class="row mt-5 pt-5">
-            <div class="col-12">
-                <ul class="breadcrumb mb-3">
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('index') }}">
-                            Beranda
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        Video
-                    </li>
-                </ul>
-                <h3 class="fs-3 mb-4">
-                    <a href="{{ route('video.index') }}"
-                        class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                        Video
-                    </a>
-                </h3>
+    <x-public.section>
+        <x-public.breadcrumb>
+            <x-public.breadcrumb.link href="{{ route('index') }}" value="{{ Str::headline(__('dashboard')) }}" />
+            <x-public.breadcrumb.item value="{{ Str::headline(__('vidio')) }}" />
+        </x-public.breadcrumb>
+        <x-public.heading.link.h3 href="{{ route('video.index') }}" value="{{ Str::headline(__('vidio')) }}" />
+
+        <x-public.row>
+            <x-public.col>
                 @if ($record->isEmpty())
-                    <div class="row justify-content-center">
-                        <div class="col-sm-6 col-md-4 col-lg-3">
-                            <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
-                        </div>
-                    </div>
+                    <x-public.empty-record />
                 @else
-                    <div class="row g-3">
+                    <x-public.row>
                         @foreach ($record as $item)
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                                <div class="card bg-transparent border-0">
+                            <x-public.col class="col-sm-6 col-md-4 col-lg-3">
+                                <x-public.card>
                                     <div class="ratio ratio-4x3">
                                         <iframe src="{{ $item->embed ? $item->embed : asset('image/default-img.svg') }}"
                                             title="YouTube video player" frameborder="0"
@@ -37,27 +23,26 @@
                                             class="card-img-top rounded-2 bg-secondary-subtle">
                                         </iframe>
                                     </div>
-                                    <div class="card-body px-0 py-2">
-                                        <a href="{{ route('video.show', $item->slug) }}"
-                                            class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
+                                    <x-public.card.body>
+                                        <x-public.link href="{{ route('video.show', $item->slug) }}">
                                             {{ Str::limit(strip_tags($item->title), 100, '...') }}
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                                        </x-public.link>
+                                    </x-public.card.body>
+                                </x-public.card>
+                            </x-public.col>
                         @endforeach
-                    </div>
+                    </x-public.row>
                 @endif
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-12">
+            </x-public.col>
+        </x-public.row>
+        <x-public.row>
+            <x-public.col>
                 <x-public.pagination>
                     <x-public.pagination.current href=" {{ $record->currentPage() }} / {{ $record->lastPage() }}" />
                     <x-public.pagination.previous href="{{ $record->previousPageUrl() }}" />
                     <x-public.pagination.next href="{{ $record->nextPageUrl() }}" />
                 </x-public.pagination>
-            </div>
-        </div>
-    </section>
+            </x-public.col>
+        </x-public.row>
+    </x-public.section>
 </x-public.app-layout>

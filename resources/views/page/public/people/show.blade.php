@@ -1,28 +1,17 @@
 <x-public.app-layout title="{{ Str::headline(__('page')) }}">
-    <section class="container pt-2">
-        <div class="row g-3 my-5 pt-5">
-            <div class="col-12">
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('index') }}">
-                            Beranda
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('people.index') }}">
-                            Tim
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        Lihat
-                    </li>
-                </ul>
+    <x-public.section>
+        <x-public.breadcrumb>
+            <x-public.breadcrumb.link href="{{ route('index') }}" value="{{ Str::headline(__('dashboard')) }}" />
+            <x-public.breadcrumb.link href="{{ route('people.index') }}" value="{{ Str::headline(__('tim')) }}" />
+            @if ($record)
+                <x-public.breadcrumb.item value="{{ Str::limit(strip_tags($record->name ?? null), 50, '...') }}" />
+            @endif
+        </x-public.breadcrumb>
+
+        <x-public.row>
+            <x-public.col>
                 @if (!$record)
-                    <div class="row g-3 justify-content-center">
-                        <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                            <img src="{{ asset('image/notfound.svg') }}" alt="image" class="w-100">
-                        </div>
-                    </div>
+                    <x-public.empty-record />
                 @else
                     <div class="row g-3 flex-lg-row-reverse justify-content-between">
                         <div class="col-md-4">
@@ -47,7 +36,7 @@
                         </div>
                     </div>
                 @endif
-            </div>
-        </div>
-    </section>
+            </x-public.col>
+        </x-public.row>
+    </x-public.section>
 </x-public.app-layout>

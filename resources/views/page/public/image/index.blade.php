@@ -1,13 +1,13 @@
 <x-public.app-layout title="{{ Str::headline(__('gambar')) }}">
     <x-public.section>
+        <x-public.breadcrumb>
+            <x-public.breadcrumb.link href="{{ route('index') }}" value="{{ Str::headline(__('dashboard')) }}" />
+            <x-public.breadcrumb.item value="{{ Str::headline(__('gambar')) }}" />
+        </x-public.breadcrumb>
+        <x-public.heading.link.h3 href="{{ route('image.index') }}" value="{{ Str::headline(__('gambar')) }}" />
+
         <x-public.row>
             <x-public.col>
-                <x-public.breadcrumb>
-                    <x-public.breadcrumb.link href="{{ route('index') }}" value="{{ Str::headline(__('dashboard')) }}" />
-                    <x-public.breadcrumb.item value="{{ Str::headline(__('gambar')) }}" />
-                </x-public.breadcrumb>
-                <x-public.heading.link.h3 href="{{ route('image.index') }}" value="{{ Str::headline(__('gambar')) }}" />
-
                 @if ($record->isEmpty())
                     <x-public.empty-record />
                 @else

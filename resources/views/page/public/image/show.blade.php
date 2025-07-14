@@ -1,4 +1,4 @@
-<x-public.app-layout title="{{ Str::headline(__('page')) }}">
+<x-public.app-layout title="{{ Str::headline(__($record->title ?? null)) }}">
     <x-public.section>
         <x-public.breadcrumb>
             <x-public.breadcrumb.link href="{{ route('index') }}" value="{{ Str::headline(__('dashboard')) }}" />
