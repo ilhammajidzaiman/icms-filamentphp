@@ -134,17 +134,15 @@
             @if ($image->isEmpty())
                 <x-public.empty-record />
             @else
-                <div data-masonry='{"percentPosition": true }'>
-                    <x-public.row>
-                        @foreach ($image as $item)
-                            <x-public.col class="col-sm-6 col-md-4 col-lg-3">
-                                <x-public.link href="{{ route('image.show', $item->slug) }}">
-                                    <x-public.image
-                                        src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}" />
-                                </x-public.link>
-                            </x-public.col>
-                        @endforeach
-                    </x-public.row>
+                <div class="row g-3" data-masonry='{"percentPosition": true }'>
+                    @foreach ($image as $item)
+                        <x-public.col class="col-sm-6 col-md-4 col-lg-4">
+                            <x-public.link href="{{ route('image.show', $item->slug) }}">
+                                <x-public.image
+                                    src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}" />
+                            </x-public.link>
+                        </x-public.col>
+                    @endforeach
                 </div>
             @endif
         </x-public.section>

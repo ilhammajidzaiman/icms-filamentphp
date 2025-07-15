@@ -1,31 +1,24 @@
 <x-public.app-layout title="{{ Str::headline(__('dokumen')) }}">
     <x-public.section>
-        <x-public.row class="justify-content-between">
-            <x-public.col class="col-lg-8">
-                <x-public.breadcrumb>
-                    <x-public.breadcrumb.link href="{{ route('index') }}" value="{{ Str::headline(__('dashboard')) }}" />
-                    <x-public.breadcrumb.link href="{{ route('file.index') }}"
-                        value="{{ Str::headline(__('dokumen')) }}" />
-                    @if ($record)
-                        <x-public.breadcrumb.item
-                            value="{{ Str::limit(strip_tags($record->title ?? null), 50, '...') }}" />
-                    @endif
-                </x-public.breadcrumb>
-                @if (!$record)
-                    <x-public.empty-record />
-                @else
-                    <x-public.heading.link.h3 href="{{ route('article.show', $record->slug) }}"
-                        value="{{ $record->title ?? null }}" />
-                    <div class="ratio ratio-1x1 my-5">
+        <x-public.breadcrumb>
+            <x-public.breadcrumb.link href="{{ route('index') }}" value="{{ Str::headline(__('dashboard')) }}" />
+            <x-public.breadcrumb.link href="{{ route('file.index') }}" value="{{ Str::headline(__('dokumen')) }}" />
+            @if ($record)
+                <x-public.breadcrumb.item value="{{ Str::limit(strip_tags($record->title ?? null), 50, '...') }}" />
+            @endif
+        </x-public.breadcrumb>
+        @if (!$record)
+            <x-public.empty-record />
+        @else
+            <x-public.heading.link.h3 href="{{ route('article.show', $record->slug) }}"
+                value="{{ $record->title ?? null }}" />
+            <x-public.row class="justify-content-between">
+                <x-public.col class="col-lg-8">
+                    <div class="ratio ratio-1x1">
                         <embed type="application/pdf" src="{{ asset('storage/' . $record->attachment) }}"></embed>
                     </div>
-                @endif
-            </x-public.col>
-
-            <x-public.col class="col-lg-3">
-                @if (!$record)
-                    <x-public.empty-record />
-                @else
+                </x-public.col>
+                <x-public.col class="col-lg-3">
                     <div class="card bg-transparent border-2">
                         <div class="card-body">
                             <div>
@@ -63,8 +56,8 @@
                             </div>
                         </div>
                     </div>
-                @endif
-            </x-public.col>
-        </x-public.row>
+                </x-public.col>
+            </x-public.row>
+        @endif
     </x-public.section>
 </x-public.app-layout>

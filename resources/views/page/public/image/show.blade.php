@@ -7,6 +7,7 @@
                 <x-public.breadcrumb.item value="{{ Str::limit(strip_tags($record->title ?? null), 50, '...') }}" />
             @endif
         </x-public.breadcrumb>
+
         @if (!$record)
             <x-public.empty-record />
         @else
@@ -15,7 +16,6 @@
             <h6 class="fs-6 text-secondary">
                 {{ \Carbon\Carbon::parse($record->published_at)->translatedFormat('l, j F Y') }}
             </h6>
-
             <x-public.row>
                 <x-public.col class="col-md-5 col-lg-5">
                     <x-public.image
@@ -39,9 +39,9 @@
             </x-public.row>
         @endif
     </x-public.section>
-</x-public.app-layout>
 
-@push('scripts')
-    <script src="{{ asset('/js/masonry.pkgd.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
-@endpush
+    @push('scripts')
+        <script src="{{ asset('/js/masonry.pkgd.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
+    @endpush
+</x-public.app-layout>

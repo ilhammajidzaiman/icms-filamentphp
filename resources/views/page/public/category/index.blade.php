@@ -5,13 +5,12 @@
             <x-public.breadcrumb.link href="{{ route('category.index') }}" value="{{ Str::headline(__('kategori')) }}" />
         </x-public.breadcrumb>
         <x-public.heading.link.h3 href="{{ route('category.index') }}" value="{{ Str::headline(__('kategori')) }}" />
-
-        <x-public.row class="justify-content-between">
-            <x-public.col>
-                @livewire('public.search.search-input')
-                @if ($category->isEmpty())
-                    <x-public.empty-record />
-                @else
+        @livewire('public.search.search-input')
+        @if ($category->isEmpty())
+            <x-public.empty-record />
+        @else
+            <x-public.row class="justify-content-between">
+                <x-public.col>
                     <ul class="list-group list-group-flush">
                         @foreach ($category as $item)
                             <li class="list-group-item px-0">
@@ -20,8 +19,9 @@
                                         class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
                                         {{ $item->title }}
                                     </a>
-                                    <x-public.badge.item value="{{ $item->blogArticles->count() ?? null }}"
-                                        class="text-bg-primary" />
+                                    <x-public.badge class="text-bg-primary">
+                                        {{ $item->blogArticles->count() ?? null }}
+                                    </x-public.badge>
                                 </h5>
                                 <small class="text-secondary">
                                     {{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('l, j F Y') }}
@@ -29,18 +29,18 @@
                             </li>
                         @endforeach
                     </ul>
-                    <x-public.row class="mt-4">
-                        <x-public.col>
-                            <x-public.pagination>
-                                <x-public.pagination.current
-                                    href=" {{ $category->currentPage() }} / {{ $category->lastPage() }}" />
-                                <x-public.pagination.previous href="{{ $category->previousPageUrl() }}" />
-                                <x-public.pagination.next href="{{ $category->nextPageUrl() }}" />
-                            </x-public.pagination>
-                        </x-public.col>
-                    </x-public.row>
-                @endif
-            </x-public.col>
-        </x-public.row>
+                </x-public.col>
+            </x-public.row>
+            <x-public.row>
+                <x-public.col>
+                    <x-public.pagination>
+                        <x-public.pagination.current
+                            href=" {{ $category->currentPage() }} / {{ $category->lastPage() }}" />
+                        <x-public.pagination.previous href="{{ $category->previousPageUrl() }}" />
+                        <x-public.pagination.next href="{{ $category->nextPageUrl() }}" />
+                    </x-public.pagination>
+                </x-public.col>
+            </x-public.row>
+        @endif
     </x-public.section>
 </x-public.app-layout>

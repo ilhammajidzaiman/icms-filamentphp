@@ -6,48 +6,41 @@
         </x-public.breadcrumb>
         <x-public.heading.link.h3 href="{{ route('page.index') }}" value="{{ Str::headline(__('page')) }}" />
 
-        <x-public.row class="justify-content-between">
-            <x-public.col>
-                @livewire('public.search.search-input')
-                @if ($data->isEmpty())
-                    <x-public.empty-record />
-                @else
-                    <x-public.row>
-                        @foreach ($data as $item)
-                            <x-public.col class="col-sm-6 col-md-4 col-lg-3">
-                                <div class="card bg-transparent border-0">
-                                    <a href="{{ route('page.show', $item->slug) }}">
-                                        <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
-                                            alt="image {{ $item->title }}"
-                                            class="w-100 rounded-2 vh-20 bg-secondary-subtle">
-                                    </a>
-                                    <div class="card-body px-0 py-2">
-                                        <div>
-                                            <small class="text-secondary">
-                                                {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
-                                            </small>
-                                        </div>
-                                        <a href="{{ route('page.show', $item->slug) }}"
-                                            class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                                            {{ Str::limit(strip_tags($item->title), 100, '...') }}
-                                        </a>
-                                    </div>
-                                </div>
-                            </x-public.col>
-                        @endforeach
-                    </x-public.row>
-                    <x-public.row class="mt-4">
-                        <x-public.col>
-                            <x-public.pagination>
-                                <x-public.pagination.current
-                                    href=" {{ $data->currentPage() }} / {{ $data->lastPage() }}" />
-                                <x-public.pagination.previous href="{{ $data->previousPageUrl() }}" />
-                                <x-public.pagination.next href="{{ $data->nextPageUrl() }}" />
-                            </x-public.pagination>
-                        </x-public.col>
-                    </x-public.row>
-                @endif
-            </x-public.col>
-        </x-public.row>
+        @livewire('public.search.search-input')
+
+        @if ($data->isEmpty())
+            <x-public.empty-record />
+        @else
+            <x-public.row class="justify-content-between">
+                @foreach ($data as $item)
+                    <x-public.col class="col-sm-6 col-md-4 col-lg-3">
+                        <x-public.card>
+                            <x-public.link href="{{ route('page.show', $item->slug) }}">
+                                <x-public.card.image
+                                    src="{{ $item->file ? asset('storage/' . $item->file) : asset('image/default-img.svg') }}"
+                                    class="vh-20" />
+                            </x-public.link>
+                            <x-public.card.body>
+                                <x-public.card.text class="text-secondary">
+                                    {{ \Carbon\Carbon::parse($item->published_at)->translatedFormat('l, j F Y') }}
+                                </x-public.card.text>
+                                <x-public.link href="{{ route('page.show', $item->slug) }}">
+                                    {{ Str::limit(strip_tags($item->title), 100, '...') }}
+                                </x-public.link>
+                            </x-public.card.body>
+                        </x-public.card>
+                    </x-public.col>
+                @endforeach
+            </x-public.row>
+            <x-public.row>
+                <x-public.col>
+                    <x-public.pagination>
+                        <x-public.pagination.current href=" {{ $data->currentPage() }} / {{ $data->lastPage() }}" />
+                        <x-public.pagination.previous href="{{ $data->previousPageUrl() }}" />
+                        <x-public.pagination.next href="{{ $data->nextPageUrl() }}" />
+                    </x-public.pagination>
+                </x-public.col>
+            </x-public.row>
+        @endif
     </x-public.section>
 </x-public.app-layout>

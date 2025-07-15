@@ -5,13 +5,12 @@
             <x-public.breadcrumb.item value="{{ Str::headline(__('dokumen')) }}" />
         </x-public.breadcrumb>
         <x-public.heading.link.h3 href="{{ route('file.index') }}" value="{{ Str::headline(__('dokumen')) }}" />
-
-        <x-public.row>
-            <x-public.col>
-                @livewire('public.search.search-input')
-                @if ($record->isEmpty())
-                    <x-public.empty-record />
-                @else
+        @livewire('public.search.search-input')
+        @if ($record->isEmpty())
+            <x-public.empty-record />
+        @else
+            <x-public.row>
+                <x-public.col>
                     <ul class="list-group list-group-flush">
                         @foreach ($record as $item)
                             <li class="list-group-item px-0">
@@ -31,19 +30,18 @@
                             </li>
                         @endforeach
                     </ul>
-
-                    <x-public.row class="mt-5">
-                        <x-public.col>
-                            <x-public.pagination>
-                                <x-public.pagination.current
-                                    href=" {{ $record->currentPage() }} / {{ $record->lastPage() }}" />
-                                <x-public.pagination.previous href="{{ $record->previousPageUrl() }}" />
-                                <x-public.pagination.next href="{{ $record->nextPageUrl() }}" />
-                            </x-public.pagination>
-                        </x-public.col>
-                    </x-public.row>
-                @endif
-            </x-public.col>
-        </x-public.row>
+                </x-public.col>
+            </x-public.row>
+            <x-public.row>
+                <x-public.col>
+                    <x-public.pagination>
+                        <x-public.pagination.current
+                            href=" {{ $record->currentPage() }} / {{ $record->lastPage() }}" />
+                        <x-public.pagination.previous href="{{ $record->previousPageUrl() }}" />
+                        <x-public.pagination.next href="{{ $record->nextPageUrl() }}" />
+                    </x-public.pagination>
+                </x-public.col>
+            </x-public.row>
+        @endif
     </x-public.section>
 </x-public.app-layout>
