@@ -12,7 +12,6 @@ Ini adalah aplikasi `Content Management System` untuk mengelolaan halaman websit
     -   Sweet Alert
 -   Filamentphp
     -   Filament Shield
-    -   Themes
     -   Filament Tree
     -   Image Optimizer
 
