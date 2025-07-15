@@ -73,6 +73,9 @@ class CarouselResource extends Resource
                             ->required()
                             ->image()
                             ->imageEditor()
+                            ->imageEditorAspectRatios(['16:9'])
+                            ->imageCropAspectRatio('16:9')
+                            ->imageResizeMode('cover')
                             ->openable()
                             ->downloadable()
                             ->maxSize(10240),

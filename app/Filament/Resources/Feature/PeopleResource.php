@@ -86,10 +86,8 @@ class PeopleResource extends Resource
                             ->image()
                             ->imageEditor()
                             ->imageEditorAspectRatios(['1:1'])
-                            ->imageResizeMode('cover')
                             ->imageCropAspectRatio('1:1')
-                            ->imageResizeTargetWidth('400')
-                            ->imageResizeTargetHeight('400')
+                            ->imageResizeMode('cover')
                             ->openable()
                             ->downloadable()
                             ->maxSize(10240),
