@@ -7,14 +7,12 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use App\Filament\Pages\Auth\Login;
 use Filament\Support\Colors\Color;
-use Hasnayeen\Themes\ThemesPlugin;
 use App\Models\Setting\SettingSite;
 use App\Filament\Widgets\AccountWidget;
 use Illuminate\Support\Facades\Storage;
 use App\Filament\Pages\Auth\EditProfile;
 use Filament\Navigation\NavigationGroup;
 use Filament\Http\Middleware\Authenticate;
-use Hasnayeen\Themes\Http\Middleware\SetTheme;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -63,11 +61,9 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
-                SetTheme::class,
             ])
             ->plugins([
                 FilamentShieldPlugin::make(),
-                ThemesPlugin::make(),
             ])
             ->authMiddleware([
                 Authenticate::class,
