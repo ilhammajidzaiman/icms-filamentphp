@@ -1,27 +1,12 @@
-<x-public.app-layout title="{{ Str::headline(__('page')) }}">
+<x-public.app-layout title="{{ Str::title(__('page')) }}">
     <x-public.section>
-        <x-public.row class="justify-content-between">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-8">
-
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('index') }}">
-                            Beranda
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        Cari
-                    </li>
-                </ul>
-
-
-                @livewire('public.search.search-input')
-                <h3 class="fs-3 my-4">
-                    <a href="{{ route('search.index') }}"
-                        class="text-reset link-dark link-underline link-underline-opacity-0 link-underline-opacity-100-hover">
-                    </a>
-                </h3>
-
+        <x-public.breadcrumb>
+            <x-public.breadcrumb.link href="{{ route('index') }}" value="{{ Str::title(__('dashboard')) }}" />
+            <x-public.breadcrumb.item value="{{ Str::title(__('cari')) }}" />
+        </x-public.breadcrumb>
+        @livewire('public.search.search-input')
+        <x-public.row>
+            <x-public.col>
                 <div class="fs-5 fw-normal">
                     <p>
                         {{ Str::ucfirst(__('masukkan kata kunci untuk memulai pencarian.')) }}
@@ -35,9 +20,7 @@
                         <li>{{ Str::ucfirst(__('coba gunakan kata kunci yang lebih umum.')) }}</li>
                     </ul>
                 </div>
-
-            </div>
-
+            </x-public.col>
         </x-public.row>
     </x-public.section>
 </x-public.app-layout>

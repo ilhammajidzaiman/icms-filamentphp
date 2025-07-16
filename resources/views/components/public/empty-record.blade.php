@@ -1,8 +1,8 @@
 <x-public.row>
     <x-public.col>
         <div class="fs-5 fw-normal">
-            <i class="bi bi-folder-x fs-1"></i>
-            <p class="text-danger">
+            {{-- <i class="bi bi-folder-x fs-1"></i> --}}
+            <p>
                 {{ Str::ucfirst(__('hasil tidak ditemukan.')) }}
             </p>
             <h5>
