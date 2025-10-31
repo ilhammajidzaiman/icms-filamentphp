@@ -1,26 +1,21 @@
 <?php
 
-namespace App\Models\Post;
+namespace App\Models\Setting;
 
 use App\Models\User;
-use App\Models\Post\Link;
-use App\Models\Post\Page;
-use App\Models\Media\File;
+use App\Models\Site\Page;
 use Illuminate\Support\Str;
-use App\Models\Post\BlogTag;
 use App\Models\Post\BlogArticle;
 use App\Models\Post\BlogCategory;
-use App\Models\Media\FileCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use SolutionForest\FilamentTree\Concern\ModelTree;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class NavMenu extends Model
+class NavigationFooter extends Model
 {
-    use HasFactory, SoftDeletes, ModelTree;
+    use SoftDeletes, ModelTree;
 
     protected $fillable = [
         'is_show',
@@ -71,46 +66,26 @@ class NavMenu extends Model
 
     public function parent()
     {
-        return $this->belongsTo(NavMenu::class, 'parent_id');
+        return $this->belongsTo(NavigationFooter::class, 'parent_id');
     }
 
     public function children()
     {
-        return $this->hasMany(NavMenu::class, 'parent_id');
+        return $this->hasMany(NavigationFooter::class, 'parent_id');
     }
 
-    public function blogArticle(): BelongsTo
+    public function article(): BelongsTo
     {
         return $this->belongsTo(BlogArticle::class, 'modelable_id', 'id');
     }
 
-    public function blogCategory(): BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(BlogCategory::class, 'modelable_id', 'id');
-    }
-
-    public function blogTag(): BelongsTo
-    {
-        return $this->belongsTo(BlogTag::class, 'modelable_id', 'id');
-    }
-
-    public function link(): BelongsTo
-    {
-        return $this->belongsTo(Link::class, 'modelable_id', 'id');
     }
 
     public function page(): BelongsTo
     {
         return $this->belongsTo(Page::class, 'modelable_id', 'id');
-    }
-
-    public function file(): BelongsTo
-    {
-        return $this->belongsTo(File::class, 'modelable_id', 'id');
-    }
-
-    public function fileCategory(): BelongsTo
-    {
-        return $this->belongsTo(FileCategory::class, 'modelable_id', 'id');
     }
 }

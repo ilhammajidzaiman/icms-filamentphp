@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             // setting
             Setting\UserSeeder::class,
-            Setting\SettingSiteSeeder::class,
-            Setting\SettingPageSeeder::class,
+            // Setting\SettingSiteSeeder::class,
+            // Setting\SettingPageSeeder::class,
 
             // media
             Media\FileCategorySeeder::class,
@@ -39,7 +39,6 @@ class DatabaseSeeder extends Seeder
             Post\BlogArticleSeeder::class,
             Post\PageSeeder::class,
             Post\LinkSeeder::class,
-            Post\NavMenuSeeder::class,
 
             // feature
             Feature\PeoplePositionSeeder::class,

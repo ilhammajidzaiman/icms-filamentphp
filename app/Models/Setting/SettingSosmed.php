@@ -1,27 +1,24 @@
 <?php
 
-namespace App\Models\Post;
+namespace App\Models\Setting;
 
 use App\Models\User;
 use Illuminate\Support\Str;
-use App\Models\Post\NavMenu;
+use App\Enums\SettingSiteTypeEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Page extends Model
+class SettingSosmed extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable = [
         'is_show',
         'user_id',
-        'slug',
         'title',
-        'content',
+        'link',
+        'type',
         'file',
     ];
 
@@ -31,6 +28,7 @@ class Page extends Model
 
     protected $casts = [
         'is_show' => 'boolean',
+        'type' => SettingSiteTypeEnum::class,
     ];
 
     protected static function boot()
@@ -49,15 +47,5 @@ class Page extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
-    public function navMenu(): MorphOne
-    {
-        return $this->morphOne(NavMenu::class, 'modelable');
-    }
-
-    public function navMenus(): MorphMany
-    {
-        return $this->morphMany(NavMenu::class, 'modelable');
     }
 }

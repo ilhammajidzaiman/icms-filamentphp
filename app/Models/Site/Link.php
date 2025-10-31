@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Media;
+namespace App\Models\Site;
 
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -10,18 +10,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Information extends Model
+class Link extends Model
 {
     use SoftDeletes;
 
-    protected $fillable =
-    [
+    protected $fillable = [
         'is_show',
         'user_id',
         'slug',
         'title',
-        'content',
-        'file',
+        'url',
     ];
 
     protected $hidden = [

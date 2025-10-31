@@ -5,19 +5,17 @@ namespace App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Str;
 use App\Models\Post\BlogTag;
-use App\Models\Post\NavMenu;
 use App\Models\Post\BlogCategory;
+use App\Models\Setting\NavigationMenu;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class BlogArticle extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable =
     [
@@ -71,13 +69,8 @@ class BlogArticle extends Model
         return $this->belongsToMany(BlogTag::class, 'blog_posts', 'blog_article_id', 'blog_tag_id')->withTimestamps();
     }
 
-    public function navMenu(): MorphOne
+    public function navigationMenu(): MorphOne
     {
-        return $this->morphOne(NavMenu::class, 'modelable');
-    }
-
-    public function navMenus(): MorphMany
-    {
-        return $this->morphMany(NavMenu::class, 'modelable');
+        return $this->morphOne(NavigationMenu::class, 'modelable');
     }
 }

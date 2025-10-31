@@ -4,17 +4,16 @@ namespace App\Models\Media;
 
 use App\Models\User;
 use Illuminate\Support\Str;
-use App\Models\Post\NavMenu;
+use App\Models\Media\FileCategory;
+use App\Models\Setting\NavigationMenu;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;;
 
 class File extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable =
     [
@@ -59,13 +58,8 @@ class File extends Model
         return $this->belongsTo(FileCategory::class, 'file_category_id', 'id');
     }
 
-    public function navMenu(): MorphOne
+    public function navigationMenu(): MorphOne
     {
-        return $this->morphOne(NavMenu::class, 'modelable');
-    }
-
-    public function navMenus(): MorphMany
-    {
-        return $this->morphMany(NavMenu::class, 'modelable');
+        return $this->morphOne(NavigationMenu::class, 'modelable');
     }
 }

@@ -2,25 +2,23 @@
 
 namespace App\Models\Setting;
 
+use App\Models\User;
 use Illuminate\Support\Str;
+use App\Enums\SettingSiteTypeEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SettingSite extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
-    protected $fillable =
-    [
-        'name',
-        'email',
-        'address',
-        'phone',
-        'map',
-        'social_media',
-        'favicon',
-        'logo',
+    protected $fillable = [
+        'is_show',
+        'user_id',
+        'title',
+        'type',
+        'description',
     ];
 
     protected $hidden = [
@@ -28,7 +26,8 @@ class SettingSite extends Model
     ];
 
     protected $casts = [
-        'social_media' => 'array',
+        'is_show' => 'boolean',
+        'type' => SettingSiteTypeEnum::class,
     ];
 
     protected static function boot()
@@ -37,5 +36,15 @@ class SettingSite extends Model
         static::creating(function ($model) {
             $model->uuid = Str::uuid();
         });
+    }
+
+    public function scopeShow($query)
+    {
+        return $query->where('is_show', true);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }

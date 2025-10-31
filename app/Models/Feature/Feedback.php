@@ -4,13 +4,13 @@ namespace App\Models\Feature;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Feature\FeedbackCategory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Feedback extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     protected $fillable =
     [

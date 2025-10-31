@@ -2,29 +2,33 @@
 
 namespace App\Models\Setting;
 
-use App\Enums\PageTypeEnum;
+use App\Models\User;
 use Illuminate\Support\Str;
+use App\Enums\SettingPageOptionEnum;
+use App\Enums\SettingPageSectionEnum;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class SettingPage extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
-    protected $fillable =
-    [
+    protected $fillable = [
         'is_show',
-        'type',
-        'title',
+        'user_id',
+        'section',
+        'option',
     ];
 
     protected $hidden = [
-        'is_show' => 'boolean',
+        'uuid',
     ];
 
     protected $casts = [
-        'type' => PageTypeEnum::class,
+        'is_show' => 'boolean',
+        'section' => SettingPageSectionEnum::class,
+        'option' => SettingPageOptionEnum::class,
     ];
 
     protected static function boot()
@@ -38,5 +42,10 @@ class SettingPage extends Model
     public function scopeShow($query)
     {
         return $query->where('is_show', true);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
