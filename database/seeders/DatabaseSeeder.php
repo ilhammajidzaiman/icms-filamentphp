@@ -37,8 +37,8 @@ class DatabaseSeeder extends Seeder
             Post\BlogCategorySeeder::class,
             Post\BlogTagSeeder::class,
             Post\BlogArticleSeeder::class,
-            Post\PageSeeder::class,
-            Post\LinkSeeder::class,
+            // Post\PageSeeder::class,
+            // Post\LinkSeeder::class,
 
             // feature
             Feature\PeoplePositionSeeder::class,
