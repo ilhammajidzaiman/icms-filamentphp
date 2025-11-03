@@ -27,11 +27,9 @@ class BlogArticlesTable
                 TextColumn::make('index')
                     ->label(Str::title(__('no.')))
                     ->rowIndex(isFromZero: false)
-                    ->sortable()
-                    ->searchable()
                     ->toggleable(),
                 ImageColumn::make('file')
-                    ->label(Str::headline(__('file')))
+                    ->label(Str::title(__('file')))
                     ->defaultImageUrl(asset('/image/default-img.svg'))
                     ->circular()
                     ->toggleable(),
@@ -42,18 +40,18 @@ class BlogArticlesTable
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('blogCategory.title')
-                    ->label(Str::headline(__('kategori')))
+                    ->label(Str::title(__('kategori')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('blogTags.title')
-                    ->label(Str::headline(__('topik')))
+                    ->label(Str::title(__('topik')))
                     ->badge()
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('published_at')
-                    ->label(Str::headline(__('diterbitkan ')))
+                    ->label(Str::title(__('diterbitkan ')))
                     ->dateTime()
                     ->sortable()
                     ->searchable()

@@ -2,57 +2,64 @@
 
 namespace App\Filament\Resources\Media\Carousels\Tables;
 
+use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
-use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\TrashedFilter;
-use Filament\Tables\Table;
+use Filament\Actions\ForceDeleteBulkAction;
 
 class CarouselsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('uuid')
-                    ->label('UUID')
-                    ->searchable(),
-                IconColumn::make('is_show')
-                    ->boolean(),
-                TextColumn::make('user.name')
-                    ->searchable(),
-                TextColumn::make('slug')
-                    ->searchable(),
+                TextColumn::make('index')
+                    ->label(Str::title(__('no.')))
+                    ->rowIndex(isFromZero: false)
+                    ->toggleable(),
+                ImageColumn::make('file')
+                    ->label(Str::title(__('file')))
+                    ->defaultImageUrl(asset('/image/default-img.svg'))
+                    ->circular()
+                    ->toggleable(),
                 TextColumn::make('title')
-                    ->searchable(),
+                    ->label(Str::title(__('judul')))
+                    ->wrap()
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
                 TextColumn::make('description')
-                    ->searchable(),
-                TextColumn::make('file')
-                    ->searchable(),
+                    ->label(Str::title(__('keterangan')))
+                    ->wrap()
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
+                ToggleColumn::make('is_show')
+                    ->label(Str::title(__('status')))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
             ])
             ->filters([
                 TrashedFilter::make(),
             ])
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
+                ActionGroup::make([
+                    ViewAction::make()->color('secondary'),
+                    EditAction::make()->color('success'),
+                    DeleteAction::make()->color('danger'),
+                ]),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

@@ -2,54 +2,61 @@
 
 namespace App\Filament\Resources\Feature\Feedback\Tables;
 
+use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
-use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\TrashedFilter;
-use Filament\Tables\Table;
+use Filament\Actions\ForceDeleteBulkAction;
 
 class FeedbackTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('uuid')
-                    ->label('UUID')
-                    ->searchable(),
-                IconColumn::make('is_show')
-                    ->boolean(),
-                TextColumn::make('feedbackCategory.title')
-                    ->searchable(),
+                TextColumn::make('index')
+                    ->label(Str::title(__('no.')))
+                    ->rowIndex(isFromZero: false)
+                    ->toggleable(),
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->label(Str::headline(__('nama')))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
                 TextColumn::make('email')
-                    ->label('Email address')
-                    ->searchable(),
+                    ->label(Str::headline(__('email')))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
+                TextColumn::make('feedbackCategory.title')
+                    ->label(Str::title(__('kategori')))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
+                ToggleColumn::make('is_show')
+                    ->label(Str::title(__('status')))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
             ])
             ->filters([
                 TrashedFilter::make(),
             ])
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
+                ActionGroup::make([
+                    ViewAction::make()->color('secondary'),
+                    EditAction::make()->color('success'),
+                    DeleteAction::make()->color('danger'),
+                ]),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

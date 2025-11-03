@@ -50,7 +50,7 @@ class People extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function peoplePosition(): BelongsTo
+    public function position(): BelongsTo
     {
         return $this->belongsTo(PeoplePosition::class, 'people_position_id', 'id');
     }

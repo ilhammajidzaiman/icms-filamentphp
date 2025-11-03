@@ -53,7 +53,7 @@ class File extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function fileCategory(): BelongsTo
+    public function category(): BelongsTo
     {
         return $this->belongsTo(FileCategory::class, 'file_category_id', 'id');
     }

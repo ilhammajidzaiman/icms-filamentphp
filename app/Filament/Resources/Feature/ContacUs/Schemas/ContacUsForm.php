@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources\Feature\ContacUs\Schemas;
 
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\Toggle;
+use Illuminate\Support\Str;
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Section;
 
 class ContacUsForm
 {
@@ -13,17 +15,27 @@ class ContacUsForm
     {
         return $schema
             ->components([
-                TextInput::make('uuid')
-                    ->label('UUID'),
-                Toggle::make('is_show')
-                    ->required(),
-                TextInput::make('name'),
-                TextInput::make('email')
-                    ->label('Email address')
-                    ->email(),
-                TextInput::make('subject'),
-                Textarea::make('message')
-                    ->columnSpanFull(),
+                Section::make(Str::title(__('rincian')))
+                    ->collapsible()
+                    ->columnSpanFull()
+                    ->schema([
+                        Toggle::make('is_show')
+                            ->label(Str::title(__('status')))
+                            ->default(true),
+                        TextInput::make('name')
+                            ->label(Str::title(__('nama')))
+                            ->maxLength(1024),
+                        TextInput::make('email')
+                            ->label(Str::title(__('email')))
+                            ->maxLength(1024),
+                        TextInput::make('subject')
+                            ->label(Str::title(__('subjek')))
+                            ->maxLength(1024),
+                        Textarea::make('message')
+                            ->label(Str::title(__('pesan')))
+                            ->autosize()
+                            ->maxLength(1024),
+                    ]),
             ]);
     }
 }

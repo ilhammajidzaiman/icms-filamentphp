@@ -26,8 +26,6 @@ class BlogTagsTable
                 TextColumn::make('index')
                     ->label(Str::title(__('no.')))
                     ->rowIndex(isFromZero: false)
-                    ->sortable()
-                    ->searchable()
                     ->toggleable(),
                 TextColumn::make('title')
                     ->label(Str::title(__('judul')))
