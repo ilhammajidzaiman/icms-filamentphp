@@ -8,4 +8,10 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateContacUs extends CreateRecord
 {
     protected static string $resource = ContacUsResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['user_id'] = auth()->id();
+        return $data;
+    }
 }

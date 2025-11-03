@@ -27,18 +27,13 @@ class SettingPagesTable
                     ->label(Str::title(__('no.')))
                     ->rowIndex(isFromZero: false)
                     ->toggleable(),
-                TextColumn::make('title')
-                    ->label(Str::title(__('judul')))
+                TextColumn::make('section')
+                    ->label(Str::title(__('section')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
-                TextColumn::make('type')
-                    ->label(Str::title(__('tipe')))
-                    ->sortable()
-                    ->searchable()
-                    ->toggleable(),
-                TextColumn::make('description')
-                    ->label(Str::title(__('deskripsi')))
+                TextColumn::make('option')
+                    ->label(Str::title(__('option')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),

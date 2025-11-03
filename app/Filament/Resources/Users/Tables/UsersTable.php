@@ -2,54 +2,70 @@
 
 namespace App\Filament\Resources\Users\Tables;
 
+use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
-use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Filters\TrashedFilter;
-use Filament\Tables\Table;
+use Filament\Actions\ForceDeleteBulkAction;
 
 class UsersTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            ->defaultSort('id', 'desc')
             ->columns([
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('uuid')
-                    ->label('UUID')
-                    ->searchable(),
+                TextColumn::make('index')
+                    ->label(Str::title(__('no.')))
+                    ->rowIndex(isFromZero: false)
+                    ->toggleable(),
+                ImageColumn::make('profile.file')
+                    ->label(Str::title(__('file')))
+                    ->defaultImageUrl(asset('/image/default-user.svg'))
+                    ->circular()
+                    ->toggleable(),
                 TextColumn::make('name')
-                    ->searchable(),
+                    ->label(Str::title(__('nama')))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
                 TextColumn::make('username')
-                    ->searchable(),
+                    ->label(Str::title(__('username')))
+                    ->copyable()
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
                 TextColumn::make('email')
-                    ->label('Email address')
-                    ->searchable(),
-                TextColumn::make('email_verified_at')
-                    ->dateTime()
-                    ->sortable(),
+                    ->label(Str::title(__('email')))
+                    ->copyable()
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
+                TextColumn::make('roles.name')
+                    ->label(Str::title(__('peran')))
+                    ->default('-')
+                    ->badge()
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
             ])
             ->filters([
                 TrashedFilter::make(),
             ])
             ->recordActions([
-                ViewAction::make(),
-                EditAction::make(),
+                ActionGroup::make([
+                    ViewAction::make()->color('secondary'),
+                    EditAction::make()->color('success'),
+                    DeleteAction::make()->color('danger'),
+                ]),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

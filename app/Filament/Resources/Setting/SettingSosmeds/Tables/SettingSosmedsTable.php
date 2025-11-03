@@ -12,7 +12,6 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Actions\ForceDeleteBulkAction;
@@ -28,11 +27,6 @@ class SettingSosmedsTable
                     ->label(Str::title(__('no.')))
                     ->rowIndex(isFromZero: false)
                     ->toggleable(),
-                ImageColumn::make('file')
-                    ->label(Str::title(__('file')))
-                    ->defaultImageUrl(asset('/image/default-img.svg'))
-                    ->circular()
-                    ->toggleable(),
                 TextColumn::make('title')
                     ->label(Str::title(__('judul')))
                     ->wrap()
@@ -47,6 +41,11 @@ class SettingSosmedsTable
                     ->toggleable(),
                 TextColumn::make('type')
                     ->label(Str::title(__('tipe')))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
+                TextColumn::make('file')
+                    ->label(Str::title(__('icon file')))
                     ->wrap()
                     ->sortable()
                     ->searchable()
