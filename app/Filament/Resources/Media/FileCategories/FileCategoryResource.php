@@ -25,6 +25,7 @@ class FileCategoryResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
     protected static ?string $recordTitleAttribute = 'title';
     protected static string | UnitEnum | null $navigationGroup = 'Media';
+    protected static ?string $navigationParentItem = 'File';
     protected static ?string $pluralModelLabel = 'File Kategori';
     protected static ?string $slug = 'file-kategori';
     protected static ?int $navigationSort = 3;
