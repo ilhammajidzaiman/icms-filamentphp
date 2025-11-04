@@ -6,8 +6,11 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Pages\Dashboard;
 use Filament\Support\Colors\Color;
+use Filament\Auth\Pages\EditProfile;
 use Filament\Navigation\NavigationGroup;
+use App\Filament\Pages\Auth\CustomeLogin;
 use Filament\Http\Middleware\Authenticate;
+use App\Filament\Pages\Auth\CustomeProfile;
 use App\Filament\Widgets\CustomeAccountWidget;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -28,7 +31,8 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(CustomeLogin::class)
+            // ->profile(CustomeProfile::class)
             ->colors([
                 'primary' => Color::Sky,
                 'secondary' => Color::Slate,
