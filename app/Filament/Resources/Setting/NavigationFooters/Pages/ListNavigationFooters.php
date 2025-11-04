@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\Setting\NavigationFooters\Pages;
 
-use App\Filament\Resources\Setting\NavigationFooters\NavigationFooterResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\Setting\NavigationFooters\NavigationFooterResource;
+use App\Filament\Resources\Setting\NavigationFooters\Widgets\FilamentTreeWidget;
 
 class ListNavigationFooters extends ListRecords
 {
@@ -15,5 +16,10 @@ class ListNavigationFooters extends ListRecords
         return [
             CreateAction::make(),
         ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [FilamentTreeWidget::class];
     }
 }
