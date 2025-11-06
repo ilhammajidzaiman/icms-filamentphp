@@ -27,6 +27,8 @@ return new class extends Migration
                 ->nullable();
             $table->string('gender',)
                 ->nullable();
+            $table->string('phone',)
+                ->nullable();
             $table->string('file')
                 ->nullable();
         });

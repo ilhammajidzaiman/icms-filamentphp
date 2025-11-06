@@ -3,13 +3,13 @@
 namespace App\Filament\Pages\Auth;
 
 use Filament\Schemas\Schema;
+use Filament\Auth\Pages\Login;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Component;
-use Filament\Auth\Pages\Login as PagesLogin;
 use Illuminate\Validation\ValidationException;
 use Filament\Auth\Http\Responses\Contracts\LoginResponse;
 
-class CustomeLogin extends PagesLogin
+class CustomeLogin extends Login
 {
     public function form(Schema $schema): Schema
     {

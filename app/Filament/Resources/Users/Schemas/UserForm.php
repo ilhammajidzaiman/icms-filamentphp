@@ -2,17 +2,14 @@
 
 namespace App\Filament\Resources\Users\Schemas;
 
-use App\Enums\RoleEnum;
 use App\Enums\GenderEnum;
 use Illuminate\Support\Str;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\Radio;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 
@@ -94,7 +91,7 @@ class UserForm
                         //         },
                         //     ),
                     ]),
-                Section::make(Str::title(__('Profil')))
+                Section::make(Str::title(__('profil')))
                     ->relationship('profile')
                     ->collapsible()
                     ->columnSpan(1)
@@ -112,24 +109,26 @@ class UserForm
                             ->default(now()),
                         TextInput::make('phone')
                             ->label(Str::title(__('nomor hp/wa')))
-                            ->helperText(Str::title(__('masukkan nomor hp/wa aktif Anda, contoh: 81234567890.')))
                             ->unique(ignoreRecord: true)
                             ->required()
+                            ->numeric()
                             ->tel()
-                            ->prefix('+62')
                             ->regex('/^[0-9]{1,20}$/')
                             ->minLength(8)
                             ->maxLength(20),
                         FileUpload::make('file')
                             ->label(Str::title(__('file')))
-                            ->helperText(Str::title(__('ukuran maksimal: 1 MB. rasio: 1:1')))
+                            ->helperText(Str::title(__('ukuran maksimal: 1 mb. rasio: 1:1')))
                             ->directory('user/' . date('Y/m'))
                             // ->optimize('webp')
                             ->image()
                             ->imageEditor()
-                            ->downloadable()
+                            ->imageEditorAspectRatios(['1:1'])
+                            ->imageCropAspectRatio('1:1')
+                            ->imageResizeMode('cover')
                             ->openable()
-                            ->maxSize(1024),
+                            ->downloadable()
+                            ->maxSize(10240),
                     ])
             ]);
     }

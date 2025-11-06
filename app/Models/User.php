@@ -6,13 +6,15 @@ namespace App\Models;
 use Filament\Panel;
 use App\Models\Profile;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, HasAvatar
 
 {
     use Notifiable, SoftDeletes;
@@ -21,6 +23,11 @@ class User extends Authenticatable implements FilamentUser
     {
         return true;
         // return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return Storage::url($this->profile->file);
     }
 
     protected $fillable = [

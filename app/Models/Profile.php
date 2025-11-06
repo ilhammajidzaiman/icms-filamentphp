@@ -17,6 +17,7 @@ class Profile extends Model
         'user_id',
         'birth_date',
         'gender',
+        'phone',
         'file',
     ];
 
