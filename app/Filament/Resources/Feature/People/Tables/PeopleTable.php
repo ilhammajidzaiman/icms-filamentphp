@@ -26,33 +26,33 @@ class PeopleTable
             ->reorderable('order')
             ->columns([
                 TextColumn::make('index')
-                    ->label(Str::headline(__('no')))
+                    ->label(Str::title(__('no')))
                     ->rowIndex(isFromZero: false),
                 ImageColumn::make('file')
-                    ->label(Str::headline(__('file')))
+                    ->label(Str::title(__('file')))
                     ->defaultImageUrl(asset('/image/default-user.svg'))
                     ->circular()
                     ->toggleable(),
                 TextColumn::make('order')
-                    ->label(Str::headline(__('urutan')))
+                    ->label(Str::title(__('urutan')))
                     ->numeric()
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('name')
-                    ->label(Str::headline(__('nama')))
+                    ->label(Str::title(__('nama')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('position.title')
-                    ->label(Str::headline(__('jabatan')))
+                    ->label(Str::title(__('jabatan')))
                     ->badge()
                     ->color('info')
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 ToggleColumn::make('is_show')
-                    ->label(Str::headline(__('status')))
+                    ->label(Str::title(__('status')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),

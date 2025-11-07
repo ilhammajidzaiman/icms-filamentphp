@@ -30,12 +30,12 @@ class BlogPost extends Model
         });
     }
 
-    public function blogArticle()
+    public function article()
     {
         return $this->belongsTo(BlogArticle::class, 'blog_article_id', 'id');
     }
 
-    public function blogTag()
+    public function tag()
     {
         return $this->belongsTo(BlogTag::class, 'blog_tag_id', 'id');
     }

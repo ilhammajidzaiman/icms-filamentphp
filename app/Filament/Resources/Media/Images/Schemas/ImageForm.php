@@ -49,7 +49,7 @@ class ImageForm
                     ->schema([
                         FileUpload::make('file')
                             ->label(Str::title(__('sampul')))
-                            ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
+                            ->helperText(Str::title(__('max: 10 MB.')))
                             ->directory('image-file/' . date('Y/m'))
                             // ->optimize('webp')
                             ->required()
@@ -60,7 +60,7 @@ class ImageForm
                             ->maxSize(10240),
                         FileUpload::make('attachment')
                             ->label(Str::title(__('lampiran')))
-                            ->helperText(Str::ucfirst(__('Ukuran maksimal: 10 MB. Jumlah maksimal: 5 File.')))
+                            ->helperText(Str::title(__('max: 10 MB. max file: 5 File.')))
                             ->directory('image-attachment/' . date('Y/m'))
                             // ->optimize('webp')
                             ->required()

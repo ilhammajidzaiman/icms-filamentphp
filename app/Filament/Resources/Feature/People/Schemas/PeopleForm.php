@@ -24,15 +24,15 @@ class PeopleForm
                     ->columnSpan(2)
                     ->schema([
                         Toggle::make('is_show')
-                            ->label(Str::headline(__('status')))
+                            ->label(Str::title(__('status')))
                             ->default(true),
                         TextInput::make('order')
-                            ->label(Str::headline(__('urutan')))
+                            ->label(Str::title(__('urutan')))
                             ->required()
                             ->numeric()
                             ->default(1),
                         Select::make('people_position_id')
-                            ->label(Str::headline(__('jabatan')))
+                            ->label(Str::title(__('jabatan')))
                             ->required()
                             ->forceSearchCaseInsensitive()
                             ->searchable()
@@ -45,23 +45,22 @@ class PeopleForm
                                     ->where('is_show', true)
                             ),
                         TextInput::make('name')
-                            ->label(Str::headline(__('nama')))
+                            ->label(Str::title(__('nama')))
                             ->required()
                             ->maxLength(255),
                         RichEditor::make('description')
-                            ->label(Str::headline(__('deskripsi')))
-                            ->required(),
+                            ->label(Str::title(__('deskripsi')))
+
                     ]),
                 Section::make(Str::headline(__('lampiran')))
                     ->collapsible()
                     ->columnSpan(1)
                     ->schema([
                         FileUpload::make('file')
-                            ->label(Str::headline(__('file')))
-                            ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
+                            ->label(Str::title(__('file')))
+                            ->helperText(Str::title(__('max: 10 MB.')))
                             ->directory('people-file/' . date('Y/m'))
                             // ->optimize('webp')
-                            ->required()
                             ->image()
                             ->imageEditor()
                             ->imageEditorAspectRatios(['1:1'])

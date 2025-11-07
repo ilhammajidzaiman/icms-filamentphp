@@ -49,7 +49,7 @@ class InformationForm
                     ->schema([
                         FileUpload::make('file')
                             ->label(Str::title(__('file')))
-                            ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
+                            ->helperText(Str::title(__('max: 10 MB.')))
                             ->directory('information-file/' . date('Y/m'))
                             // ->optimize('webp')
                             ->image()

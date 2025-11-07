@@ -29,7 +29,7 @@ class PagesTable
                     ->rowIndex(isFromZero: false)
                     ->toggleable(),
                 ImageColumn::make('file')
-                    ->label(Str::headline(__('file')))
+                    ->label(Str::title(__('file')))
                     ->defaultImageUrl(asset('/image/default-img.svg'))
                     ->circular()
                     ->toggleable(),

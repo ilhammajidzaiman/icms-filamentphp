@@ -22,10 +22,10 @@ class FeedbackForm
                     ->columnSpanFull()
                     ->schema([
                         Toggle::make('is_show')
-                            ->label(Str::headline(__('status')))
+                            ->label(Str::title(__('status')))
                             ->default(true),
                         Select::make('feedback_category_id')
-                            ->label(Str::headline(__('kategori')))
+                            ->label(Str::title(__('kategori')))
                             ->required()
                             ->forceSearchCaseInsensitive()
                             ->searchable()
@@ -38,16 +38,16 @@ class FeedbackForm
                                     ->where('is_show', true)
                             ),
                         TextInput::make('name')
-                            ->label(Str::headline(__('nama')))
+                            ->label(Str::title(__('nama')))
                             ->required()
                             ->maxLength(255),
                         TextInput::make('email')
-                            ->label(Str::headline(__('email')))
+                            ->label(Str::title(__('email')))
                             ->email()
                             ->required()
                             ->maxLength(255),
                         Textarea::make('message')
-                            ->label(Str::headline(__('pesan')))
+                            ->label(Str::title(__('pesan')))
                             ->required()
                             ->autosize(),
                     ]),

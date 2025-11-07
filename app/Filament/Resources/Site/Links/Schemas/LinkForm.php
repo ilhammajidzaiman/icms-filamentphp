@@ -24,13 +24,13 @@ class LinkForm
                             ->label('Status')
                             ->default(true),
                         TextInput::make('title')
-                            ->label(Str::headline(__('judul')))
+                            ->label(Str::title(__('judul')))
                             ->required()
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
                             ->maxLength(1024),
                         TextInput::make('slug')
-                            ->label(Str::headline(__('slug')))
+                            ->label(Str::title(__('slug')))
                             ->disabled()
                             ->dehydrated()
                             ->maxLength(1024),

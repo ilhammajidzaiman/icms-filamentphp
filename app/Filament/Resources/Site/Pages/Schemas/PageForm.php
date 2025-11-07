@@ -24,23 +24,23 @@ class PageForm
                     ->columnSpan(2)
                     ->schema([
                         Toggle::make('is_show')
-                            ->label(Str::headline(__('status')))
+                            ->label(Str::title(__('status')))
                             ->required()
                             ->default(true),
                         Textarea::make('title')
-                            ->label(Str::headline(__('judul')))
+                            ->label(Str::title(__('judul')))
                             ->required()
                             ->autosize()
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
                             ->maxLength(1024),
                         TextInput::make('slug')
-                            ->label(Str::headline(__('slug')))
+                            ->label(Str::title(__('slug')))
                             ->disabled()
                             ->dehydrated()
                             ->maxLength(1024),
                         RichEditor::make('content')
-                            ->label(Str::headline(__('konten')))
+                            ->label(Str::title(__('konten')))
                             ->required(),
                     ]),
                 Section::make(Str::headline(__('lampiran')))
@@ -48,8 +48,8 @@ class PageForm
                     ->columnSpan(1)
                     ->schema([
                         FileUpload::make('file')
-                            ->label(Str::headline(__('file')))
-                            ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
+                            ->label(Str::title(__('file')))
+                            ->helperText(Str::title(__('max: 10 MB.')))
                             ->directory('page/' . date('Y/m'))
                             // ->optimize('webp')
                             ->image()

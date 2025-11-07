@@ -58,7 +58,7 @@ class FileForm
                     ->schema([
                         FileUpload::make('file')
                             ->label(Str::title(__('sampul')))
-                            ->helperText(Str::ucfirst(__('ukuran maksimal: 10 mb.')))
+                            ->helperText(Str::title(__('max: 10 mb.')))
                             ->directory('file-file/' . date('Y/m'))
                             // ->optimize('webp')
                             ->image()
@@ -68,7 +68,7 @@ class FileForm
                             ->maxSize(10240),
                         FileUpload::make('attachment')
                             ->label(Str::title(__('lampiran')))
-                            ->helperText(Str::ucfirst(__('ukuran maksimal: 10 mb. ekstensi: pdf, doc, xls, ppt, jpg, png, svg, zip, rar.')))
+                            ->helperText(Str::title(__('max: 10 mb. ext: pdf, doc, xls, ppt, jpg, png, svg, zip, rar.')))
                             ->directory('file-attachment/' . date('Y/m'))
                             ->required()
                             ->openable()

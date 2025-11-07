@@ -28,12 +28,12 @@ class FeedbackTable
                     ->rowIndex(isFromZero: false)
                     ->toggleable(),
                 TextColumn::make('name')
-                    ->label(Str::headline(__('nama')))
+                    ->label(Str::title(__('nama')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('email')
-                    ->label(Str::headline(__('email')))
+                    ->label(Str::title(__('email')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),

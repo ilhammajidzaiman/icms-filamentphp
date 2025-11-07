@@ -65,7 +65,7 @@ class CustomeEdit extends BaseEditProfile
                             ->columnSpanFull(),
                         FileUpload::make('file')
                             ->label(Str::title(__('file')))
-                            ->helperText(Str::title(__('ukuran maksimal: 1 mb. rasio: 1:1')))
+                            ->helperText(Str::title(__('max: 1 mb. rasio: 1:1')))
                             ->directory('user/' . date('Y/m'))
                             // ->optimize('webp')
                             ->image()

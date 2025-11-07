@@ -51,12 +51,12 @@ class BlogTag extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function blogArticles(): BelongsToMany
+    public function articles(): BelongsToMany
     {
         return $this->belongsToMany(BlogArticle::class, 'blog_posts', 'blog_article_id', 'blog_tag_id')->withTimestamps();
     }
 
-    public function blogPosts(): HasMany
+    public function posts(): HasMany
     {
         return $this->hasMany(BlogPost::class, 'blog_tag_id', 'id');
     }

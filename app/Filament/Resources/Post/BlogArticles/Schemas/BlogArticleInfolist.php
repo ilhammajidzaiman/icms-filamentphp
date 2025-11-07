@@ -21,7 +21,7 @@ class BlogArticleInfolist
                     ->placeholder('-'),
                 TextEntry::make('deleted_at')
                     ->dateTime()
-                    ->visible(fn (BlogArticle $record): bool => $record->trashed()),
+                    ->visible(fn(BlogArticle $record): bool => $record->trashed()),
                 TextEntry::make('uuid')
                     ->label('UUID')
                     ->placeholder('-'),
@@ -30,7 +30,7 @@ class BlogArticleInfolist
                 TextEntry::make('user.name')
                     ->label('User')
                     ->placeholder('-'),
-                TextEntry::make('blogCategory.title')
+                TextEntry::make('category.title')
                     ->label('Blog category')
                     ->placeholder('-'),
                 TextEntry::make('slug')

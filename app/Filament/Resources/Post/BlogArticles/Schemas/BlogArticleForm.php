@@ -60,13 +60,13 @@ class BlogArticleForm
                             ->searchable()
                             ->preload()
                             ->relationship(
-                                name: 'blogCategory',
+                                name: 'category',
                                 titleAttribute: 'title',
                                 modifyQueryUsing: fn(Builder $query) => $query
                                     ->orderBy('title')
                                     ->where('is_show', true)
                             ),
-                        Select::make('blogTags')
+                        Select::make('tags')
                             ->label(Str::title(__('topik')))
                             ->required()
                             ->multiple()
@@ -74,7 +74,7 @@ class BlogArticleForm
                             ->searchable()
                             ->preload()
                             ->relationship(
-                                name: 'blogTags',
+                                name: 'tags',
                                 titleAttribute: 'title',
                                 modifyQueryUsing: fn(Builder $query) => $query
                                     ->orderBy('title')
@@ -87,7 +87,7 @@ class BlogArticleForm
                     ->schema([
                         FileUpload::make('file')
                             ->label(Str::title(__('file')))
-                            ->helperText(Str::ucfirst(__('ukuran maksimal: 10 MB.')))
+                            ->helperText(Str::title(__('max: 10 mb.')))
                             ->directory('blog-article/' . date('Y/m'))
                             // ->optimize('webp')
                             ->image()
@@ -101,7 +101,7 @@ class BlogArticleForm
                             ->maxLength(255),
                         FileUpload::make('attachment')
                             ->label(Str::title(__('lampiran')))
-                            ->helperText(Str::ucfirst(__('Ukuran maksimal: 10 MB. Jumlah maksimal: 5 File.')))
+                            ->helperText(Str::title(__('max: 10 mb. max file: 5.')))
                             ->directory('blog-article-attachment/' . date('Y/m'))
                             // ->optimize('webp')
                             ->image()

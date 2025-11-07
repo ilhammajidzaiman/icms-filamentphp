@@ -25,6 +25,7 @@ class BlogTagForm
                             ->default(true),
                         TextInput::make('title')
                             ->label(Str::title(__('judul')))
+                            ->required()
                             ->live(onBlur: true)
                             ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', Str::slug($state)))
                             ->maxLength(1024),

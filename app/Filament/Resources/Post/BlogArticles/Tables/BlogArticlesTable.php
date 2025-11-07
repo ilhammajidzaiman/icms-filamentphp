@@ -39,12 +39,12 @@ class BlogArticlesTable
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
-                TextColumn::make('blogCategory.title')
+                TextColumn::make('category.title')
                     ->label(Str::title(__('kategori')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
-                TextColumn::make('blogTags.title')
+                TextColumn::make('tags.title')
                     ->label(Str::title(__('topik')))
                     ->badge()
                     ->sortable()

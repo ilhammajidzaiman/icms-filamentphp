@@ -49,7 +49,7 @@ class BlogCategory extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function blogArticles()
+    public function articles()
     {
         return $this->hasMany(BlogArticle::class);
     }
