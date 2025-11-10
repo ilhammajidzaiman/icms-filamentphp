@@ -25,12 +25,12 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->foreignIdFor(BlogCategory::class)
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->string('slug')
                 ->nullable()
                 ->unique();
@@ -45,8 +45,6 @@ return new class extends Migration
                 ->nullable();
             $table->json('attachment')
                 ->nullable();
-            $table->bigInteger('visitor')
-                ->default(0);
             $table->timestamp('published_at')
                 ->nullable();
         });

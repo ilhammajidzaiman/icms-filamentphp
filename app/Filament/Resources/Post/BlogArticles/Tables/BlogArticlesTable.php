@@ -46,7 +46,13 @@ class BlogArticlesTable
                     ->toggleable(),
                 TextColumn::make('tags.title')
                     ->label(Str::title(__('topik')))
+                    ->wrap()
                     ->badge()
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
+                TextColumn::make('counter.visitor')
+                    ->label(Str::title(__('pengunjung')))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),

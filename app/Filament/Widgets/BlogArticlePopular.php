@@ -6,6 +6,7 @@ use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use App\Models\Post\BlogArticle;
 use Filament\Widgets\TableWidget;
+use App\Models\Post\BlogArticleCounter;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Illuminate\Database\Eloquent\Builder;
@@ -22,7 +23,16 @@ class BlogArticlePopular extends TableWidget
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn(): Builder => BlogArticle::query())
+            ->query(
+                fn(): Builder =>
+                BlogArticle::query()
+                    ->with('counter')
+                    ->orderByDesc(
+                        BlogArticleCounter::select('visitor')
+                            ->whereColumn('blog_article_counters.blog_article_id', 'blog_articles.id')
+                            ->limit(1)
+                    )
+            )
             ->defaultSort('id', 'desc')
             ->columns([
                 TextColumn::make('index')
@@ -38,7 +48,7 @@ class BlogArticlePopular extends TableWidget
                 TextColumn::make('category.title')
                     ->label(Str::title(__('kategori')))
                     ->wrap(),
-                TextColumn::make('visitor')
+                TextColumn::make('counter.visitor')
                     ->label(Str::title(__('pengunjung')))
                     ->wrap(),
                 TextColumn::make('published_at')

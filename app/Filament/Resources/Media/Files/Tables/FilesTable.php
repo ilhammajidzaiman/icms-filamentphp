@@ -45,6 +45,11 @@ class FilesTable
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
+                TextColumn::make('counter.downloader')
+                    ->label(Str::title(__('dipengunduh')))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
                 ToggleColumn::make('is_show')
                     ->label(Str::title(__('status')))
                     ->sortable()

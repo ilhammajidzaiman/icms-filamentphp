@@ -37,17 +37,12 @@ class BlogArticleLatest extends BaseWidget
                 TextColumn::make('category.title')
                     ->label(Str::title(__('kategori')))
                     ->wrap(),
-                TextColumn::make('visitor')
+                TextColumn::make('counter.visitor')
                     ->label(Str::title(__('pengunjung')))
                     ->wrap(),
                 TextColumn::make('published_at')
                     ->label(Str::title(__('diterbitkan ')))
                     ->since(),
             ]);
-    }
-
-    public function getDescription(): ?string
-    {
-        return 'Artikel terbaru.';
     }
 }

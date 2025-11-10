@@ -7,8 +7,10 @@ use Illuminate\Support\Str;
 use App\Models\Post\BlogTag;
 use App\Models\Post\BlogCategory;
 use App\Models\Setting\NavigationMenu;
+use App\Models\Post\BlogArticleCounter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -28,7 +30,6 @@ class BlogArticle extends Model
         'file',
         'description',
         'attachment',
-        'visitor',
         'published_at',
     ];
 
@@ -72,5 +73,10 @@ class BlogArticle extends Model
     public function navigationMenu(): MorphOne
     {
         return $this->morphOne(NavigationMenu::class, 'modelable');
+    }
+
+    public function counter(): HasOne
+    {
+        return $this->hasOne(BlogArticleCounter::class, 'blog_article_id', 'id');
     }
 }
