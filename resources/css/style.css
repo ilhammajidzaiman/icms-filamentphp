@@ -1,0 +1,14 @@
+html,
+body {
+    font-family: "Inter", sans-serif;
+    /* font-family: "Nunito", sans-serif; */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

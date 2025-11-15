@@ -5,7 +5,9 @@ namespace App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Str;
 use App\Models\Post\BlogTag;
+use App\Traits\ReadTimeTrait;
 use App\Models\Post\BlogCategory;
+use App\Traits\FormatDateTimeTrait;
 use App\Models\Setting\NavigationMenu;
 use App\Models\Post\BlogArticleCounter;
 use Illuminate\Database\Eloquent\Model;
@@ -13,11 +15,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class BlogArticle extends Model
 {
-    use SoftDeletes;
+    use HasFactory, SoftDeletes, FormatDateTimeTrait, ReadTimeTrait;
 
     protected $fillable =
     [

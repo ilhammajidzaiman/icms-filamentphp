@@ -1,0 +1,79 @@
+<x-wrapper id="carousel">
+    <x-container>
+        @if ($carousel->isNotEmpty())
+            <div x-data="{
+                active: 0,
+                total: {{ count($carousel) }},
+                timer: null,
+            
+                next() {
+                    this.active = (this.active + 1) % this.total
+                    this.restart()
+                },
+                prev() {
+                    this.active = (this.active - 1 + this.total) % this.total
+                    this.restart()
+                },
+                goTo(index) {
+                    this.active = index
+                    this.restart()
+                },
+                restart() {
+                    clearInterval(this.timer)
+                    this.timer = setInterval(() => this.next(), 4000)
+                },
+                init() {
+                    this.timer = setInterval(() => this.next(), 4000)
+                }
+            }"
+                class="relative w-full aspect-square md:aspect-video overflow-hidden rounded-xl shadow-md">
+                {{-- Gambar --}}
+                @foreach ($carousel as $index => $item)
+                    <div x-show="active === {{ $index }}" x-cloak
+                        x-transition:enter="transition-opacity duration-700 ease-in" x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity duration-700 ease-out"
+                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                        class="absolute inset-0 w-full h-full">
+                        <img src="{{ Storage::url($item->file ?? null) }}" alt="image"
+                            class="w-full h-full object-cover rounded-xl">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 bg-slate-700/30 text-shadow-md text-white text-center font-medium text-xl p-4 h-24 flex items-center justify-center">
+                            <p class="line-clamp-2">
+                                {{ $item->title }}
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+                <div class="hidden md:block">
+                    <button @click="prev"
+                        class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/80 p-2 rounded-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                        </svg>
+                    </button>
+                    <button @click="next"
+                        class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/80 p-2 rounded-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="hidden md:flex absolute bottom-2 left-0 right-0 justify-center gap-2">
+                    @foreach ($carousel as $index => $_)
+                        <button @click="goTo({{ $index }})"
+                            :class="active === {{ $index }} ? 'bg-white' : 'bg-white/40'"
+                            class="w-3 h-3 rounded-full transition-all duration-300">
+                        </button>
+                    @endforeach
+                </div>
+            </div>
+        @else
+            <div class="text-center p-4">
+                <img src="{{ asset('transfer-files-bro.svg') }}" alt="image" class="w-auto h-64 mx-auto">
+                <h1 class="text-xl">Data tidak ditemukan.</h1>
+            </div>
+        @endif
+    </x-container>
+</x-wrapper>
