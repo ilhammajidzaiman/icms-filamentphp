@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('blog_tags', function (Blueprint $table) {
+        Schema::create('navigation_menus', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
@@ -25,6 +25,14 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
+            $table->integer('parent_id')
+                ->nullable()
+                ->default(-1);
+            $table->integer('order')
+                ->nullable()
+                ->default(0)
+                ->index();
+            $table->morphs('modelable');
             $table->string('slug')
                 ->nullable();
             $table->string('title')
@@ -37,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('blog_tags');
+        Schema::dropIfExists('navigation_menus');
     }
 };

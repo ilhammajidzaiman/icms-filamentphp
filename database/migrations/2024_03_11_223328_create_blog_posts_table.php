@@ -23,12 +23,12 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->foreignIdFor(BlogTag::class)
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
         });
     }
 

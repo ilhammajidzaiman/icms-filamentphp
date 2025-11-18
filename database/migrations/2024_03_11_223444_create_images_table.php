@@ -24,19 +24,16 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->string('slug')
-                ->nullable()
-                ->unique();
+                ->nullable();
             $table->string('title')
-                ->nullable()
-                ->unique();
+                ->nullable();
             $table->longText('description')
                 ->nullable();
             $table->string('file')
-                ->nullable()
-                ->comment('gambar');
-            $table->json('attachment')
+                ->nullable();
+            $table->text('attachment')
                 ->nullable();
         });
     }

@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nav_menus', function (Blueprint $table) {
+        Schema::create('navigation_footers', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
@@ -24,7 +24,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->integer('parent_id')
                 ->nullable()
                 ->default(-1);
@@ -34,11 +34,9 @@ return new class extends Migration
                 ->index();
             $table->morphs('modelable');
             $table->string('slug')
-                ->nullable()
-                ->unique();
+                ->nullable();
             $table->string('title')
-                ->nullable()
-                ->unique();
+                ->nullable();
         });
     }
 
@@ -47,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nav_menus');
+        Schema::dropIfExists('navigation_footers');
     }
 };

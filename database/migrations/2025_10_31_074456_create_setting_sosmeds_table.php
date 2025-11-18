@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\User;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -11,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('setting_pages', function (Blueprint $table) {
+        Schema::create('setting_sosmeds', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
@@ -19,9 +20,18 @@ return new class extends Migration
                 ->nullable();
             $table->boolean('is_show')
                 ->default(true);
+            $table->foreignIdFor(User::class)
+                ->nullable()
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+            $table->string('title')
+                ->nullable();
+            $table->string('link')
+                ->nullable();
             $table->string('type')
                 ->nullable();
-            $table->string('title')
+            $table->text('file')
                 ->nullable();
         });
     }
@@ -31,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('setting_pages');
+        Schema::dropIfExists('setting_sosmeds');
     }
 };

@@ -25,28 +25,24 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->foreignIdFor(BlogCategory::class)
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->string('slug')
-                ->nullable()
-                ->unique();
+                ->nullable();
             $table->string('title')
-                ->nullable()
-                ->unique();
+                ->nullable();
             $table->longText('content')
                 ->nullable();
             $table->string('file')
                 ->nullable();
-            $table->string('description')
+            $table->text('description')
                 ->nullable();
-            $table->json('attachment')
+            $table->text('attachment')
                 ->nullable();
-            $table->bigInteger('visitor')
-                ->default(0);
             $table->timestamp('published_at')
                 ->nullable();
         });

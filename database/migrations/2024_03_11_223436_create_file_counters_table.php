@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Models\Media\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -12,23 +12,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('blog_tags', function (Blueprint $table) {
+        Schema::create('file_counters', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->softDeletes();
             $table->string('uuid')
                 ->nullable();
-            $table->boolean('is_show')
-                ->default(true);
-            $table->foreignIdFor(User::class)
+            $table->foreignIdFor(File::class)
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
-            $table->string('slug')
-                ->nullable();
-            $table->string('title')
-                ->nullable();
+            $table->bigInteger('downloader')
+                ->default(0);
         });
     }
 
@@ -37,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('blog_tags');
+        Schema::dropIfExists('file_counters');
     }
 };

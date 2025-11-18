@@ -25,24 +25,22 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->foreignIdFor(FileCategory::class)
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->string('slug')
-                ->nullable()
-                ->unique();
+                ->nullable();
             $table->string('title')
-                ->nullable()
-                ->unique();
+                ->nullable();
             $table->bigInteger('downloader')
                 ->nullable()
                 ->default(0);
             $table->string('file')
                 ->nullable();
-            $table->string('attachment')
+            $table->text('attachment')
                 ->nullable();
         });
     }

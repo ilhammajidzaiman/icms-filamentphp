@@ -24,7 +24,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->string('name')
                 ->nullable();
             $table->string('email')
