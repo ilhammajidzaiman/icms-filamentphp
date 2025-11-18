@@ -22,6 +22,7 @@ class HomeController extends Controller
             ->orderByDesc('published_at')
             ->get();
         $data['people'] = People::show()
+            ->limit(9)
             ->orderBy('order')
             ->get();
         $data['file'] = File::show()

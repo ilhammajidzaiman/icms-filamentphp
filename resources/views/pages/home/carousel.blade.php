@@ -26,8 +26,8 @@
                     this.timer = setInterval(() => this.next(), 4000)
                 }
             }"
-                class="relative w-full aspect-square md:aspect-video overflow-hidden rounded-xl shadow-md">
-                {{-- Gambar --}}
+                class="relative w-full aspect-square md:aspect-video overflow-hidden rounded-xl shadow-md space-y-16">
+
                 @foreach ($carousel as $index => $item)
                     <div x-show="active === {{ $index }}" x-cloak
                         x-transition:enter="transition-opacity duration-700 ease-in" x-transition:enter-start="opacity-0"
@@ -37,23 +37,28 @@
                         <img src="{{ Storage::url($item->file ?? null) }}" alt="image"
                             class="w-full h-full object-cover rounded-xl">
                         <div
-                            class="absolute bottom-0 left-0 right-0 bg-slate-700/30 text-shadow-md text-white text-center font-medium text-xl p-4 h-24 flex items-center justify-center">
-                            <p class="line-clamp-2">
-                                {{ $item->title }}
-                            </p>
+                            class="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center bg-linear-to-t from-slate-950/50 to-transparent pb-4">
+                            <div class="space-y-2 text-white text-shadow-md text-center p-4">
+                                <h1 class="line-clamp-1 text-xl font-bold">
+                                    {{ $item->title }}
+                                </h1>
+                                <h3 class="line-clamp-2">
+                                    {{ $item->description }}
+                                </h3>
+                            </div>
                         </div>
                     </div>
                 @endforeach
                 <div class="hidden md:block">
                     <button @click="prev"
-                        class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/80 p-2 rounded-xl">
+                        class="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/50 hover:bg-white/80 rounded-xl shadow p-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                         </svg>
                     </button>
                     <button @click="next"
-                        class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/80 p-2 rounded-xl">
+                        class="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/50 hover:bg-white/80 rounded-xl shadow p-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />

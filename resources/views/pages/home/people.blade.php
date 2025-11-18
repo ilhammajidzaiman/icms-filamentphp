@@ -20,66 +20,56 @@
         </div>
         @if ($people->isNotEmpty())
             <div x-data="{
+                scrollAmount: 350,
                 scrollLeft() {
-                        const el = $refs.scrollContainer;
-                        if (el.scrollLeft <= 0) {
-                            const maxScroll = el.scrollWidth - el.clientWidth;
-                            el.scrollTo({ left: maxScroll, behavior: 'smooth' });
-                        } else {
-                            el.scrollBy({ left: -300, behavior: 'smooth' });
+                    const s = this.$refs.scroller;
+                    s.scrollBy({ left: -this.scrollAmount, behavior: 'smooth' });
+                    setTimeout(() => {
+                        if (s.scrollLeft <= 0) {
+                            s.scrollLeft = s.scrollWidth;
                         }
-                    },
-                    scrollRight() {
-                        const el = $refs.scrollContainer;
-                        const maxScroll = el.scrollWidth - el.clientWidth;
-                        if (Math.ceil(el.scrollLeft) >= maxScroll) {
-                            el.scrollTo({ left: 0, behavior: 'smooth' });
-                        } else {
-                            el.scrollBy({ left: 300, behavior: 'smooth' });
+                    }, 300);
+                },
+                scrollRight() {
+                    const s = this.$refs.scroller;
+                    s.scrollBy({ left: this.scrollAmount, behavior: 'smooth' });
+                    setTimeout(() => {
+                        if (s.scrollLeft + s.clientWidth >= s.scrollWidth - 5) {
+                            s.scrollLeft = 0;
                         }
-                    }
-            }" class="relative w-full shadow rounded-xl p-4 bg-slate-200 border">
-                <div x-ref="scrollContainer"
-                    class="flex space-x-4 overflow-x-auto mx-10 hide-scrollbar scroll-smooth border">
+                    }, 300);
+                }
+            }" class="relative">
+                <div x-ref="scroller"
+                    class="flex gap-4 overflow-x-scroll scrollbar-hide scroll-smooth snap-x snap-mandatory hide-scrollbar">
                     @foreach ($people as $item)
-                        {{-- <div class="w-72 overflow-hidden rounded-xl shadow">
-                            <div class="relative">
-                                <img src="{{ $item->file ? Storage::url($item->file) : asset('/image/default-img.svg') }}"
-                                    alt="profile" class="w-full h-72 object-cover">
-                                <div class="absolute bottom-4 left-0 pr-4">
-                                    <div class="bg-white/50 bg-opacity-90 p-4 rounded-r-xl">
-                                        <h3 class="text-xl font-bold">
-                                            {{ $item->name ?? null }}
-                                            {{ $item->name ?? null }}
-                                        </h3>
-                                        <p class="text-sm">
-                                            {{ $item->position->title ?? null }}
-                                        </p>
-                                    </div>
+                        <div
+                            class="relative flex-none aspect-3/4 w-72 overflow-hidden rounded-xl shadow snap-center snap-always">
+                            <img src="{{ $item->file ? Storage::url($item->file) : asset('/image/default-img.svg') }}"
+                                alt="image" class="aspect-3/4 w-full h-full object-cover">
+                            <div class="absolute bottom-4 left-0 pr-4">
+                                <div
+                                    class="bg-slate-500/50 backdrop-blur-xs p-4 rounded-r-xl text-white text-shadow-md">
+                                    <h3 class="text-xl font-bold">
+                                        {{ $item->name ?? null }}
+                                    </h3>
+                                    <p class="text-sm">
+                                        {{ $item->position->title ?? null }}
+                                    </p>
                                 </div>
                             </div>
-                        </div> --}}
-                        <div class="flex-none w-72 rounded-xl bg-white p-4 text-center shadow space-y-4 border">
-                            <img src="{{ $item->file ? Storage::url($item->file) : asset('/image/default-img.svg') }}"
-                                alt="image" class="aspect-square w-44 h-44 mx-auto rounded-full object-cover border">
-                            <h1 class="text-lg font-semibold border">
-                                {{ $item->name ?? null }}
-                            </h1>
-                            <h3 class="text-sm border">
-                                {{ $item->position->title ?? null }}
-                            </h3>
                         </div>
                     @endforeach
                 </div>
                 <button @click="scrollLeft()"
-                    class="absolute z-10 left-0 top-1/2 -translate-y-1/2 hover:bg-slate-50 bg-white rounded-xl shadow p-2 m-2">
+                    class="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white/50 hover:bg-white/80 rounded-xl shadow p-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                     </svg>
                 </button>
                 <button @click="scrollRight()"
-                    class="absolute z-10 right-0 top-1/2 -translate-y-1/2 hover:bg-slate-50 bg-white rounded-xl shadow p-2 m-2">
+                    class="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white/50 hover:bg-white/80 rounded-xl shadow p-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
