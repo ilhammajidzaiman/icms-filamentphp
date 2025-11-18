@@ -18,9 +18,9 @@
         </div>
 
 
-        @if ($article->isNotEmpty())
+        @if ($file->isNotEmpty())
             <section class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-                @foreach ($article as $item)
+                @foreach ($file as $item)
                     <div class="overflow-hidden flex items-center shadow rounded-xl bg-white hover:shadow-md">
 
                         <div

@@ -38,16 +38,34 @@
                             el.scrollBy({ left: 300, behavior: 'smooth' });
                         }
                     }
-            }" class="relative w-full shadow rounded-xl p-4 bg-slate-200">
-                <div x-ref="scrollContainer" class="flex space-x-4 overflow-x-auto mx-10 hide-scrollbar scroll-smooth">
+            }" class="relative w-full shadow rounded-xl p-4 bg-slate-200 border">
+                <div x-ref="scrollContainer"
+                    class="flex space-x-4 overflow-x-auto mx-10 hide-scrollbar scroll-smooth border">
                     @foreach ($people as $item)
-                        <div class="flex-none w-72 rounded-xl bg-white p-12 text-center shadow space-y-2">
+                        {{-- <div class="w-72 overflow-hidden rounded-xl shadow">
+                            <div class="relative">
+                                <img src="{{ $item->file ? Storage::url($item->file) : asset('/image/default-img.svg') }}"
+                                    alt="profile" class="w-full h-72 object-cover">
+                                <div class="absolute bottom-4 left-0 pr-4">
+                                    <div class="bg-white/50 bg-opacity-90 p-4 rounded-r-xl">
+                                        <h3 class="text-xl font-bold">
+                                            {{ $item->name ?? null }}
+                                            {{ $item->name ?? null }}
+                                        </h3>
+                                        <p class="text-sm">
+                                            {{ $item->position->title ?? null }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> --}}
+                        <div class="flex-none w-72 rounded-xl bg-white p-4 text-center shadow space-y-4 border">
                             <img src="{{ $item->file ? Storage::url($item->file) : asset('/image/default-img.svg') }}"
-                                alt="image" class="aspect-square w-48 h-48 mx-auto rounded-full object-cover">
-                            <h1 class="text-lg font-semibold">
+                                alt="image" class="aspect-square w-44 h-44 mx-auto rounded-full object-cover border">
+                            <h1 class="text-lg font-semibold border">
                                 {{ $item->name ?? null }}
                             </h1>
-                            <h3 class="text-sm">
+                            <h3 class="text-sm border">
                                 {{ $item->position->title ?? null }}
                             </h3>
                         </div>

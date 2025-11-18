@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Media\File;
 use App\Models\Media\Image;
 use App\Models\Feature\People;
 use App\Models\Media\Carousel;
@@ -20,12 +21,16 @@ class HomeController extends Controller
             ->limit(8)
             ->orderByDesc('published_at')
             ->get();
+        $data['people'] = People::show()
+            ->orderBy('order')
+            ->get();
+        $data['file'] = File::show()
+            ->limit(6)
+            ->orderByDesc('id')
+            ->get();
         $data['image'] = Image::show()
             ->limit(9)
             ->orderByDesc('id')
-            ->get();
-        $data['people'] = People::show()
-            ->orderBy('order')
             ->get();
         return view('pages.home.index', $data);
     }

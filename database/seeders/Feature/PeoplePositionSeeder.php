@@ -15,14 +15,19 @@ class PeoplePositionSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            ['title' => 'Founder',],
+            ['title' => 'founder'],
+            ['title' => 'co founder'],
+            ['title' => 'programmer'],
+            ['title' => 'ui/ux'],
+            ['title' => 'financial'],
+            ['title' => 'customer service'],
         ];
         foreach ($data as $item) :
             PeoplePosition::create(
                 [
                     'user_id' => 1,
                     'slug' => Str::slug($item['title']),
-                    'title' => Str::headline(Str::lower($item['title'])),
+                    'title' => Str::title(Str::lower($item['title'])),
                 ],
             );
         endforeach;
