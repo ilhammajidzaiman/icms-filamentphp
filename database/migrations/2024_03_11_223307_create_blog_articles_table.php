@@ -32,18 +32,16 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
             $table->string('slug')
-                ->nullable()
-                ->unique();
+                ->nullable();
             $table->string('title')
-                ->nullable()
-                ->unique();
+                ->nullable();
             $table->longText('content')
                 ->nullable();
             $table->string('file')
                 ->nullable();
-            $table->string('description')
+            $table->text('description')
                 ->nullable();
-            $table->json('attachment')
+            $table->text('attachment')
                 ->nullable();
             $table->timestamp('published_at')
                 ->nullable();

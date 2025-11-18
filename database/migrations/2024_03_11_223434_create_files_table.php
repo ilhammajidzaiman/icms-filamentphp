@@ -32,17 +32,15 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
             $table->string('slug')
-                ->nullable()
-                ->unique();
+                ->nullable();
             $table->string('title')
-                ->nullable()
-                ->unique();
+                ->nullable();
             $table->bigInteger('downloader')
                 ->nullable()
                 ->default(0);
             $table->string('file')
                 ->nullable();
-            $table->string('attachment')
+            $table->text('attachment')
                 ->nullable();
         });
     }

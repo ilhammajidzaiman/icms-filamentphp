@@ -26,14 +26,11 @@ return new class extends Migration
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
             $table->string('slug')
-                ->nullable()
-                ->unique();
+                ->nullable();
             $table->string('title')
-                ->nullable()
-                ->unique();
-            $table->string('url')
-                ->nullable()
-                ->unique();
+                ->nullable();
+            $table->text('url')
+                ->nullable();
         });
     }
 
