@@ -1,24 +1,15 @@
 <x-wrapper id="technology">
     <x-container class="space-y-8">
-
-        <div class="text-center space-y-4">
-            <h1 class="text-4xl font-bold text-slate-700">
+        <div class="space-y-2 text-center">
+            <h1 class="text-3xl font-bold">
                 {{ Str::title(__('mitra')) }}
             </h1>
-            <div class="w-12 h-0.5 bg-sky-500 mx-auto"></div>
+            <div class="w-12 h-1 mx-auto rounded-full bg-sky-500"></div>
             <p class="text-slate-500">
                 {{ Str::title(__('mitra yang telah mempercayai kami sebagai rekan dalam transformasi digital.')) }}
             </p>
-            <a wire:navigate href=""
-                class="inline-flex items-center gap-2 text-slate-400 hover:underline hover:text-slate-500 line-clamp-1">
-                {{ Str::title(__('selengkapnya')) }}
-                {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="size-4">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25">
-                    </path>
-                </svg> --}}
-            </a>
         </div>
+
         <div>
             @php
                 $technology = [

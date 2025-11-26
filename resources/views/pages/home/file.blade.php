@@ -1,23 +1,11 @@
 <x-wrapper id="file" class="py-16">
     <x-container class="space-y-8">
-
-        <div class="text-center space-y-4">
-            <h1 class="text-4xl font-bold text-slate-700">
+        <div class="space-y-2 text-center">
+            <h1 class="text-3xl font-bold">
                 {{ Str::title(__('file')) }}
             </h1>
-            <div class="w-12 h-0.5 bg-sky-500 mx-auto"></div>
-            <a wire:navigate href=""
-                class="inline-flex items-center gap-2 text-slate-400 hover:underline hover:text-slate-500 line-clamp-1">
-                {{ Str::title(__('selengkapnya')) }}
-                {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="size-4">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25">
-                    </path>
-                </svg> --}}
-            </a>
+            <div class="w-12 h-1 mx-auto rounded-full bg-sky-500"></div>
         </div>
-
-
         @if ($file->isNotEmpty())
             <section class="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
                 @foreach ($file as $item)
@@ -109,6 +97,17 @@
                     </div>
                 @endforeach
             </div> --}}
+            <div class="space-y-2 text-center">
+                {{-- <p>{{ Str::ucfirst(__('temukan layanan kami yang lainnya')) }}</p> --}}
+                <a wire:navigate href=""
+                    class="inline-flex items-center gap-2 bg-slate-200 hover:bg-slate-300 py-2 px-4 rounded-xl">
+                    {{ Str::title(__('selengkapnya')) }}
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                    </svg>
+                </a>
+            </div>
         @else
             <div class="text-center p-4">
                 <img src="{{ asset('transfer-files-bro.svg') }}" alt="image" class="w-auto h-64 mx-auto">
