@@ -16,7 +16,7 @@ class BlogArticleFactory extends Factory
         $randomImages = collect(range(1, 200))
             ->shuffle()
             ->take(6)
-            ->map(fn($num) => "files/image_{$num}.jpg")
+            ->map(fn($num) => "/seeder/images/image_{$num}.jpg")
             ->values()
             ->toArray();
         return [
@@ -25,7 +25,7 @@ class BlogArticleFactory extends Factory
             'slug' => Str::slug($this->faker->sentence(15)),
             'title' => $this->faker->sentence(15),
             'content' => $this->faker->paragraphs(20, true),
-            'file' => "/files/image_{$imageNumber}.jpg",
+            'file' => "/seeder/images/image_{$imageNumber}.jpg",
             'description' => $this->faker->sentence(20),
             'attachment' => $randomImages,
             'published_at' => $this->faker->dateTimeBetween('-6 months', 'now'),

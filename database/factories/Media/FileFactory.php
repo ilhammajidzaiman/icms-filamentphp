@@ -15,7 +15,7 @@ class FileFactory extends Factory
             'user_id' => 1,
             'slug' => Str::slug($this->faker->sentence(15)),
             'title' => $this->faker->sentence(15),
-            'file' => "/files/image_{$imageNumber}.jpg",
+            'file' => "/seeder/images/image_{$imageNumber}.jpg",
         ];
     }
 }

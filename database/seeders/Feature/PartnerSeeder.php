@@ -2,13 +2,14 @@
 
 namespace Database\Seeders\Feature;
 
-use App\Models\Feature\People;
+
+use App\Models\Feature\Partner;
 use Illuminate\Database\Seeder;
 
-class PeopleSeeder extends Seeder
+class PartnerSeeder extends Seeder
 {
     public function run(): void
     {
-        People::factory()->count(20)->create();
+        Partner::factory()->count(50)->create();
     }
 }

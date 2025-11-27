@@ -44,6 +44,9 @@ class DatabaseSeeder extends Seeder
             Feature\PeoplePositionSeeder::class,
             Feature\PeopleSeeder::class,
             Feature\FeedbackCategorySeeder::class,
+            Feature\PartnerSeeder::class,
+            Feature\TechnologySeeder::class,
+            Feature\ServiceSeeder::class,
         ]);
     }
 }

@@ -2,13 +2,13 @@
 
 namespace Database\Seeders\Feature;
 
-use App\Models\Feature\People;
+use App\Models\Feature\Service;
 use Illuminate\Database\Seeder;
 
-class PeopleSeeder extends Seeder
+class ServiceSeeder extends Seeder
 {
     public function run(): void
     {
-        People::factory()->count(20)->create();
+        Service::factory()->count(20)->create();
     }
 }

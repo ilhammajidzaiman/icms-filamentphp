@@ -8,7 +8,7 @@
         </div>
         @if ($article->isNotEmpty())
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center">
-                @foreach ($article as $item)
+                @foreach ($service as $item)
                     <div
                         class="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg p-8 flex flex-col justify-between">
                         <div class="space-y-4 flex-1">
@@ -23,8 +23,8 @@
                                     {{ $item->title ?? null }}
                                 </a>
                             </h1>
-                            <p class="text-gray-600">
-                                {{ $item->title ?? 'Tidak ada ringkasan.' }}
+                            <p class="text-gray-600 line-clamp-6">
+                                {{ $item->description ?? null }}
                             </p>
                         </div>
                         <div class="aspect-video overflow-hidden rounded-xl mt-4">

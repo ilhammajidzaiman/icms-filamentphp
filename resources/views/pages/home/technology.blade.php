@@ -1,79 +1,3 @@
-@php
-    $technology = [
-        (object) [
-            'title' => 'bootstrap',
-            'file' => asset('/techicons/bootstrap.svg'),
-        ],
-        (object) [
-            'title' => 'codeigniter',
-            'file' => asset('/techicons/codeigniter.svg'),
-        ],
-        (object) [
-            'title' => 'css3',
-            'file' => asset('/techicons/css3.svg'),
-        ],
-        (object) [
-            'title' => 'gimp',
-            'file' => asset('/techicons/gimp.svg'),
-        ],
-        (object) [
-            'title' => 'git',
-            'file' => asset('/techicons/git.svg'),
-        ],
-        (object) [
-            'title' => 'github',
-            'file' => asset('/techicons/github.svg'),
-        ],
-        (object) [
-            'title' => 'html5',
-            'file' => asset('/techicons/html5.svg'),
-        ],
-        (object) [
-            'title' => 'inkscape',
-            'file' => asset('/techicons/inkscape.svg'),
-        ],
-        (object) [
-            'title' => 'javascript',
-            'file' => asset('/techicons/javascript.svg'),
-        ],
-        (object) [
-            'title' => 'laravel',
-            'file' => asset('/techicons/laravel.svg'),
-        ],
-        (object) [
-            'title' => 'linux',
-            'file' => asset('/techicons/linux.svg'),
-        ],
-        (object) [
-            'title' => 'livewire',
-            'file' => asset('/techicons/livewire.svg'),
-        ],
-        (object) [
-            'title' => 'mysql',
-            'file' => asset('/techicons/mysql.svg'),
-        ],
-        (object) [
-            'title' => 'php',
-            'file' => asset('/techicons/php.svg'),
-        ],
-        (object) [
-            'title' => 'postgressql',
-            'file' => asset('/techicons/postgressql.svg'),
-        ],
-        (object) [
-            'title' => 'tailwindcss',
-            'file' => asset('/techicons/tailwindcss.svg'),
-        ],
-        (object) [
-            'title' => 'ubuntu',
-            'file' => asset('/techicons/ubuntu.svg'),
-        ],
-        (object) [
-            'title' => 'vue',
-            'file' => asset('/techicons/vue.svg'),
-        ],
-    ];
-@endphp
 <x-wrapper id="technology">
     <x-container>
         <div x-data="{
@@ -107,13 +31,14 @@
                     <div
                         class="flex flex-none w-72 items-center rounded-xl bg-white shadow border-2 border-white hover:border-sky-500 transition duration-300 grayscale hover:grayscale-0 p-4">
                         <div class="flex items-center space-x-4 ">
-                            <img src="{{ $item->file }}" alt="logo" class="w-16 h-16 rounded-lg object-cover">
+                            <img src="{{ $item->file ? Storage::url($item->file) : asset('/image/default-img.svg') }}"
+                                alt="logo" class="w-16 h-16 rounded-lg object-cover">
                             <div>
                                 <h1 class="text-xl font-semibold text-slate-700">
-                                    {{ $item->title }}
+                                    {{ $item->title ?? null }}
                                 </h1>
                                 <h3 class="text-slate-500">
-                                    {{ $item->title }}
+                                    {{ $item->description ?? null }}
                                 </h3>
                             </div>
                         </div>
@@ -154,14 +79,12 @@
                     <div
                         class="flex flex-none w-72 items-center rounded-xl bg-white shadow border-2 border-white hover:border-sky-500 transition duration-300 grayscale hover:grayscale-0 p-4">
                         <div class="flex items-center space-x-4 ">
-                            <img src="{{ $item->file }}" alt="logo" class="w-16 h-16 rounded-lg object-cover">
+                            <img src="{{ $item->file ? Storage::url($item->file) : asset('/image/default-img.svg') }}"
+                                alt="logo" class="w-16 h-16 rounded-lg object-cover">
                             <div>
                                 <h1 class="text-xl font-semibold text-slate-700">
-                                    {{ $item->title }}
+                                    {{ $item->title ?? null }}
                                 </h1>
-                                {{-- <h3 class="text-slate-500">
-                            {{ $item->title }}
-                        </h3> --}}
                             </div>
                         </div>
                     </div>

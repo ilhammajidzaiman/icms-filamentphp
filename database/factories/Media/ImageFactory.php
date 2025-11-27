@@ -22,7 +22,7 @@ class ImageFactory extends Factory
             'slug' => Str::slug($this->faker->sentence(15)),
             'title' => $this->faker->sentence(15),
             'description' => $this->faker->sentence(20),
-            'file' => "/files/image_{$imageNumber}.jpg",
+            'file' => "/seeder/images/image_{$imageNumber}.jpg",
             'attachment' => $randomImages,
         ];
     }
