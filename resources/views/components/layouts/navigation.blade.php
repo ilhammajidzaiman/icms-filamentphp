@@ -1,16 +1,15 @@
 @php
-    use App\Models\Page;
-    use App\Models\Article;
-    use App\Models\Category;
+    use App\Models\Site\Page;
+    use App\Models\Post\BlogArticle;
+    use App\Models\Post\BlogCategory;
 @endphp
 <header x-data="{ scrolled: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 1 })" :class="scrolled ? 'bg-white shadow' : 'bg-transparent'"
     class="w-full fixed top-0 left-0 z-50 transition-all duration-500">
     <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between p-4">
         <div class="flex lg:flex-1">
-            <a href="#" class="-m-1.5 p-1.5">
-                <span class="sr-only">Your Company</span>
+            <a href="#" class="">
                 <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt=""
-                    class="h-8 w-auto" />
+                    class="h-10 w-auto" />
                 {{-- {{ $siteSetting->name ?? env('APP_NAME') }} --}}
             </a>
         </div>
@@ -27,9 +26,9 @@
         <el-popover-group class="hidden lg:flex lg:gap-4">
             @foreach ($menu as $parent)
                 @php
-                    if ($parent->modelable_type === Category::class):
+                    if ($parent->modelable_type === BlogCategory::class):
                         $urlParent = route('category.show', $parent->category->slug);
-                    elseif ($parent->modelable_type === Article::class):
+                    elseif ($parent->modelable_type === BlogArticle::class):
                         $urlParent = route('article.show', $parent->article->slug);
                     elseif ($parent->modelable_type === Page::class):
                         $urlParent = route('page.show', $parent->page->slug);
@@ -55,9 +54,9 @@
                             class="w-screen max-w-md overflow-hidden rounded-xl bg-white shadow divide-y divide-slate-200 transition transition-discrete [--anchor-gap:--spacing(3)] backdrop:bg-transparent open:block data-closed:translate-y-1 data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in">
                             @foreach ($parent->children as $child)
                                 @php
-                                    if ($child->modelable_type === Category::class):
+                                    if ($child->modelable_type === BlogCategory::class):
                                         $urlChild = route('category.show', $child->category->slug);
-                                    elseif ($child->modelable_type === Article::class):
+                                    elseif ($child->modelable_type === BlogArticle::class):
                                         $urlChild = route('article.show', $chil->article->slug);
                                     elseif ($child->modelable_type === Page::class):
                                         $urlChild = route('page.show', $child->page->slug);
@@ -97,11 +96,9 @@
                     <div class="h-screen min-h-0 flex flex-col bg-slate-100 shadow">
                         <div class="min-h-0 flex flex-col flex-1  space-y-4 p-4">
                             <div class="flex items-center justify-between">
-                                <a wire:navigate href="{{ route('index') }}"
-                                    class="flex justify-start items-center gap-4">
-                                    <span class="sr-only">Your Company</span>
+                                <a wire:navigate href="{{ route('index') }}" class="flex justify-start items-center">
                                     <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                                        alt="" class="h-8 w-auto" />
+                                        alt="" class="h-10 w-auto" />
                                 </a>
                                 <button type="button" command="close" commandfor="mobile-menu"
                                     class="rounded-xl border border-slate-300 p-2">
@@ -117,9 +114,9 @@
                                     class="h-full bg-white shadow text-slate-700 overflow-y-auto divide-y divide-slate-100">
                                     @foreach ($menu as $parent)
                                         @php
-                                            if ($parent->modelable_type === Category::class):
+                                            if ($parent->modelable_type === BlogCategory::class):
                                                 $urlParent = route('category.show', $parent->category->slug);
-                                            elseif ($parent->modelable_type === Article::class):
+                                            elseif ($parent->modelable_type === BlogArticle::class):
                                                 $urlParent = route('article.show', $parent->article->slug);
                                             elseif ($parent->modelable_type === Page::class):
                                                 $urlParent = route('page.show', $parent->page->slug);
@@ -144,12 +141,12 @@
                                                     <div class="bg-slate-200 divide-y divide-slate-100">
                                                         @foreach ($parent->children as $child)
                                                             @php
-                                                                if ($child->modelable_type === Category::class):
+                                                                if ($child->modelable_type === BlogCategory::class):
                                                                     $urlChild = route(
                                                                         'category.show',
                                                                         $child->category->slug,
                                                                     );
-                                                                elseif ($child->modelable_type === Article::class):
+                                                                elseif ($child->modelable_type === BlogArticle::class):
                                                                     $urlChild = route(
                                                                         'article.show',
                                                                         $chil->article->slug,
@@ -162,8 +159,7 @@
                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                                     viewBox="0 0 24 24" stroke-width="1.5"
                                                                     stroke="currentColor" class="size-4">
-                                                                    <path stroke-linecap="round"
-                                                                        stroke-linejoin="round"
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
                                                                         d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                                                                 </svg>
                                                                 <a wire:navigate href="{{ $urlChild ?? null }}"

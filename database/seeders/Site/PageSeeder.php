@@ -1,11 +1,10 @@
 <?php
 
-namespace Database\Seeders\Post;
+namespace Database\Seeders\Site;
 
 use App\Models\Site\Page;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class PageSeeder extends Seeder
 {
@@ -24,9 +23,9 @@ class PageSeeder extends Seeder
             Page::create(
                 [
                     'user_id' => 1,
-                    'slug' => Str::slug($data['title']),
-                    'title' => Str::headline(Str::lower($data['title'])),
-                    'content' => $data['content'],
+                    'slug' => trim(Str::slug($data['title'])),
+                    'title' => trim(Str::title(Str::lower($data['title']))),
+                    'content' => trim($data['content']),
                 ],
             );
         endforeach;

@@ -1,3 +1,8 @@
+@php
+    use App\Models\Site\Page;
+    use App\Models\Post\BlogArticle;
+    use App\Models\Post\BlogCategory;
+@endphp
 <x-wrapper id="footer" class="bg-sky-950 text-slate-300 py-14">
     <x-container>
         <div class="space-y-4">
@@ -56,9 +61,9 @@
                         @foreach ($footer as $parent)
                             <div class="col-span-full md:col-span-4">
                                 @php
-                                    if ($parent->modelable_type === Category::class):
+                                    if ($parent->modelable_type === BlogCategory::class):
                                         $urlParent = route('category.show', $parent->category->slug);
-                                    elseif ($parent->modelable_type === Article::class):
+                                    elseif ($parent->modelable_type === BlogArticle::class):
                                         $urlParent = route('article.show', $parent->article->slug);
                                     elseif ($parent->modelable_type === Page::class):
                                         $urlParent = route('page.show', $parent->page->slug);
@@ -68,12 +73,12 @@
                                     <h1 class="text-lg font-semibold">
                                         {{ $parent->title ?? null }}
                                     </h1>
-                                    <div class="w-12 h-0.5 bg-sky-500 "></div>
+                                    <div class="w-12 h-1 rounded-full bg-sky-500 "></div>
                                     @foreach ($parent->children as $child)
                                         @php
-                                            if ($child->modelable_type === Category::class):
+                                            if ($child->modelable_type === BlogCategory::class):
                                                 $urlChild = route('category.show', $child->category->slug);
-                                            elseif ($child->modelable_type === Article::class):
+                                            elseif ($child->modelable_type === BlogArticle::class):
                                                 $urlChild = route('article.show', $chil->article->slug);
                                             elseif ($child->modelable_type === Page::class):
                                                 $urlChild = route('page.show', $child->page->slug);
