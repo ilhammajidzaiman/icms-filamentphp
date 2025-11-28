@@ -98,7 +98,7 @@ class NavigationMenuSeeder extends Seeder
         foreach ($data as $item) :
             NavigationMenu::create(
                 [
-                    'id' => trim($item['id']),
+                    // 'id' => trim($item['id']),
                     'user_id' => 1,
                     'parent_id' => trim($item['parent_id']),
                     'order' => trim($item['order']),

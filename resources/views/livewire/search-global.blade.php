@@ -1,9 +1,9 @@
-<div class="relative w-full md:w-80" x-data="{ open: false }" @click.outside="open = false">
+<div class="relative w-full lg:w-72" x-data="{ open: false }" @click.outside="open = false">
     <div class="relative">
-        <input type="text" wire:model.live="keyword" placeholder="{{ Str::ucfirst(__('mau cari berita apa?')) }}"
+        <input type="text" wire:model.live="keyword" placeholder="{{ Str::ucfirst(__('cari disini')) }}"
             @focus="open = true"
-            class="w-full border border-slate-500 rounded-lg pl-10 pr-3 py-2 focus:outline-none focus:ring-1 focus:ring-sky-500 bg-white/20 backdrop-blur-xs  placeholder-slate-200">
-        <button type="button" class="absolute inset-y-0 left-0 flex items-center pl-3 ">
+            class="w-full bg-white rounded-lg border border-slate-200 pl-10 pr-3 py-2 focus:outline-none focus:ring-1 focus:ring-sky-500 placeholder-slate-500">
+        <button type="button" class="absolute inset-y-0 left-0 flex items-center pl-3">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -13,9 +13,9 @@
     </div>
     @if (strlen($keyword) > 2)
         <div x-show="open" x-transition
-            class="w-auto md:w-2xl absolute right-0 mt-2 bg-white rounded-xl shadow overflow-hidden z-50">
+            class="w-auto lg:w-2xl absolute right-0 mt-2 bg-white rounded-xl shadow border border-slate-200 overflow-hidden z-50">
             <div class="max-h-96 divide-y divide-slate-200 overflow-y-auto">
-                <h1 class="text-sky-500 text-left font-bold px-4 py-3 bg-slate-100">
+                <h1 class="text-sky-700 text-left font-bold px-4 py-3 bg-sky-100">
                     <a wire:navigate href="{{ route('article.index') }}" title="berita" class="hover:underline">
                         {{ Str::ucfirst(__('berita')) }}
                     </a>
@@ -49,7 +49,7 @@
                 @else
                     <p class="px-4 py-3 text-slate-400">{{ Str::ucfirst(__('tidak ditemukan')) }}</p>
                 @endif
-                <h1 class="text-sky-500 text-left font-bold px-4 py-3 bg-slate-100">
+                <h1 class="text-sky-700 text-left font-bold px-4 py-3 bg-sky-100">
                     <a wire:navigate href="{{ route('article.index') }}" title="berita" class="hover:underline">
                         {{ Str::ucfirst(__('kategori')) }}
                     </a>
