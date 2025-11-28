@@ -5,7 +5,7 @@
                 active: 0,
                 total: {{ count($carousel) }},
                 timer: null,
-            
+
                 next() {
                     this.active = (this.active + 1) % this.total
                     this.restart()
@@ -34,7 +34,7 @@
                         x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity duration-700 ease-out"
                         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                         class="absolute inset-0 w-full h-full">
-                        <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/image/default-img.svg') }}"
+                        <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/images/default-img.svg') }}"
                             alt="image" class="w-full h-full object-cover rounded-xl">
                         <div
                             class="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center bg-linear-to-t from-slate-950/50 to-transparent pb-4">

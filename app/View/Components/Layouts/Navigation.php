@@ -26,7 +26,7 @@ class Navigation extends Component
     {
         return view('components.layouts.navigation', [
             'siteSetting' => $this->siteSetting,
-            'menu' => $this->data,
+            'navigationMenu' => $this->data,
         ]);
     }
 }

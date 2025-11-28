@@ -1,14 +1,11 @@
 <x-wrapper id="technology">
     <x-container class="space-y-8">
-        <div class="space-y-2 text-center">
-            <h1 class="text-3xl font-bold">
-                {{ Str::title(__('mitra')) }}
-            </h1>
-            <div class="w-12 h-1 mx-auto rounded-full bg-sky-500"></div>
-            <p class="text-slate-500">
-                {{ Str::title(__('mitra yang telah mempercayai kami sebagai rekan dalam transformasi digital.')) }}
-            </p>
-        </div>
+        <x-sections.header>
+            <x-sections.header.title value="mitra" />
+            <x-sections.header.hr />
+            <x-sections.header.description
+                value="mitra yang telah mempercayai kami sebagai rekan dalam transformasi digital." />
+        </x-sections.header>
 
         <div>
             <div x-data="{
@@ -43,7 +40,7 @@
                         <div
                             class="flex flex-none w-96 items-center rounded-xl bg-white shadow border-2 border-white hover:border-sky-500 transition duration-300 p-4">
                             <div class="flex items-center space-x-4 ">
-                                <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/image/default-img.svg') }}"
+                                <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/images/default-img.svg') }}"
                                     alt="logo" class="w-24 h-24 object-cover">
                                 <div>
                                     <h1 class="text-xl font-semibold text-slate-700">
@@ -88,7 +85,7 @@
                         <div
                             class="flex flex-none w-96 items-center rounded-xl bg-white shadow border-2 border-white hover:border-sky-500 transition duration-300 p-4">
                             <div class="flex items-center space-x-4 ">
-                                <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/image/default-img.svg') }}"
+                                <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/images/default-img.svg') }}"
                                     alt="logo" class="w-24 h-24 object-cover">
                                 <div>
                                     <h1 class="text-xl font-semibold text-slate-700">
@@ -101,5 +98,9 @@
                 </div>
             </div>
         </div>
+        {{-- <x-sections.footer>
+            <x-sections.footer.description value="temukan mitra terpercaya kami yang lainnya" />
+            <x-sections.footer.link href="{{ route('index') }}" />
+        </x-sections.footer> --}}
     </x-container>
 </x-wrapper>

@@ -11,7 +11,9 @@
     <title>
         {{ $siteSetting->name ? $title . ' | ' . $siteSetting->name : env('APP_NAME') }}
     </title>
-    <link rel="shortcut icon" href="{{ Storage::url($siteSetting->favicon) }}" type="image/x-icon">
+    <link rel="shortcut icon"
+        href="{{ $siteSetting->favicon ? asset('storage/' . $siteSetting->favicon) : asset('/images/laravel.svg') }}"
+        type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -21,7 +23,7 @@
     @livewireStyles
 </head>
 
-<body class="bg-slate-100 text-slate-700 text-base pt-20">
+<body class="bg-slate-100 text-slate-600 text-base pt-20">
     <x-layouts.navigation :siteSetting="$siteSetting" />
     {{ $slot }}
     <x-layouts.footer :siteSetting="$siteSetting" />

@@ -16,6 +16,7 @@ class App extends Component
     public function __construct()
     {
         $settings = SettingSite::query()
+            ->show()
             ->whereIn('title', [
                 SettingSiteOptionEnum::SiteName->value,
                 SettingSiteOptionEnum::SiteTagline->value,

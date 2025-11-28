@@ -29,7 +29,7 @@ class UsersTable
                     ->toggleable(),
                 ImageColumn::make('profile.file')
                     ->label(Str::title(__('file')))
-                    ->defaultImageUrl(asset('/image/default-user.svg'))
+                    ->defaultImageUrl(asset('/images/default-user.svg'))
                     ->circular()
                     ->toggleable(),
                 TextColumn::make('name')

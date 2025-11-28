@@ -15,12 +15,12 @@
         <div x-show="open" x-transition
             class="w-auto lg:w-2xl absolute right-0 mt-2 bg-white rounded-xl shadow border border-slate-200 overflow-hidden z-50">
             <div class="max-h-96 divide-y divide-slate-200 overflow-y-auto">
-                <h1 class="text-sky-700 text-left font-bold px-4 py-3 bg-sky-100">
-                    <a wire:navigate href="{{ route('article.index') }}" title="berita" class="hover:underline">
-                        {{ Str::ucfirst(__('berita')) }}
-                    </a>
-                </h1>
                 @if ($article && count($article))
+                    <h1 class="text-white text-left font-bold px-4 py-3 bg-sky-500">
+                        <a wire:navigate href="{{ route('article.index') }}" title="berita" class="hover:underline">
+                            {{ Str::ucfirst(__('berita')) }}
+                        </a>
+                    </h1>
                     @foreach ($article as $item)
                         <div wire:click="goToArticle('{{ $item->slug ?? null }}')" @click="open = false"
                             class="w-full text-left hover:bg-slate-100 px-4 py-2">
@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="flex-none">
                                     <div class="aspect-square h-20 overflow-hidden rounded-xl">
-                                        <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/image/default-img.svg') }}"
+                                        <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/images/default-img.svg') }}"
                                             alt="image"
                                             class="bg-slate-200 w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110">
                                     </div>
@@ -46,15 +46,13 @@
                             </div>
                         </div>
                     @endforeach
-                @else
-                    <p class="px-4 py-3 text-slate-400">{{ Str::ucfirst(__('tidak ditemukan')) }}</p>
                 @endif
-                <h1 class="text-sky-700 text-left font-bold px-4 py-3 bg-sky-100">
-                    <a wire:navigate href="{{ route('article.index') }}" title="berita" class="hover:underline">
-                        {{ Str::ucfirst(__('kategori')) }}
-                    </a>
-                </h1>
                 @if ($category && count($category))
+                    <h1 class="text-white text-left font-bold px-4 py-3 bg-sky-500">
+                        <a wire:navigate href="{{ route('article.index') }}" title="berita" class="hover:underline">
+                            {{ Str::ucfirst(__('kategori')) }}
+                        </a>
+                    </h1>
                     @foreach ($category as $item)
                         <div wire:click="goToCategory('{{ $item->slug ?? null }}')" @click="open = false"
                             class="w-full text-left hover:bg-slate-100 px-4 py-2">
@@ -66,8 +64,6 @@
                             </h1>
                         </div>
                     @endforeach
-                @else
-                    <p class="px-4 py-3 text-slate-400">{{ Str::ucfirst(__('tidak ditemukan')) }}</p>
                 @endif
             </div>
         </div>

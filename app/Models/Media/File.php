@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use App\Models\Media\FileCounter;
 use App\Models\Media\FileCategory;
+use App\Traits\FormatDateTimeTrait;
 use App\Models\Setting\NavigationMenu;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,7 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;;
 
 class File extends Model
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, FormatDateTimeTrait, HasFactory;
 
     protected $fillable =
     [

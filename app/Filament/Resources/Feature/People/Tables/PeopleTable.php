@@ -30,7 +30,7 @@ class PeopleTable
                     ->rowIndex(isFromZero: false),
                 ImageColumn::make('file')
                     ->label(Str::title(__('file')))
-                    ->defaultImageUrl(asset('/image/default-user.svg'))
+                    ->defaultImageUrl(asset('/images/default-user.svg'))
                     ->circular()
                     ->toggleable(),
                 TextColumn::make('order')

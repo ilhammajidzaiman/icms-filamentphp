@@ -10,15 +10,15 @@
             <div class="flex sm:flex-1">
                 <div class="h-full flex items-center justify-start">
                     <a wire:navigate href="" class="h-full inline-flex items-center gap-2">
-                        <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                            alt="" class="h-10 w-auto" />
+                        <img src="{{ $siteSetting->logo ? asset('storage/' . $siteSetting->logo) : asset('/images/laravel.svg') }}"
+                            alt="logo" class="h-10 w-auto" />
                         <div class="hidden sm:block">
-                            <h3 class="text-xs">
-                                {{ env('APP_NAME') }}
-                            </h3>
                             <h1 class="font-bold">
-                                {{ env('APP_NAME') }}
+                                {{ $siteSetting->name ? $siteSetting->name : env('APP_NAME') }}
                             </h1>
+                            <h3 class="text-xs">
+                                {{ $siteSetting->tagline ? $siteSetting->tagline : env('APP_NAME') }}
+                            </h3>
                         </div>
                     </a>
                 </div>
@@ -26,7 +26,7 @@
             <div class="hidden lg:flex">
                 <div class="h-full w-md flex overflow-x-auto items-center justify-center hide-scrollbar">
                     <el-popover-group class="flex flex-row gap-4 items-center justify-center whitespace-nowrap">
-                        @foreach ($menu as $parent)
+                        @foreach ($navigationMenu as $parent)
                             @php
                                 if ($parent->modelable_type === BlogCategory::class):
                                     $urlParent = route('category.show', $parent->category->slug);
@@ -110,9 +110,17 @@
                     <div class="h-screen min-h-0 flex flex-col bg-slate-100 shadow">
                         <div class="min-h-0 flex flex-col flex-1  space-y-4 p-4">
                             <div class="flex items-center justify-between">
-                                <a wire:navigate href="{{ route('index') }}" class="flex justify-start items-center">
-                                    <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                                        alt="" class="h-10 w-auto" />
+                                <a wire:navigate href="" class="h-full inline-flex items-center gap-2">
+                                    <img src="{{ $siteSetting->logo ? asset('storage/' . $siteSetting->logo) : asset('/images/laravel.svg') }}"
+                                        alt="logo" class="h-10 w-auto" />
+                                    <div>
+                                        <h1 class="font-bold">
+                                            {{ $siteSetting->name ? $siteSetting->name : env('APP_NAME') }}
+                                        </h1>
+                                        <h3 class="text-xs">
+                                            {{ $siteSetting->tagline ? $siteSetting->tagline : env('APP_NAME') }}
+                                        </h3>
+                                    </div>
                                 </a>
                                 <button type="button" command="close" commandfor="mobile-menu"
                                     class="bg-white rounded-xl border border-slate-200 p-2">
@@ -125,7 +133,7 @@
                             </div>
                             <div class="flex-1 rounded-xl overflow-hidden">
                                 <div class="h-full bg-white shadow overflow-y-auto divide-y divide-slate-100">
-                                    @foreach ($menu as $parent)
+                                    @foreach ($navigationMenu as $parent)
                                         @php
                                             if ($parent->modelable_type === BlogCategory::class):
                                                 $urlParent = route('category.show', $parent->category->slug);

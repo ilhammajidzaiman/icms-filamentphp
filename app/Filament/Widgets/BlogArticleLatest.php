@@ -29,7 +29,7 @@ class BlogArticleLatest extends BaseWidget
                     ->rowIndex(isFromZero: false),
                 ImageColumn::make('file')
                     ->label(Str::title(__('file')))
-                    ->defaultImageUrl(asset('/image/default-img.svg'))
+                    ->defaultImageUrl(asset('/images/default-img.svg'))
                     ->circular(),
                 TextColumn::make('title')
                     ->label(Str::title(__('judul')))

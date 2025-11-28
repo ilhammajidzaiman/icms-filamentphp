@@ -1,11 +1,10 @@
 <x-wrapper id="article" class="py-16">
     <x-container class="space-y-8">
-        <div class="space-y-2 text-center">
-            <h1 class="text-3xl font-bold">
-                {{ Str::title(__('layanan')) }}
-            </h1>
-            <div class="w-12 h-1 mx-auto rounded-full bg-sky-500"></div>
-        </div>
+        <x-sections.header>
+            <x-sections.header.title value="layanan" />
+            <x-sections.header.hr />
+        </x-sections.header>
+
         @if ($article->isNotEmpty())
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-center">
                 @foreach ($service as $item)
@@ -28,24 +27,17 @@
                             </p>
                         </div>
                         <div class="aspect-video overflow-hidden rounded-xl mt-4">
-                            <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/image/default-img.svg') }}"
+                            <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/images/default-img.svg') }}"
                                 alt="image"
                                 class="bg-slate-200 w-full h-full object-cover transition-all duration-300 ease-in-out hover:scale-110">
                         </div>
                     </div>
                 @endforeach
             </div>
-            <div class="space-y-2 text-center">
-                <p>{{ Str::ucfirst(__('temukan layanan kami yang lainnya')) }}</p>
-                <a wire:navigate href=""
-                    class="inline-flex items-center gap-2 bg-slate-200 hover:bg-slate-300 py-2 px-4 rounded-xl">
-                    {{ Str::title(__('selengkapnya')) }}
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                    </svg>
-                </a>
-            </div>
+            <x-sections.footer>
+                <x-sections.footer.description value="temukan layanan kami yang lainnya" />
+                <x-sections.footer.link href="{{ route('index') }}" />
+            </x-sections.footer>
         @else
             <div class="text-center p-4">
                 <img src="{{ asset('transfer-files-bro.svg') }}" alt="image" class="w-auto h-64 mx-auto">
