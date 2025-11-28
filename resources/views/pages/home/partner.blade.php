@@ -43,7 +43,7 @@
                         <div
                             class="flex flex-none w-96 items-center rounded-xl bg-white shadow border-2 border-white hover:border-sky-500 transition duration-300 p-4">
                             <div class="flex items-center space-x-4 ">
-                                <img src="{{ $item->file ? Storage::url($item->file) : asset('/image/default-img.svg') }}"
+                                <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/image/default-img.svg') }}"
                                     alt="logo" class="w-24 h-24 object-cover">
                                 <div>
                                     <h1 class="text-xl font-semibold text-slate-700">
@@ -88,7 +88,7 @@
                         <div
                             class="flex flex-none w-96 items-center rounded-xl bg-white shadow border-2 border-white hover:border-sky-500 transition duration-300 p-4">
                             <div class="flex items-center space-x-4 ">
-                                <img src="{{ $item->file ? Storage::url($item->file) : asset('/image/default-img.svg') }}"
+                                <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/image/default-img.svg') }}"
                                     alt="logo" class="w-24 h-24 object-cover">
                                 <div>
                                     <h1 class="text-xl font-semibold text-slate-700">

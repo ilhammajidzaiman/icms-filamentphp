@@ -36,7 +36,7 @@
                     @foreach ($people as $item)
                         <div
                             class="relative flex-none aspect-3/4 w-72 overflow-hidden rounded-xl shadow snap-center snap-always">
-                            <img src="{{ $item->file ? Storage::url($item->file) : asset('/image/default-img.svg') }}"
+                            <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/image/default-img.svg') }}"
                                 alt="image" class="aspect-3/4 w-full h-full object-cover">
                             <div class="absolute bottom-4 left-0 pr-4">
                                 <div

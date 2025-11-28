@@ -12,7 +12,7 @@
                 @foreach ($article as $item)
                     <div class="bg-white rounded-xl overflow-hidden shadow">
                         <div class="relative aspect-video overflow-hidden">
-                            <img src="{{ $item->file ? Storage::url($item->file) : asset('/image/default-img.svg') }}"
+                            <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/image/default-img.svg') }}"
                                 alt="image"
                                 class="bg-slate-200 w-full h-full object-cover transition-all duration-300 ease-in-out hover:scale-110">
                             <h3 class="absolute left-0 bottom-4 ">

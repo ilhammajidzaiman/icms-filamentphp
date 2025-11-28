@@ -11,7 +11,7 @@
                 @foreach ($image as $item)
                     <div class="col-span-6 md:col-span-4">
                         <div class="aspect-square md:aspect-video overflow-hidden rounded-xl cursor-pointer">
-                            <img src="{{ Storage::url($item->file ?? null) }}"
+                            <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/image/default-img.svg') }}"
                                 class="bg-slate-200 w-full h-full object-cover transition-all duration-300 ease-in-out hover:scale-110">
                         </div>
                     </div>

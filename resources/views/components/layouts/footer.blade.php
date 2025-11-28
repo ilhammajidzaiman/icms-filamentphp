@@ -121,7 +121,7 @@
                                     @if ($item->type->value === SettingSiteTypeEnum::Text->value)
                                         {!! $item->file ?? null !!}
                                     @elseif ($item->type->value === SettingSiteTypeEnum::File->value)
-                                        <img src="{{ Storage::url($item->file) }}" alt="{{ $item->title }}"
+                                        <img src="{{ asset('storage/' . $item->file) }}" alt="{{ $item->title }}"
                                             class="w-auto h-auto">
                                     @endif
                                 </a>

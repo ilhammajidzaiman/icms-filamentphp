@@ -46,7 +46,7 @@ class HomeController extends Controller
             ->get();
         $data['image'] = Image::show()
             ->orderByDesc('id')
-            ->limit(9)
+            ->limit(6)
             ->get();
         return view('pages.home.index', $data);
     }

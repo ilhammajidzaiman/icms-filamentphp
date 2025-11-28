@@ -34,8 +34,8 @@
                         x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity duration-700 ease-out"
                         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                         class="absolute inset-0 w-full h-full">
-                        <img src="{{ Storage::url($item->file ?? null) }}" alt="image"
-                            class="w-full h-full object-cover rounded-xl">
+                        <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/image/default-img.svg') }}"
+                            alt="image" class="w-full h-full object-cover rounded-xl">
                         <div
                             class="absolute bottom-0 left-0 right-0 flex flex-col items-center justify-center bg-linear-to-t from-slate-950/50 to-transparent pb-4">
                             <div class="space-y-2 text-white text-shadow-md text-center p-4">
@@ -65,7 +65,7 @@
                         </svg>
                     </button>
                 </div>
-                <div class="hidden md:flex absolute bottom-2 left-0 right-0 justify-center gap-2">
+                <div class="flex absolute bottom-2 left-0 right-0 justify-center gap-2">
                     @foreach ($carousel as $index => $_)
                         <button @click="goTo({{ $index }})"
                             :class="active === {{ $index }} ? 'bg-white' : 'bg-white/40'"

@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="flex-none">
                                     <div class="aspect-square h-20 overflow-hidden rounded-xl">
-                                        <img src="{{ $item->file ? Storage::url($item->file) : asset('/image/default-img.svg') }}"
+                                        <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/image/default-img.svg') }}"
                                             alt="image"
                                             class="bg-slate-200 w-full h-full object-cover transition duration-300 ease-in-out hover:scale-110">
                                     </div>

@@ -28,7 +28,7 @@
                             </p>
                         </div>
                         <div class="aspect-video overflow-hidden rounded-xl mt-4">
-                            <img src="{{ $item->file ? Storage::url($item->file) : asset('/image/default-img.svg') }}"
+                            <img src="{{ $item->file ? asset('storage/' . $item->file) : asset('/image/default-img.svg') }}"
                                 alt="image"
                                 class="bg-slate-200 w-full h-full object-cover transition-all duration-300 ease-in-out hover:scale-110">
                         </div>
