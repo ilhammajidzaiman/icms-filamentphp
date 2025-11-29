@@ -9,7 +9,7 @@
         <div class="flex flex-row w-full gap-4">
             <div class="flex sm:flex-1">
                 <div class="h-full flex items-center justify-start">
-                    <a wire:navigate href="" class="h-full inline-flex items-center gap-2">
+                    <a wire:navigate href="{{ route('index') }}" class="h-full inline-flex items-center gap-4">
                         <img src="{{ $siteSetting->logo ? asset('storage/' . $siteSetting->logo) : asset('/images/laravel.svg') }}"
                             alt="logo" class="h-10 w-auto" />
                         <div class="hidden sm:block">
@@ -110,7 +110,8 @@
                     <div class="h-screen min-h-0 flex flex-col bg-slate-100 shadow">
                         <div class="min-h-0 flex flex-col flex-1  space-y-4 p-4">
                             <div class="flex items-center justify-between">
-                                <a wire:navigate href="" class="h-full inline-flex items-center gap-2">
+                                <a wire:navigate href="{{ route('index') }}"
+                                    class="h-full inline-flex items-center gap-4">
                                     <img src="{{ $siteSetting->logo ? asset('storage/' . $siteSetting->logo) : asset('/images/laravel.svg') }}"
                                         alt="logo" class="h-10 w-auto" />
                                     <div>

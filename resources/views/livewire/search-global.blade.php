@@ -1,8 +1,8 @@
 <div class="relative w-full lg:w-72" x-data="{ open: false }" @click.outside="open = false">
     <div class="relative">
-        <input type="text" wire:model.live="keyword" placeholder="{{ Str::ucfirst(__('cari disini')) }}"
+        <input type="text" wire:model.live="keyword" placeholder="{{ Str::ucfirst(__('cari disini...')) }}"
             @focus="open = true"
-            class="w-full bg-white rounded-lg border border-slate-200 pl-10 pr-3 py-2 focus:outline-none focus:ring-1 focus:ring-sky-500 placeholder-slate-500">
+            class="w-full bg-white rounded-xl border border-slate-200 pl-10 pr-2 py-2 focus:outline-none focus:ring-1 focus:ring-sky-500 placeholder-slate-500">
         <button type="button" class="absolute inset-y-0 left-0 flex items-center pl-3">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-6">
@@ -16,7 +16,7 @@
             class="w-auto lg:w-2xl absolute right-0 mt-2 bg-white rounded-xl shadow border border-slate-200 overflow-hidden z-50">
             <div class="max-h-96 divide-y divide-slate-200 overflow-y-auto">
                 @if ($article && count($article))
-                    <h1 class="text-white text-left font-bold px-4 py-3 bg-sky-500">
+                    <h1 class="text-white text-left font-bold px-4 py-2 bg-sky-500">
                         <a wire:navigate href="{{ route('article.index') }}" title="berita" class="hover:underline">
                             {{ Str::ucfirst(__('berita')) }}
                         </a>
@@ -46,9 +46,13 @@
                             </div>
                         </div>
                     @endforeach
+                @else
+                    <h1 class="text-center px-4 py-2">
+                        {{ Str::ucfirst(__('tidak ditemukan.')) }}
+                    </h1>
                 @endif
                 @if ($category && count($category))
-                    <h1 class="text-white text-left font-bold px-4 py-3 bg-sky-500">
+                    <h1 class="text-white text-left font-bold px-4 py-2 bg-sky-500">
                         <a wire:navigate href="{{ route('article.index') }}" title="berita" class="hover:underline">
                             {{ Str::ucfirst(__('kategori')) }}
                         </a>

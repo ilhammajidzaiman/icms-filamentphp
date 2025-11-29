@@ -39,11 +39,12 @@
             </div>
             <x-sections.footer>
                 {{-- <x-sections.footer.description value="temukan layanan kami yang lainnya" /> --}}
-                <x-sections.footer.link href="{{ route('index') }}" />
+                <x-sections.footer.link href="{{ route('article.index') }}" />
             </x-sections.footer>
         @else
             <div class="text-center p-4">
-                <img src="{{ asset('transfer-files-bro.svg') }}" alt="image" class="w-auto h-64 mx-auto">
+
+                {{-- <img src="{{ asset('transfer-files-bro.svg') }}" alt="image" class="w-auto h-64 mx-auto"> --}}
                 <h1 class="text-xl">Data tidak ditemukan.</h1>
             </div>
         @endif

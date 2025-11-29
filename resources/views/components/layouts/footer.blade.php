@@ -9,7 +9,7 @@
             <div class="grid grid-cols-12 gap-4">
                 <div class="col-span-full md:col-span-4 space-y-8">
                     <div class="flex justify-center md:justify-start items-center">
-                        <a wire:navigate href="" class="h-full inline-flex items-center gap-2">
+                        <a wire:navigate href="" class="h-full inline-flex items-center gap-4">
                             <img src="{{ $siteSetting->logo ? asset('storage/' . $siteSetting->logo) : asset('/images/laravel.svg') }}"
                                 alt="logo" class="h-10 w-auto" />
                             <div>

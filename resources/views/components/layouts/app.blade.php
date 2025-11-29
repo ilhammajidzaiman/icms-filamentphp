@@ -23,7 +23,7 @@
     @livewireStyles
 </head>
 
-<body class="bg-slate-100 text-slate-600 text-base pt-20">
+<body class="bg-slate-100 text-slate-700 text-base pt-20">
     <x-layouts.navigation :siteSetting="$siteSetting" />
     {{ $slot }}
     <x-layouts.footer :siteSetting="$siteSetting" />
